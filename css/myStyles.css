@@ -225,7 +225,7 @@ label {
     color:white;
 }
 
-#DragDiv{
+.test{
     background: #ffff00;
     float:left;
     border:1px solid black;

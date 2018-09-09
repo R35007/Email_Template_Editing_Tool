@@ -1536,25 +1536,8 @@
                         </div>
                     </div>
                 </Form>
-                <br><br><br><br><br>
-            </div>
-
-        </div>
-        <div class="resultcontainer">
-            <div class="demoHeader">Play Ground:
-                <select id="myDivids" class="Divid">
-                        <option value="none" selected disabled>none</option>
-                </select>
-            </div>
-            <div id="demoParent">
-                <div id="demoDIV" ondrop="drop(event)" ondragover="allowDrop(event)">
-
-                </div>
-            </div>
-            <div class="demoHeader">Drag It:</div>
-            <div class="Sizes" id="div3" ondrop="drop2(event)" ondragover="allowDrop(event)">
-                <div class="title">Color</div>
-                <Form id="Color">
+                <div class="title">Background:</div>
+                <Form id="Background">
                     <div class="list">
                         <div>
                             <span class="lable">Background Color: </span>
@@ -1568,10 +1551,28 @@
                             </div>
                         </div>
                     </div>
+                </Form>
+                <br><br><br><br><br>
+            </div>
+
+        </div>
+        <div class="resultcontainer">
+            <div class="demoHeader">Play Ground:
+                <select id="myDivids" class="Divid">
+                        <option value="none" selected disabled>none</option>
+                </select>
+            </div>
+            <div id="demoParent">
+                <div id="demoDIV">
+
+                </div>
+            </div>
+            <div class="demoHeader">Drag It:</div>
+            <div class="Sizes" id="removediv">
+                <div class="title">Color</div>
+                <Form id="Color">
                     <div class="list">
-                        <div draggable="true" ondragstart="drag(event)" id="DragDiv">
-                            Div
-                        </div>
+                        <div id="DragDiv" class="test">Div</div>
                         <img src="images/Button.png" id="DragButton" alt="button" ondragstart="drag(event)" width="216px" height="65px">
                     </div>
                 </Form>
@@ -1581,11 +1582,48 @@
         <div style="clear:both;"></div>
     </div>
 
-    <div id="dragelement">
-        <div class="myDragDiv" id="myDragDiv" draggable="true" ondragstart="drag(event)" onclick="Change(this)">This is my content</div>
-        <button type="button" id="myDragButton" class="myDragButton" ondragstart="drag(event)" onclick="Change(this)">My Button</button>
-    </div>
     <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="js/myScript.js"></script>
-    <script src="js/DragandDrop.js"></script>
+<!--    <script src="js/DragandDrop.js"></script>-->
+
+    <script>
+        var i = 1;
+        
+        $('#DragDiv').draggable({
+            cursor:"move",
+            revert:true,
+            helper: "clone"
+        });
+        
+        $('#demoDIV').droppable({
+            accept:"#DragDiv",
+            drop:function ( event, ui ) {
+                var draggable = ui.draggable.clone();
+                
+                if(!$("#demoDIV").has( "div" )){
+                    i = 1;
+                }
+                draggable.attr('id', 'myPlaydiv'+i);
+                $(this).append(draggable);
+                i++;
+                draggable.draggable({
+                    cursor:"move",
+                    revert:true
+                });
+            }
+        });
+        
+        $('#removediv').droppable({
+            accept:"div[id*='myPlaydiv']",
+            drop:function ( event, ui ) {
+                ui.draggable.remove();
+            }
+        });
+        
+        $('div[id*="myPlaydiv"]').draggable({
+            cursor:"move",
+            revert:true,
+        });
+    </script>
 </body>

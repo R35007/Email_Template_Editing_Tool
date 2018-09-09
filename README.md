@@ -10,5 +10,5 @@ This doses the same but It has all the CSS Properties to test it out.
 
 To use this vrion of the Tool You could just directly download and open the index.html.
 
-Just drang the elements to the playground and change the CSS properties.
+Just drang the elements to the playground , provode an unique Id to the element and change the CSS properties.
 All the CSS properties are applies as an inline Style.
