@@ -10,9 +10,4 @@ This doses the same but It has all the CSS Properties to test it out.
 
 To use this version of the Tool you must need a local server to run.
 
-Many functionalities has been impolemented compared to the previous verion of this tool.
-
-I have also provided a standard email templates to use. Breadcrum to navigate the elements,
-Edit in place, browse your local files etc...
-
-I would recomend this version of tool to learn CSS and Email template modifications.
+From This Version we are moving on to the IFrame functionality.

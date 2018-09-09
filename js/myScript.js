@@ -7,18 +7,246 @@
 
 var keys = {};
 var replaceWith = $('<div id="edit" contentEditable="true" class="editinplace"></div>');
-var $myElement, myparents, myElementCopy, replaceElement, propnew, $ElementToreplace;
-var isDesignViewClicked = false, mycolors=new Array();
+var $DesignView, $myElement, myparents, myElementCopy, replaceElement, propnew, $ElementToreplace;
+var isDesignViewClicked = false,
+    mycolors = new Array();
+var mytempsrc = '';
 
 $('.container-fluid').css('height', $(window).height());
 
-//$('#DesignView').load('BootstrapComponents/CardDeck.html');
+$('DesignView').on('load', function () {
 
-//  Prevent from redirecting
-$('#DesignView').on('click','a , span, input[type=submit], button, img',function(e){
-e.preventDefault();
-//do whatever
+    mytempsrc = new Array();
+    $DesignView = $(this).contents();
+    $DesignView.find('img[src*="http"]').each(function () {
+        mytempsrc.push($(this).attr('src'));
+    })
+
+
+    //  Add highlidht2 Class on mouseover of an element
+    $DesignView.find('body').on('mouseover', '*', function (e) {
+        $(this).addClass('highlight2');
+        e.stopPropagation();
+    })
+
+    //  Remove highlidht2 Class on mouseout of an element
+    $DesignView.find('body').on('mouseout', '*', function (e) {
+        $(this).removeClass('highlight2');
+        e.stopPropagation();
+    })
+
+    //  Select an Element, Prepopulate tag attributes and Generate Breadcrumb
+    $DesignView.find('body').on('click', '*', function (e) {
+
+
+        $myElement = $(this);
+        propnew = '';
+        isDesignViewClicked = false;
+        $('#selector').val('');
+        $('#myDivids').val('');
+        $DesignView.find('*').removeClass('highlight');
+        $DesignView.find('*').removeClass('highlight3');
+        $myElement.addClass('highlight');
+
+        var thisid = $(this).attr('id');
+        var thisclass = $(this).attr('class');
+        var thistype = $(this).attr('type');
+        var thismin = $(this).attr('min');
+        var thismax = $(this).attr('max');
+        var thissrc = $(this).attr('src');
+        var thishref = $(this).attr('href');
+        var thisalt = $(this).attr('alt');
+        var thisalign = $(this).attr('align');
+        var thisvalign = $(this).attr('valign');
+        var thisheight = $(this).attr('height');
+        var thiswidth = $(this).attr('width');
+        var thisbgcolor = $(this).attr('bgcolor');
+
+
+        $('#elementid').val(thisid);
+        $('#myTags').children().remove();
+        $('#elementClass').val('');
+        thisclass = thisclass.replace(/ui-draggable-handle/g, '');
+        thisclass = thisclass.replace(/ui-draggable/g, '');
+        thisclass = thisclass.replace(/ui-droppable-hover/g, '');
+        thisclass = thisclass.replace(/ui-droppable-active/g, '');
+        thisclass = thisclass.replace(/ui-droppable/g, '');
+        thisclass = thisclass.replace(/highlight2/g, '');
+        thisclass = thisclass.replace(/highlight3/g, '');
+        thisclass = thisclass.replace(/highlight/g, '');
+
+        if (thisclass.trim().length > 0) {
+            var classArray = thisclass.trim().split(' ');
+            for (var j in classArray) {
+                if (classArray[j].trim().length > 0 && classArray[j].trim() != '') {
+                    var myClassBadge = '<span class="badge badge-success"><span class="classTagName">' + classArray[j] + '</span><span class="ml-2 removeTag">x</span></span>';
+                    $('#myTags').append(myClassBadge);
+                }
+            }
+        }
+
+
+
+        $('#elementtype').val(thistype);
+        $('#elementimin').val(thismin);
+        $('#elementmax').val(thismax);
+        $('#elementsrc').val(thissrc);
+        $('#elementhref').val(thishref);
+        $('#elementalt').val(thisalt);
+        $('#elementalign').val(thisalign);
+        $('#elementvalign').val(thisvalign);
+        $('#elementheight').val(thisheight);
+        $('#elementwidth').val(thiswidth);
+        $('#elementbgcolor').val(thisbgcolor);
+        $('#elementbgcolor_').val(thisbgcolor);
+
+
+        $('#Breadcrumb').children().remove();
+
+        myparents = $myElement.parentsUntil('#DesignView');
+
+        var hashid, dotclass;
+
+        if (typeof thisid !== 'undefined') {
+            if (thisid != '' && thisid.length > 0)
+                hashid = "#" + thisid;
+            else
+                hashid = '';
+        } else
+            hashid = '';
+
+
+        if (typeof thisclass !== 'undefined') {
+            if (thisclass.trim() != '' && thisclass.trim().length > 0)
+                dotclass = '.' + thisclass.trim().replace(/\ /g, '.');
+            else
+                dotclass = '';
+        } else
+            dotclass = '';
+
+
+        var mybreadlinklistthis = '<li><span>' + $myElement.prop('tagName').toLowerCase() + ' ' + hashid + ' ' + dotclass + '</span></li>'
+        $('#Breadcrumb').prepend(mybreadlinklistthis);
+
+        for (var i in myparents) {
+
+            var parentelement = myparents[i].tagName;
+
+            if (typeof parentelement !== "undefined") {
+                parentelement = parentelement.toLowerCase();
+
+                var parentid = myparents[i].id;
+                var parentclass = myparents[i].className;
+
+                parentclass = parentclass.replace('ui-draggable', '');
+                parentclass = parentclass.replace('ui-draggable-handle', '');
+                parentclass = parentclass.replace('ui-droppable', '');
+                parentclass = parentclass.replace('highlight2', '');
+                parentclass = parentclass.replace('highlight', '');
+                parentclass = parentclass.trim().replace(/\ /g, '.');
+
+                if (typeof parentid !== 'undefined') {
+                    if (parentid != '' && parentid.length > 0)
+                        hashid = "#" + parentid;
+                    else
+                        hashid = '';
+                } else
+                    hashid = '';
+
+                if (typeof parentclass !== 'undefined') {
+                    if (parentclass != '' && parentclass.length > 0)
+                        dotclass = '.' + parentclass;
+                    else
+                        dotclass = '';
+                } else
+                    dotclass = '';
+
+                var mybreadlinklist = '<li><span>' + parentelement + ' ' + hashid + ' ' + dotclass + '</span></li>'
+                $('#Breadcrumb').prepend(mybreadlinklist);
+            }
+        }
+
+        ShowStyle();
+
+        e.stopPropagation();
+
+
+    })
+
+    //  Edit in place within DesignView viv
+    $DesignView.find('body').on('dblclick', '*', function (e) {
+
+        var elem = $(this);
+
+        $ElementToreplace = $(this);
+        replaceElement = $(this).clone();
+
+        elem.attr('contenteditable', 'true');
+        elem.css('box-shadow', '0px 0px 10px 0px #545454');
+        elem.focus();
+        elem.keyup(function (e) {
+            if (e.keyCode == 13) {
+                elem.trigger("blur");
+            }
+        })
+
+        elem.blur(function () {
+            elem.removeAttr('contenteditable');
+            elem.css('box-shadow', '');
+        });
+        e.stopPropagation();
+    })
+
+    //  Remove Edit in place
+    $DesignView.find('body').on('blur', '[contenteditable=true]', function () {
+        $myElement.removeAttr('contenteditable');
+        $myElement.css('box-shadow', '');
+    })
+
+    //  Make sure that no element is selected
+    $DesignView.find('body').on('click', function () {
+        $DesignView.find('*').removeClass('highlight');
+        $myElement = '';
+
+        $('#myTags').children().remove();
+        $('#Breadcrumb').children().remove();
+        $('#myDivids').val('');
+        $('#selector').val('');
+        for (var i = 0; i < $('form').length; i++) {
+            $('form')[i].reset();
+        }
+        isDesignViewClicked = true;
+    })
+
+    //  Prevent form redirecting
+    $DesignView.find('body').on('click', 'a , span, input[type=submit], button, img', function (e) {
+        e.preventDefault();
+    })
+
+    //  Generate Element Id and push into dropdown 
+    $DesignView.find('body').bind('DOMNodeInserted DOMNodeRemoved', function () {
+        var array = new Array();
+        $DesignView.find('body').find("*").each(function () {
+            var thisid = $(this).attr('id');
+            if (typeof thisid !== "undefined")
+                if (thisid.trim().length > 0)
+                    array.push(thisid);
+        });
+
+        $('#myDivids').children().remove();
+        var opt = '<option value=""></option>';
+        $('#myDivids').append(opt);
+
+        for (var i in array) {
+            opt = '<option value="' + array[i] + '">' + array[i] + '</option>';
+            $('#myDivids').append(opt);
+        }
+    });
+
+
 })
+
+console.log($DesignView.find('body').html());
 
 //  Create Shourtcut Keys
 $(document).on('keydown', function (e) {
@@ -30,7 +258,7 @@ $(document).on('keydown', function (e) {
     var mycombination = new Array();
     if (!($('input').is(":focus")) && !($('#edit').is(":focus"))) {
         keys[e.which] = true;
-        
+
         for (var i in keys) {
             if (!keys.hasOwnProperty(i)) continue;
             mycombination.push(i);
@@ -61,7 +289,7 @@ $(document).on('keydown', function (e) {
             else if (mycombination.join() == '16,17,68')
                 $('#Clone').trigger('click');
         } catch (err) {
-            
+
         }
     }
 
@@ -130,7 +358,7 @@ $("#elementClass").autocomplete({
 editor.session.on('change', function (delta) {
     // delta.start, delta.end, delta.lines, delta.action
     var a = editor.getValue();
-    $('#DesignView').html(a);
+    $DesignView.find('body').html(a);
 });
 
 //  Create Class Tags by space or Enter
@@ -189,12 +417,12 @@ $('#myTags').on('click', '.removeTag', function () {
 
 //  Toogle Properties Panel
 $('#Properties').on('click', '.title', function (e) {
-    
-    if(e.target!==this)
+
+    if (e.target !== this)
         return;
-    
-    var formid = $(this).find('.deleteall').attr('id').replace('delete-','');
-    $('#'+formid).slideToggle('fast');
+
+    var formid = $(this).find('.deleteall').attr('id').replace('delete-', '');
+    $('#' + formid).slideToggle('fast');
 })
 
 //  Edit the created Class Tag by clicking the class name
@@ -204,56 +432,6 @@ $('#myTags').on('click', '.classTagName', function () {
     $myElement.removeClass(editClass);
     $('#elementClass').val(editClass);
     $('#elementClass').focus();
-})
-
-//  Generate Element Id and push into dropdown 
-$('#DesignView').bind('DOMNodeInserted DOMNodeRemoved', function () {
-    var array = new Array();
-    $('#DesignView').find("*").each(function () {
-        var thisid = $(this).attr('id');
-        if (typeof thisid !== "undefined")
-            if(thisid.trim().length>0)
-                array.push(thisid);
-    });
-
-    $('#myDivids').children().remove();
-    var opt = '<option value=""></option>';
-    $('#myDivids').append(opt);
-    
-    for (var i in array) {
-        opt = '<option value="' + array[i] + '">' + array[i] + '</option>';
-        $('#myDivids').append(opt);
-    }
-});
-
-//  Edit in place within DesignView viv
-$('#DesignView').on('dblclick', '*', function (e) {
-
-    var elem = $(this);
-
-    $ElementToreplace = $(this);
-    replaceElement =  $(this).clone();
-    
-    elem.attr('contenteditable','true');
-    elem.css('box-shadow','0px 0px 10px 0px #545454');
-    elem.focus();
-    elem.keyup(function (e) {
-        if (e.keyCode == 13) {
-            elem.trigger("blur");
-        }
-    })
-
-    elem.blur(function () {
-        elem.removeAttr('contenteditable');
-        elem.css('box-shadow','');
-    });
-    e.stopPropagation();
-})
-
-//  Remove Edit in place
-$('#DesignView').on('blur','[contenteditable=true]',function(){
-    $myElement.removeAttr('contenteditable');
-    $myElement.css('box-shadow','');
 })
 
 //  Edit in place within Inline-Styles div
@@ -279,13 +457,13 @@ $('#Inline-Styles').on('dblclick', '.value', function (e) {
 
         if ($(this).text() == '') {
             setstyle(prop, '');
-            
+
         } else {
             elem.text($(this).text());
 
             val = $(this).text();
-            if(propnew!=prop) {
-                propnew=prop;
+            if (propnew != prop) {
+                propnew = prop;
                 replaceElement = $myElement.clone();
             }
             setstyle(prop, val);
@@ -302,184 +480,18 @@ $('#Inline-Styles').on('dblclick', '.value', function (e) {
 $('#Inline-Styles').on('click', '.delete', function () {
     var prop = $(this).prev().prev().text().trim();
     setstyle(prop, '');
-    
-})
-
-//  Select an Element, Prepopulate tag attributes and Generate Breadcrumb
-$('#DesignView').on('click', '*', function (e) {
-
-    
-    $myElement = $(this);
-    propnew = '';
-    isDesignViewClicked = false;
-    $('#selector').val('');
-    $('#myDivids').val('');
-    $('#DesignView *').removeClass('highlight');
-    $('#DesignView *').removeClass('highlight3');
-    $myElement.addClass('highlight');
-
-    var thisid = $(this).attr('id');
-    var thisclass = $(this).attr('class');
-    var thistype = $(this).attr('type');
-    var thismin = $(this).attr('min');
-    var thismax = $(this).attr('max');
-    var thissrc = $(this).attr('src');
-    var thishref = $(this).attr('href');
-    var thisalt = $(this).attr('alt');
-    var thisalign = $(this).attr('align');
-    var thisvalign = $(this).attr('valign');
-    var thisheight = $(this).attr('height');
-    var thiswidth = $(this).attr('width');
-    var thisbgcolor = $(this).attr('bgcolor');
-
-
-    $('#elementid').val(thisid);
-    $('#myTags').children().remove();
-    $('#elementClass').val('');
-    thisclass = thisclass.replace(/ui-draggable-handle/g, '');
-    thisclass = thisclass.replace(/ui-draggable/g, '');
-    thisclass = thisclass.replace(/ui-droppable-hover/g, '');
-    thisclass = thisclass.replace(/ui-droppable-active/g, '');
-    thisclass = thisclass.replace(/ui-droppable/g, '');
-    thisclass = thisclass.replace(/highlight2/g, '');
-    thisclass = thisclass.replace(/highlight3/g, '');
-    thisclass = thisclass.replace(/highlight/g, '');
-    
-    if (thisclass.trim().length > 0) {
-        var classArray = thisclass.trim().split(' ');
-        for (var j in classArray) {
-            if (classArray[j].trim().length > 0 && classArray[j].trim() != '') {
-                var myClassBadge = '<span class="badge badge-success"><span class="classTagName">' + classArray[j] + '</span><span class="ml-2 removeTag">x</span></span>';
-                $('#myTags').append(myClassBadge);
-            }
-        }
-    }
-
-
-
-    $('#elementtype').val(thistype);
-    $('#elementimin').val(thismin);
-    $('#elementmax').val(thismax);
-    $('#elementsrc').val(thissrc);
-    $('#elementhref').val(thishref);
-    $('#elementalt').val(thisalt);
-    $('#elementalign').val(thisalign);
-    $('#elementvalign').val(thisvalign);
-    $('#elementheight').val(thisheight);
-    $('#elementwidth').val(thiswidth);
-    $('#elementbgcolor').val(thisbgcolor);
-    $('#elementbgcolor_').val(thisbgcolor);
-
-
-    $('#Breadcrumb').children().remove();
-
-    myparents = $myElement.parentsUntil('#DesignView');
-
-    var hashid, dotclass;
-
-    if (typeof thisid !== 'undefined') {
-        if (thisid != '' && thisid.length > 0)
-            hashid = "#" + thisid;
-        else
-            hashid = '';
-    } else
-        hashid = '';
-
-
-    if (typeof thisclass !== 'undefined') {
-        if (thisclass.trim() != '' && thisclass.trim().length > 0)
-            dotclass = '.' + thisclass.trim().replace(/\ /g, '.');
-        else
-            dotclass = '';
-    } else
-        dotclass = '';
-
-
-    var mybreadlinklistthis = '<li><span>' + $myElement.prop('tagName').toLowerCase() + ' ' + hashid + ' ' + dotclass + '</span></li>'
-    $('#Breadcrumb').prepend(mybreadlinklistthis);
-
-    for (var i in myparents) {
-
-        var parentelement = myparents[i].tagName;
-
-        if (typeof parentelement !== "undefined") {
-            parentelement = parentelement.toLowerCase();
-
-            var parentid = myparents[i].id;
-            var parentclass = myparents[i].className;
-
-            parentclass = parentclass.replace('ui-draggable', '');
-            parentclass = parentclass.replace('ui-draggable-handle', '');
-            parentclass = parentclass.replace('ui-droppable', '');
-            parentclass = parentclass.replace('highlight2', '');
-            parentclass = parentclass.replace('highlight', '');
-            parentclass = parentclass.trim().replace(/\ /g, '.');
-
-            if (typeof parentid !== 'undefined') {
-                if (parentid != '' && parentid.length > 0)
-                    hashid = "#" + parentid;
-                else
-                    hashid = '';
-            } else
-                hashid = '';
-
-            if (typeof parentclass !== 'undefined') {
-                if (parentclass != '' && parentclass.length > 0)
-                    dotclass = '.' + parentclass;
-                else
-                    dotclass = '';
-            } else
-                dotclass = '';
-
-            var mybreadlinklist = '<li><span>' + parentelement + ' ' + hashid + ' ' + dotclass + '</span></li>'
-            $('#Breadcrumb').prepend(mybreadlinklist);
-        }
-    }
-
-    ShowStyle();
-
-    e.stopPropagation();
-
 
 })
 
-//  Make sure that no element is selected
-$('#DesignView').on('click', function () {
-    $('#DesignView *').removeClass('highlight');
-    $myElement = '';
-    
-    $('#myTags').children().remove();
-    $('#Breadcrumb').children().remove();
-    $('#myDivids').val('');
-    $('#selector').val('');
-    for (var i = 0; i < $('form').length; i++) {
-        $('form')[i].reset();
-    }
-    isDesignViewClicked = true;
-})
-
-//  Add highlidht2 Class on mouseover of an element
-$('#DesignView').on('mouseover', '*', function (e) {
-    $(this).addClass('highlight2');
-    e.stopPropagation();
-})
-
-//  Remove highlidht2 Class on mouseout of an element
-$('#DesignView').on('mouseout', '*', function (e) {
-    $(this).removeClass('highlight2');
-    e.stopPropagation();
-})
-
-$('#selector').on('input',function(){
+$('#selector').on('input', function () {
     var thistext = $(this).val();
-    
-    $('#DesignView *').removeClass('highlight3');
-    if(thistext.trim().length>0){
-        if($('#selector').val().toLowerCase().indexOf('this')>=0){
-                $(thistext.toLowerCase().replace('this',''),$myElement).addClass('highlight3');
-            }
-            else
-                $('#DesignView '+thistext).addClass('highlight3');
+
+    $DesignView.find('*').removeClass('highlight3');
+    if (thistext.trim().length > 0) {
+        if ($('#selector').val().toLowerCase().indexOf('this') >= 0) {
+            $(thistext.toLowerCase().replace('this', ''), $myElement).addClass('highlight3');
+        } else
+            $('#DesignView ' + thistext).addClass('highlight3');
     }
 })
 
@@ -491,12 +503,12 @@ $('#Breadcrumb').on('click', 'span', function () {
     var myparentlength = myparents.length;
 
     if (breadlength != clickedelem) {
-        
+
         var getelemindex = myparentlength - clickedelem;
-        
+
 
         var slectedelem = myparents[getelemindex];
-        
+
 
         $(slectedelem).trigger('click');
     }
@@ -508,17 +520,17 @@ $('#Breadcrumb').on('click', 'span', function () {
 $('.topIcon').on('click', function () {
     var thisid = this.id;
     var pastethis;
-    
-    if($('[contenteditable="true"]').length>0)
+
+    if ($('[contenteditable="true"]').length > 0)
         return;
 
-        try {
-            var prev = $myElement.prev();
-            var next = $myElement.next();
-            var parent = $myElement.parent();
-        } catch (e) {
-            //Catch Statement
-        }
+    try {
+        var prev = $myElement.prev();
+        var next = $myElement.next();
+        var parent = $myElement.parent();
+    } catch (e) {
+        //Catch Statement
+    }
 
     try {
         if (thisid == 'PreView') {
@@ -564,7 +576,7 @@ $('.topIcon').on('click', function () {
             pastethis.removeClass('highlight');
             pastethis.removeClass('highlight2');
             if (isDesignViewClicked) {
-                $('#DesignView').append(pastethis);
+                $DesignView.find('body').append(pastethis);
                 isDesignViewClicked = false;
                 $(pastethis).trigger('click');
             } else {
@@ -589,8 +601,8 @@ $('.topIcon').on('click', function () {
             $myElement.after($myElement.clone());
             $myElement.trigger('click');
         } else if (thisid == 'Edit') {
-            $myElement.attr('contenteditable','true');
-            $myElement.css('box-shadow','0px 0px 10px 0px blue');
+            $myElement.attr('contenteditable', 'true');
+            $myElement.css('box-shadow', '0px 0px 10px 0px blue');
             $myElement.focus();
         } else if (thisid == 'Delete') {
             $myElement.remove();
@@ -604,31 +616,31 @@ $('.topIcon').on('click', function () {
                 $(parent).trigger('click');
 
 
-            if ($('#DesignView').children().length == 0)
+            if ($DesignView.find('body').children().length == 0)
                 $('#Breadcrumb').children().remove();
         } else if (thisid == 'Undo') {
-            if($(replaceElement).length>0){
+            if ($(replaceElement).length > 0) {
                 $ElementToreplace.replaceWith($(replaceElement));
                 $(replaceElement).trigger('click');
                 for (var i = 0; i < $('form').length; i++) {
                     $('form')[i].reset();
                 }
             }
-            
+
         }
 
     } catch (err) {
-        
+
     }
 })
 
 //  Toogle between Design View, Split View, Source View
 $('.navlist').on('click', function () {
     var tabs = $(this).text() + "View";
-    var myDesign,i,j,searchrgb,replacehexa,$DesignView;
+    var myDesign, i, j, searchrgb, replacehexa, $DesignViewClone;
 
     console.log(mycolors);
-    
+
     $('#Design>div').addClass('d-none');
     $('.navlist').removeClass('activeTab');
 
@@ -637,14 +649,16 @@ $('.navlist').on('click', function () {
         $('#SourceView').removeClass('col-6');
         $('#DesignView').addClass('col-12');
         $(this).addClass('activeTab')
-        if($('#Footer-Form').css('display').toLowerCase()=='none')
+        if ($('#Footer-Form').css('display').toLowerCase() == 'none')
             $("#Toogle-Footer-Form").trigger('click');
         $('#Design').css('height', 'calc(100% - 197px)');
     } else if (tabs == "SourceView") {
-        $DesignView = removeEmpty();
-        myDesign =$DesignView.html();
+        console.log('came in');
+    console.log($DesignView.find('body').html());
+        $DesignViewClone = removeEmpty();
+        myDesign = $DesignViewClone.html();
         myDesign = myreplace(myDesign);
-        
+
         editor.session.setValue(myDesign);
         $('#Footer-Form').hide();
         $('#SourceView').removeClass('d-none');
@@ -653,8 +667,8 @@ $('.navlist').on('click', function () {
         $(this).addClass('activeTab');
         $('#Design').css('height', 'calc(100% - 30px)');
     } else if (tabs == "SplitView") {
-        $DesignView = removeEmpty();
-        myDesign =$DesignView.html();
+        $DesignViewClone = removeEmpty();
+        myDesign = $DesignView.html();
         myDesign = myreplace(myDesign);
 
         editor.session.setValue(myDesign);
@@ -667,52 +681,50 @@ $('.navlist').on('click', function () {
         $('#DesignView').removeClass('col-12');
         $('#DesignView').addClass('col-6');
         $(this).addClass('activeTab');
-        $('#Design').css('height','calc(100% - 30px)');
+        $('#Design').css('height', 'calc(100% - 30px)');
     }
 })
 
 //  Toogle Wrap
-$('#Toogle-Wrap, #Wrap').on('mouseover',function(){
+$('#Toogle-Wrap, #Wrap').on('mouseover', function () {
     $('#Wrap').slideDown('fast');
 })
 
-$('#Wrap').on('mouseleave',function(){
+$('#Wrap').on('mouseleave', function () {
     $('#Wrap').slideUp('fast');
 })
 
-$('.wrapIcon').on('click',function(){
-    var wraptag = this.id.replace('Wrap-','');
+$('.wrapIcon').on('click', function () {
+    var wraptag = this.id.replace('Wrap-', '');
     var mytag, temptag;
-    
-    
+
+
     var highlight = window.getSelection();
     var highlighthtml = getSelectionHtml();
-    
+
     console.log(highlighthtml);
-    
-    if(wraptag == 'Unwrap'){
-       $myElement.replaceWith($myElement.html())
-    }
-    else
+
+    if (wraptag == 'Unwrap') {
+        $myElement.replaceWith($myElement.html())
+    } else
         mytag = document.createElement(wraptag);
-    
-    if(wraptag == 'a'){
-        $(mytag).attr('href',highlight);
+
+    if (wraptag == 'a') {
+        $(mytag).attr('href', highlight);
     }
-    
+
     console.log(highlighthtml.search(/^\<.*?\>.*?\<\/.*?\>$/));
-    
-    if(highlighthtml.search(/^\<.*?\>.*?\<\/.*?\>$/)>=0){
+
+    if (highlighthtml.search(/^\<.*?\>.*?\<\/.*?\>$/) >= 0) {
         temptag = $(highlighthtml);
         highlighthtml = $(highlighthtml).html();
-    }
-    else
-        temptag = $('<mytag>'+highlighthtml+'</mytag>');
-        
+    } else
+        temptag = $('<mytag>' + highlighthtml + '</mytag>');
+
     $(temptag).wrapInner(mytag);
     var spn = temptag.html();
     console.log(spn);
-    $myElement.html($myElement.html().replace(highlighthtml, spn));			
+    $myElement.html($myElement.html().replace(highlighthtml, spn));
 })
 
 function getSelectionHtml() {
@@ -723,17 +735,17 @@ function getSelectionHtml() {
             var container = document.createElement("div");
             for (var i = 0, len = sel.rangeCount, range; i < len; ++i) {
                 range = sel.getRangeAt(i);
-                if (range.startContainer === range.endContainer
-                && range.startContainer.nodeType === Node.TEXT_NODE
-                && range.startOffset === 0
-                && range.endOffset === range.startContainer.length) {
+                if (range.startContainer === range.endContainer &&
+                    range.startContainer.nodeType === Node.TEXT_NODE &&
+                    range.startOffset === 0 &&
+                    range.endOffset === range.startContainer.length) {
                     range.selectNode(range.startContainer.parentElement);
                 }
                 container.appendChild(range.cloneContents());
             }
             html = container.innerHTML;
         }
-        } else if (typeof document.selection != "undefined") {
+    } else if (typeof document.selection != "undefined") {
         if (document.selection.type == "Text") {
             html = document.selection.createRange().htmlText;
         }
@@ -741,24 +753,19 @@ function getSelectionHtml() {
     return html;
 }
 
-function removeEmpty(){
-        var $DesignView = $('#DesignView').clone();
-        $($DesignView).find('*').removeClass('ui-draggable-handle');
-        $($DesignView).find('*').removeClass('ui-draggable');
-        $($DesignView).find('*').removeClass('ui-droppable-hover');
-        $($DesignView).find('*').removeClass('ui-droppable-active');
-        $($DesignView).find('*').removeClass('ui-droppable');
-        $($DesignView).find('*').removeClass('highlight2');
-        $($DesignView).find('*').removeClass('highlight');
-        $($DesignView).find('*').removeAttr('data-brackets-id');
-        $($DesignView).find('[class=""]').removeAttr('class');
-        $($DesignView).find('[id=""]').removeAttr('id');
-        $($DesignView).find('[style=""]').removeAttr('style');
-    
-        return $DesignView;
+function removeEmpty() {
+    console.log($DesignView.html());
+    var $DesignViewClone = $DesignView.find('html').clone();
+    $($DesignViewClone).find('*').removeClass('highlight2');
+    $($DesignViewClone).find('*').removeClass('highlight');
+    $($DesignViewClone).find('[class=""]').removeAttr('class');
+    $($DesignViewClone).find('[id=""]').removeAttr('id');
+    $($DesignViewClone).find('[style=""]').removeAttr('style');
+
+    return $DesignView;
 }
 
-function myreplace(x){
+function myreplace(x) {
     x = x.replace(/•/g, '\&bull;');
     x = x.replace(/►/g, '\&#x25BA;');
     x = x.replace(/©/g, '\&copy;');
@@ -766,15 +773,15 @@ function myreplace(x){
     return x;
 }
 
-function rgbtohexa(y){
-    if(mycolors.length>0){
-        for(var i in mycolors){
+function rgbtohexa(y) {
+    if (mycolors.length > 0) {
+        for (var i in mycolors) {
             var rgb = mycolors[i].rgb;
-            rgb = rgb.replace(/\(/g,'\\(');
-            rgb = rgb.replace(/\)/g,'\\)');
+            rgb = rgb.replace(/\(/g, '\\(');
+            rgb = rgb.replace(/\)/g, '\\)');
             var replacehexa = mycolors[i].hexa;
-            var test = new RegExp(rgb,"g");
-            y = y.replace(test,replacehexa);
+            var test = new RegExp(rgb, "g");
+            y = y.replace(test, replacehexa);
             console.log(y);
 
         }
@@ -815,10 +822,10 @@ $(".toogleIcon").click(function () {
 
 //  Toogle Footer Form by Adjusting DesignView and Footer form height
 $("#Toogle-Footer-Form").click(function (e) {
-    
-    if(e.target!==this)
+
+    if (e.target !== this)
         return;
-    
+
     var toogleTab;
 
     var design = $('.navlist:eq(0)').hasClass('activeTab');
@@ -843,8 +850,8 @@ $("#Toogle-Footer-Form").click(function (e) {
     }
 });
 
-$('#Toogle-Footer-Form').on('click','.FooterTabs',function(){
-        
+$('#Toogle-Footer-Form').on('click', '.FooterTabs', function () {
+
     var design = $('.navlist:eq(0)').hasClass('activeTab');
 
     if (design) {
@@ -915,7 +922,7 @@ $('input[type="number"]').on("input change", function () {
 
     var sliderid;
 
-    
+
     sliderid = "#" + this.id + "_";
     if ($(this).val().length == 0)
         $(sliderid).val(0);
@@ -940,8 +947,8 @@ $('input[type="range"]').on("input", function () {
 });
 
 //  Clip value together logic
-$('input[type="number"], input[type="range"]').on('input', function(){
-    
+$('input[type="number"], input[type="range"]').on('input', function () {
+
     var inputid, unitid, thisval, unitval;
     var thisid = this.id.split("-")[0];
 
@@ -952,10 +959,10 @@ $('input[type="number"], input[type="range"]').on('input', function(){
     var bspcing = ["border-spacing-h", "border-spacing-v"];
     var bgposition = ["background-position-x", "background-position-y"];
     var bgsize = ["background-size-width", "background-size-height"];
-    
-    
-    inputid =this.id.replace("_", "");
-    unitid =  "#" + inputid + "_unit";
+
+
+    inputid = this.id.replace("_", "");
+    unitid = "#" + inputid + "_unit";
 
     thisval = $(this).val();
     unitval = $(unitid).val();
@@ -1011,30 +1018,30 @@ $('.unit').on("change", function () {
 });
 
 //  Toogle Footer Tabs
-$('.FooterTabs').on('click',function(){
+$('.FooterTabs').on('click', function () {
     $('.FooterTabs').removeClass('activeTab');
-    var tabid=this.id.replace('Toogle-','');
-    $('#Footer-Form>div').css('display','none');
-    $('#Footer-Form>div').css('height','0');
+    var tabid = this.id.replace('Toogle-', '');
+    $('#Footer-Form>div').css('display', 'none');
+    $('#Footer-Form>div').css('height', '0');
     $(this).addClass('activeTab');
-    $('#'+tabid).css('display','block');
-    $('#'+tabid).css('height','100%');
+    $('#' + tabid).css('display', 'block');
+    $('#' + tabid).css('height', '100%');
 })
 
 //  Closes the Preview mode
-$('.close').click(function() {
-            $('#bootstrap').prop('src', '')
-            $('#myScript').prop('src', 'js/myScript.js')
-            $('#DragandDrop').prop('src', 'js/DragandDrop.js')
-            $('#Design').removeClass("preview");
-            $('#Footer-Form').show();
-            $('#Design').css('height','calc(100% - 197px)');
-            $('#DesignView').css({
-                'max-width': 'none',
-                'width': 'auto'
-            })
-            $('.close').hide();
-        });
+$('.close').click(function () {
+    $('#bootstrap').prop('src', '')
+    $('#myScript').prop('src', 'js/myScript.js')
+    $('#DragandDrop').prop('src', 'js/DragandDrop.js')
+    $('#Design').removeClass("preview");
+    $('#Footer-Form').show();
+    $('#Design').css('height', 'calc(100% - 197px)');
+    $('#DesignView').css({
+        'max-width': 'none',
+        'width': 'auto'
+    })
+    $('.close').hide();
+});
 
 //  Trigger the input file on click
 $('.browse').on("click", function () {
@@ -1067,46 +1074,44 @@ $('.file').on("change input", function () {
 //  Trigger click to element selected by its Id
 $('#myDivids').on("change", function () {
     var value = $(this).val()
-    if (value.length>0){
+    if (value.length > 0) {
         $('#' + value).trigger('click');
-        $("#selector").val("#"+value);
+        $("#selector").val("#" + value);
         $('#myDivids').val(value);
-    }
-    else{
+    } else {
         $("#selector").val('');
     }
 });
 
 //  Set Extra Style
-$('#More-Form').on('input click','input',function(){
-    
-    var isThisProp=$(this).hasClass('prop')
-    var thisval=$(this).val().trim();
-    var prop,val;
-    
-    if (isThisProp){
+$('#More-Form').on('input click', 'input', function () {
+
+    var isThisProp = $(this).hasClass('prop')
+    var thisval = $(this).val().trim();
+    var prop, val;
+
+    if (isThisProp) {
         prop = thisval;
         val = $(this).parent().next().next().children().first().val();
-    }  
-    else{
+    } else {
         val = thisval;
         prop = $(this).parent().prev().prev().children().first().val();
     }
-    
-    if (typeof prop!=='undefined' && typeof val!=='undefined')
-        if(prop.length>0 && val.length>0)
-            setstyle(prop,val);
-    
-    
+
+    if (typeof prop !== 'undefined' && typeof val !== 'undefined')
+        if (prop.length > 0 && val.length > 0)
+            setstyle(prop, val);
+
+
 })
 
 //  Genereate Extra Style Row
-$('.addRow').on('click',function(){
+$('.addRow').on('click', function () {
     $(this).before('<div class="row"> <div class="col-12 p-0"> <div class="list"> <div class="inputgroup w-100"> <input type="text" class="prop w-100" placeholder="Property"> </div> <span>:</span> <div class="inputgroup w-100"> <input type="text" class="val w-100" placeholder="Value"> <button class="deleteMore" type="button"><i class="fas fa-minus"></i></button> </div> </div> </div> </div>')
 })
 
 // Delete The dynamic created row od exra style
-$('#More-Form').on('click','.deleteMore',function(){
+$('#More-Form').on('click', '.deleteMore', function () {
     $(this).closest('.row').remove();
 })
 
@@ -1198,7 +1203,7 @@ function RadiusClipIt(val, unit) {
     $("#border-bottom-left-radius_unit").val(unit);
     $("#border-bottom-right-radius_unit").val(unit);
 
-    $("#border-radius").val(val + unit +" "+val + unit +" "+val + unit +" "+val + unit +" ");
+    $("#border-radius").val(val + unit + " " + val + unit + " " + val + unit + " " + val + unit + " ");
 
 
     $("#border-top-left-radius_unit").removeClass("select");
@@ -1421,48 +1426,45 @@ function getvalue(x) {
 }
 
 function setstyle(prop, val) {
-    
-    
+
+
     if ($('#selector').val().length > 0) {
-        if (val != "null"){
-            if($('#selector').val().toLowerCase().indexOf('this')>=0){
-                $($('#selector').val().toLowerCase().replace('this',''),$myElement).css(prop, val);
-            }
-            else
+        if (val != "null") {
+            if ($('#selector').val().toLowerCase().indexOf('this') >= 0) {
+                $($('#selector').val().toLowerCase().replace('this', ''), $myElement).css(prop, val);
+            } else
                 $("#DesignView " + $('#selector').val()).css(prop, val);
-        }
-        else
+        } else
             $("#DesignView " + $('#selector').val()).css(prop, "");
-        
-        if(val.indexOf('#')>=0)
+
+        if (val.indexOf('#') >= 0)
             addMyColors($("#DesignView " + $('#selector').val()).css(prop), val)
-    } 
-    else {
-        if(typeof val!=='undefined'){
+    } else {
+        if (typeof val !== 'undefined') {
             if (val != "null")
                 $myElement.css(prop, val);
             else
                 $myElement.css(prop, "");
         }
-        if(val.indexOf('#')>=0)
+        if (val.indexOf('#') >= 0)
             addMyColors($myElement.css(prop), val)
     }
     ShowStyle();
 }
 
-function addMyColors(rgbval, hexaval){
+function addMyColors(rgbval, hexaval) {
     var isExist = false;
 
-    if(mycolors.length>0){
-        for(var i in mycolors){
-            if(hexaval==mycolors[i].hexa)
+    if (mycolors.length > 0) {
+        for (var i in mycolors) {
+            if (hexaval == mycolors[i].hexa)
                 isExist = true;
         }
     }
-    if(!isExist){
+    if (!isExist) {
         mycolors.push({
-            rgb : rgbval,
-            hexa : hexaval
+            rgb: rgbval,
+            hexa: hexaval
         })
     }
 }
@@ -1487,7 +1489,7 @@ function ShowStyle() {
 
 
     } catch (err) {
-        
+
     }
 }
 
@@ -1503,7 +1505,7 @@ $('#Attributes input, #Attributes select').on('input change', function () {
     attrib = attrib.replace("_", "");
 
     $myElement.attr(attrib, value);
-    
+
     if ($('#selector').val().length > 0) {
         $("#Design " + $('#selector').val()).attr(attrib, value);
     }
@@ -1545,10 +1547,10 @@ $('#setId').on('click', function () {
 //  Get Inline Styles
 $('#Properties input,#Properties select,#Properties button').on("change input click", function (e) {
 
-    
+
     if ($(this).hasClass('prop') || $(this).hasClass('val'))
         return;
-    
+
     var hasUnit = ["min-width", "min-height", "max-width", "max-height",
                     "font-size", "line-height", "text-indent",
                     "border-width", "border-top-width", "border-right-width", "border-bottom-width", "border-left-width",
@@ -1577,10 +1579,10 @@ $('#Properties input,#Properties select,#Properties button').on("change input cl
 
     var mystylevalue;
     var test;
-    
+
     $ElementToreplace = $myElement;
-    if(propnew!=thisid) {
-        propnew=thisid;
+    if (propnew != thisid) {
+        propnew = thisid;
         replaceElement = $myElement.clone();
     }
 
@@ -1748,6 +1750,6 @@ $('#Properties input,#Properties select,#Properties button').on("change input cl
         mystylevalue = $(this).val();
 
     setstyle(thisid, mystylevalue);
-    
+
     e.stopPropagation();
 });

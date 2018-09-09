@@ -418,14 +418,6 @@ body {
     width: 215px
 }
 
-.highlight, .highlight2, .highlight3 {
-    outline: red solid 1px;
-    position: relative;
-/*    outline: #4300ff solid 1px;*/
-/*    background-color: #0000ff08 !important;*/
-/*    color: black !important;*/
-}
-
 .RotateX {
     transform: rotateX(360deg);
     -webkit-transform: rotateX(20deg);
@@ -436,28 +428,6 @@ body {
     transform: rotateY(360deg);
     -webkit-transform: rotateY(20deg);
     transform: rotateY(180deg);
-}
-
-.rs-range-color {
-    background-color: #008000;
-}
-
-.rs-handle:after {
-    background-color: #000000;
-}
-
-.rs-border {
-    border-color: #008000;
-}
-
-.rs-tooltip.hover,
-.rs-tooltip.edit:hover {
-    border: 0;
-}
-
-#skewx span.rs-tooltip.rs-tooltip-text.edit,
-#skewy span.rs-tooltip.rs-tooltip-text.edit {
-    top: 10px;
 }
 
 #setId {
