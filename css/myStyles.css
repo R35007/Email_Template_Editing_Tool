@@ -6,7 +6,6 @@
 body {
     font-family: calibri;
     font-size: 14px;
-    padding: 10px;
     padding-bottom: 0;
 }
 
@@ -17,10 +16,18 @@ body {
 }
 
 #SidePanel {
-    width: 290px;
+    width: 250px;
     margin-left: 0;
+    height: 100%;
+    margin-bottom: 10px;
+    overflow: hidden;
+    background: #dedede;
 }
 
+#Content{
+    overflow: hidden;
+    height: calc(100% - 60px);
+}
 #SidePanel form {
     padding: 15px;
     margin-top: 0px;
@@ -40,7 +47,13 @@ body {
     position: sticky;
     z-index: 10;
 }
+#SidePanel .title{
+    padding: 5px 5px 5px 10px;
+}
 
+#Properties .title{
+    cursor: pointer;
+}
 
 #SidePanel .inputgroup {
     border: 1px solid #c5c5c5;
@@ -109,12 +122,12 @@ body {
 }
 
 #SidePanel input[type="number"] {
-    width: 70px;
+    width: 55px;
     text-align: center;
 }
 
 #SidePanel input[type="text"] {
-    width: 104px;
+    width: 90px;
     padding-left: 10px;
 }
 
@@ -135,7 +148,7 @@ body {
 }
 
 #SidePanel .select {
-    width: 120px;
+    width: 106px;
     font-size: 13px;
 }
 
@@ -153,12 +166,6 @@ body {
     border-color: #d1d1d1;
 }
 
-#Tools {
-    height: 560px;
-    margin-bottom: 10px;
-    overflow: hidden;
-}
-
 #Toogle-Attributes-Form {
     margin-right: 5px !important;
 }
@@ -170,7 +177,7 @@ body {
 
 #Properties {
     overflow: auto;
-    height: 495px;
+    height: calc(100% - 64px);
     margin-bottom: 15px;
 }
 
@@ -189,6 +196,15 @@ body {
     font-size: 14px;
 }
 
+
+#Border-Tab .lable{
+    width: 55px;
+}
+
+#Text-Shadow-Tab .lable, #Box-Shadow-Tab .lable{
+    width: 70px;
+    
+}
 .tabcontent {
     border-Top: 0;
     padding: 15px 10px;
@@ -217,8 +233,8 @@ body {
 }
 
 .activeTab {
-    background: #55a655 !important;
-    color: #d8f3d8;
+    background: #008000 !important;
+    color: #ffffff !important;
 }
 
 
@@ -241,15 +257,19 @@ body {
 }
 
 #SourceView {
-    height: 530px;
+    height: 100%;
 }
 
 #DesignView {
-    height: 530px;
     overflow: auto;
     padding: 0;
+    width:975px;
+    height: 100%;
 }
 
+#Design{
+    height: calc(100% - 197px);
+}
 
 #DesignView:after {
     content: "";
@@ -262,7 +282,7 @@ body {
     height: 167px;
     width: 100%;
     background-color: #ffffff;
-    display: none;
+    //display: none;
 }
 
 .navlist {
@@ -284,7 +304,6 @@ body {
     background: #91d791;
     margin-right: -15px;
     width: 25px;
-    height: 560px;
 }
 
 .preview {
@@ -293,7 +312,7 @@ body {
     top: 0;
     left: 0;
     width: 100% !important;
-    height: 100%;
+    height: 100%  !important;
     background: #f1f1f1;
 }
 
@@ -350,8 +369,8 @@ body {
     opacity: 1;
 }
 
-#Bootstrap-Components {
-    padding: 15px;
+#Bootstrap-Components, #Templates{
+    padding: 5px;
     height: 167px;
     overflow: auto;
 }
@@ -363,14 +382,13 @@ body {
     color: #000000;
     padding: 12px;
     cursor: move;
-    margin: 5px;
+    margin: 2px;
     font-size: 14px;
     z-index: 1000;
-    transition: .3s all ease;
 }
 
 .DragElem:hover {
-    background: #308a30;
+    background: #008000;
     color: white;
 }
 
@@ -408,19 +426,15 @@ body {
 }
 
 .rs-range-color {
-    background-color: #308a30;
+    background-color: #008000;
 }
 
 .rs-handle:after {
     background-color: #000000;
 }
 
-.edit {
-    background: transparent !important;
-}
-
 .rs-border {
-    border-color: #308a30;
+    border-color: #008000;
 }
 
 .rs-tooltip.hover,
@@ -461,10 +475,12 @@ body {
     cursor: move;
     background: #91d791;
     margin-top: 5px;
+    padding: 0 5px;
 }
 
 .tools:hover {
-    background-color: #85c485;
+    background-color: #008000;
+    color: white;
 }
 
 
@@ -519,7 +535,7 @@ body {
 }
 .addIcon{
     cursor: pointer;
-    color: #308a30;
+    color: #008000;
     opacity: 0.4;
     font-size: 20px;
     vertical-align: middle;
@@ -540,4 +556,53 @@ body {
 }
 .deleteMore:hover{
     opacity: 1;
+}
+
+#Library{
+    display: block;
+    width: 100%;
+}
+.FooterTabs {
+    display: inline-block;
+    padding: 0 10px;
+    background-color: #91d791;
+    height: 28px;
+    cursor: pointer;
+    margin: 0 1px;
+    transition: 0.2s all ease;
+}
+.FooterTabs:hover {
+    background-color: #55a655;
+    color: white;
+}
+
+.MyThumbnail img {
+    width: 135px;
+    height: 80px;
+}
+
+.MyThumbnail{
+    height: 115px;
+    margin: 5px;
+    display: inline-block;
+    z-index: 1000;
+    cursor: move;
+}
+
+.MyThumbnail:hover {
+    box-shadow: 0px 0px 20px #757575;
+}
+
+#Folders .folder{
+    background-color: #91d791;
+    color: black;
+    padding: 6px;
+    margin-bottom: 1px;
+    cursor: pointer;
+    transition: 0.2s all ease;
+}
+
+#Folders .folder:hover{
+    background-color: #008000;
+    color: white;
 }

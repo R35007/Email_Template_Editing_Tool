@@ -4,7 +4,24 @@
 /*global $, ace*/
 /*eslint no-console:  ["error", { allow: ["warn", "error", "log","no-used-vars"] }] */
 
+
 var keys = {};
+var replaceWith = $('<div id="edit" contentEditable="true" class="editinplace"></div>');
+var $myElement, myparents, myElementCopy, replaceElement, propnew, $ElementToreplace;
+var isDesignViewClicked = false;
+
+$('.container-fluid').css('height', $(window).height());
+
+//$('#DesignView').load('BootstrapComponents/CardDeck.html');
+
+
+//  Prevent from redirecting
+$('#DesignView').on('click','a , span, input[type=submit], button, img',function(e){
+e.preventDefault();
+//do whatever
+})
+
+//  Create Shourtcut Keys
 $(document).on('keydown', function (e) {
 
     if (keys[e.keyCode]) {
@@ -14,7 +31,7 @@ $(document).on('keydown', function (e) {
     var mycombination = new Array();
     if (!($('input').is(":focus")) && !($('#edit').is(":focus"))) {
         keys[e.which] = true;
-        //        console.log(keys);
+        
         for (var i in keys) {
             if (!keys.hasOwnProperty(i)) continue;
             mycombination.push(i);
@@ -38,22 +55,38 @@ $(document).on('keydown', function (e) {
                 $('#MoveDown').trigger('click');
             else if (mycombination.join() == '46')
                 $('#Delete').trigger('click');
+            else if (mycombination.join() == '17,90')
+                $('#Undo').trigger('click');
+            else if (mycombination.join() == '16,17,69')
+                $('#Edit').trigger('click');
+            else if (mycombination.join() == '16,17,68')
+                $('#Clone').trigger('click');
         } catch (err) {
-            console.log('');
+            
         }
     }
 
 });
+
+//  Delete Shortcut Keys
 $(document).on('keyup', function (e) {
     delete keys[e.which];
 });
 
+//  Create Editor
+var editor = ace.edit("SourceView");
+editor.setOptions({
+    hScrollBarAlwaysVisible: false,
+    vScrollBarAlwaysVisible: false,
+    autoScrollEditorIntoView: true,
+    fontSize: 16
+});
+editor.setTheme("ace/theme/monokai");
+editor.session.setMode("ace/mode/html");
 
-var replaceWith = $('<div id="edit" contentEditable="true" class="editinplace"></div>');
-var myElement, myparents, myElementCopy;
-var isDesignViewClicked = false;
-
-var availableClasses = [
+//  Create autocomplete to class
+$("#elementClass").autocomplete({
+    source: [
     "alert-primary", "alert-secondary", "alert-success", "alert-info", "alert-warning", "alert-danger", "alert-light", "alert-dark", "alert-link", "alert-dismissible",
     "alert-heading", "badge", "badge-pill", "badge-primary", "badge-secondary", "badge-success", "badge-info", "badge-warning", "badge-danger", "badge-light",
     "badge-dark", "breadcrumb", "btn-primary", "btn-secondary", "btn-success", "btn-info", "btn-warning", "btn-danger", "btn-light", "btn-dark",
@@ -92,28 +125,16 @@ var availableClasses = [
     "text-*-left", "text-right", "text-*-right", "text-center", "text-*-center", "text-lowercase", "text-uppercase", "text-capitalize", "text-truncate", "text-body",
     "text-black-50", "text-white-50", "text-muted", "text-hide"
 ]
-
-var editor = ace.edit("SourceView");
-editor.setOptions({
-    hScrollBarAlwaysVisible: false,
-    vScrollBarAlwaysVisible: false,
-    autoScrollEditorIntoView: true,
-    fontSize: 16
-});
-editor.setTheme("ace/theme/monokai");
-editor.session.setMode("ace/mode/html");
-
-$("#elementClass").autocomplete({
-    source: availableClasses
 });
 
-
+//  Set Design from editor source
 editor.session.on('change', function (delta) {
     // delta.start, delta.end, delta.lines, delta.action
     var a = editor.getValue();
     $('#DesignView').html(a);
 });
 
+//  Create Class Tags by space or Enter
 $('#elementClass').on('keyup keydown', function (e) {
     var thisval = $(this).val().replace(' ', '');
     if (e.keyCode == 32 || e.keyCode == 13) {
@@ -131,7 +152,7 @@ $('#elementClass').on('keyup keydown', function (e) {
                     if (existClass.indexOf(classArray[i]) < 0) {
                         var myClassBadge = '<span class="badge badge-success"><span class="classTagName">' + classArray[i] + '</span><span class="ml-2 removeTag">x</span></span>';
                         $('#myTags').append(myClassBadge);
-                        $(myElement).addClass(thisval);
+                        $myElement.addClass(thisval);
                     } else {
                         $('#myTags .badge').each(function () {
                             var myclass = $(this).children().first().text();
@@ -150,75 +171,120 @@ $('#elementClass').on('keyup keydown', function (e) {
     }
 })
 
+//  Delete Class Tags by backspace button
 $('#elementClass').on('keydown', function (e) {
     var thisval = $(this).val().replace(' ', '');
     if (e.keyCode == 8 && (thisval.length == 0 || thisval == '')) {
         var removeClass = $('#myTags').children().last('span.badge').children().first().text();
-        $(myElement).removeClass(removeClass);
+        $myElement.removeClass(removeClass);
         $('#myTags').children().last().remove();
     }
 })
 
+//  Delete individual Class Tag by clicking x mark
 $('#myTags').on('click', '.removeTag', function () {
     var removeClass = $(this).prev().text();
-    $(myElement).removeClass(removeClass);
+    $myElement.removeClass(removeClass);
     $(this).parent().remove();
 })
 
+//  Toogle Properties Panel
+$('#Properties').on('click', '.title', function (e) {
+    
+    if(e.target!==this)
+        return;
+    
+    var formid = $(this).find('.deleteall').attr('id').replace('delete-','');
+    $('#'+formid).slideToggle('fast');
+})
+
+//  Edit the created Class Tag by clicking the class name
 $('#myTags').on('click', '.classTagName', function () {
     var editClass = $(this).text();
     $(this).parent().remove();
-    $(myElement).removeClass(editClass);
+    $myElement.removeClass(editClass);
     $('#elementClass').val(editClass);
     $('#elementClass').focus();
 })
 
-$('#Design').css('width', '975px');
-
+//  Generate Element Id and push into dropdown 
 $('#DesignView').bind('DOMNodeInserted DOMNodeRemoved', function () {
     var array = new Array();
     $('#DesignView').find("*").each(function () {
         var thisid = $(this).attr('id');
         if (typeof thisid !== "undefined")
-            array.push(thisid.toLowerCase());
+            if(thisid.trim().length>0)
+                array.push(thisid);
     });
 
-    $('#myDivids option').remove();
+    $('#myDivids').children().remove();
+    var opt = '<option value=""></option>';
+    $('#myDivids').append(opt);
+    
     for (var i in array) {
-        var opt = '<option value="' + array[i] + '">' + array[i] + '</option>';
+        opt = '<option value="' + array[i] + '">' + array[i] + '</option>';
         $('#myDivids').append(opt);
     }
 });
 
-$('#DesignView').on('dblclick', 'label, span , p, font, td, th, h1, h2, h3, h4, h5', function (e) {
+//  Edit in place within DesignView viv
+//$('#DesignView').on('dblclick', 'label, td, span , p, font, th, h1, h2, h3, h4, h5, button', function (e) {
+//
+//    var elem = $(this);
+//
+//    elem.hide();
+//    elem.after(replaceWith);
+//    replaceWith.focus();
+//    replaceWith.text(elem.text());
+//
+//    replaceWith.keyup(function (e) {
+//        if (e.keyCode == 13) {
+//            replaceWith.trigger("blur");
+//        }
+//    })
+//
+//    replaceWith.blur(function () {
+//
+//        if ($(this).text() != "") {
+//            elem.text($(this).text());
+//        } else {
+//            elem.remove();
+//        }
+//
+//        $(this).remove();
+//        elem.show();
+//    });
+//    e.stopPropagation();
+//})
+$('#DesignView').on('dblclick', '*', function (e) {
 
     var elem = $(this);
 
-    elem.hide();
-    elem.after(replaceWith);
-    replaceWith.focus();
-    replaceWith.text(elem.text());
-
-    replaceWith.keyup(function (e) {
+    $ElementToreplace = $(this);
+    replaceElement =  $(this).clone();
+    
+    elem.attr('contenteditable','true');
+    elem.css('box-shadow','0px 0px 10px 0px blue');
+    elem.focus();
+    elem.keyup(function (e) {
         if (e.keyCode == 13) {
-            replaceWith.trigger("blur");
+            elem.trigger("blur");
         }
     })
 
-    replaceWith.blur(function () {
-
-        if ($(this).text() != "") {
-            elem.text($(this).text());
-        } else {
-            elem.remove();
-        }
-
-        $(this).remove();
-        elem.show();
+    elem.blur(function () {
+        elem.removeAttr('contenteditable');
+        elem.css('box-shadow','');
     });
     e.stopPropagation();
 })
 
+$('#DesignView').on('blur','[contenteditable=true]',function(){
+    $myElement.removeAttr('contenteditable');
+    $myElement.css('box-shadow','');
+})
+
+//  Edit in place within Inline-Styles div
 $('#Inline-Styles').on('dblclick', '.value', function (e) {
 
     var elem = $(this);
@@ -241,11 +307,15 @@ $('#Inline-Styles').on('dblclick', '.value', function (e) {
 
         if ($(this).text() == '') {
             setstyle(prop, '');
-            ShowStyle();
+            
         } else {
             elem.text($(this).text());
 
             val = $(this).text();
+            if(propnew!=prop) {
+                propnew=prop;
+                replaceElement = $myElement.clone();
+            }
             setstyle(prop, val);
 
             $(this).remove();
@@ -256,19 +326,24 @@ $('#Inline-Styles').on('dblclick', '.value', function (e) {
     e.stopPropagation();
 })
 
+//  Delete the inline Style
 $('#Inline-Styles').on('click', '.delete', function () {
-    var prop = $(this).prev().prev().text().replace(' ', '');
+    var prop = $(this).prev().prev().text().trim();
     setstyle(prop, '');
-    ShowStyle();
+    
 })
 
+//  Select an Element, Prepopulate tag attributes and Generate Breadcrumb
 $('#DesignView').on('click', '*', function (e) {
 
-    myElement = this;
+    
+    $myElement = $(this);
+    propnew = '';
     isDesignViewClicked = false;
     $('#selector').val('');
+    $('#myDivids').val('');
     $('#DesignView *').removeClass('highlight');
-    $(myElement).addClass('highlight');
+    $myElement.addClass('highlight');
 
     var thisid = $(this).attr('id');
     var thisclass = $(this).attr('class');
@@ -288,16 +363,18 @@ $('#DesignView').on('click', '*', function (e) {
     $('#elementid').val(thisid);
     $('#myTags').children().remove();
     $('#elementClass').val('');
-    thisclass = thisclass.replace('ui-draggable', '');
-    thisclass = thisclass.replace('ui-draggable-handle', '');
-    thisclass = thisclass.replace('ui-droppable', '');
-    thisclass = thisclass.replace('highlight2', '');
-    thisclass = thisclass.replace('highlight', '');
+    thisclass = thisclass.replace(/ui-draggable-handle/g, '');
+    thisclass = thisclass.replace(/ui-draggable/g, '');
+    thisclass = thisclass.replace(/ui-droppable-active/g, '');
+    thisclass = thisclass.replace(/ui-droppable/g, '');
+    thisclass = thisclass.replace(/highlight2/g, '');
+    thisclass = thisclass.replace(/highlight/g, '');
+    
     if (thisclass.trim().length > 0) {
         var classArray = thisclass.trim().split(' ');
-        for (var i in classArray) {
-            if (classArray[i].trim().length > 0 && classArray[i].trim() != '') {
-                var myClassBadge = '<span class="badge badge-success"><span class="classTagName">' + classArray[i] + '</span><span class="ml-2 removeTag">x</span></span>';
+        for (var j in classArray) {
+            if (classArray[j].trim().length > 0 && classArray[j].trim() != '') {
+                var myClassBadge = '<span class="badge badge-success"><span class="classTagName">' + classArray[j] + '</span><span class="ml-2 removeTag">x</span></span>';
                 $('#myTags').append(myClassBadge);
             }
         }
@@ -321,7 +398,7 @@ $('#DesignView').on('click', '*', function (e) {
 
     $('#Breadcrumb').children().remove();
 
-    myparents = $(myElement).parentsUntil('#DesignView');
+    myparents = $myElement.parentsUntil('#DesignView');
 
     var hashid, dotclass;
 
@@ -343,7 +420,7 @@ $('#DesignView').on('click', '*', function (e) {
         dotclass = '';
 
 
-    var mybreadlinklistthis = '<li><span>' + $(myElement).prop('tagName').toLowerCase() + ' ' + hashid + ' ' + dotclass + '</span></li>'
+    var mybreadlinklistthis = '<li><span>' + $myElement.prop('tagName').toLowerCase() + ' ' + hashid + ' ' + dotclass + '</span></li>'
     $('#Breadcrumb').prepend(mybreadlinklistthis);
 
     for (var i in myparents) {
@@ -391,52 +468,66 @@ $('#DesignView').on('click', '*', function (e) {
 
 })
 
+//  Make sure that no element is selected
 $('#DesignView').on('click', function () {
     $('#DesignView *').removeClass('highlight');
-    myElement = '';
+    $myElement = '';
+    
+    $('#myTags').children().remove();
+    $('#Breadcrumb').children().remove();
+    $('#myDivids').val('');
+    $('#selector').val('');
+    for (var i = 0; i < $('form').length; i++) {
+        $('form')[i].reset();
+    }
     isDesignViewClicked = true;
 })
 
+//  Add highlidht2 Class on mouseover of an element
 $('#DesignView').on('mouseover', '*', function (e) {
     $(this).addClass('highlight2');
     e.stopPropagation();
 })
 
+//  Remove highlidht2 Class on mouseout of an element
 $('#DesignView').on('mouseout', '*', function (e) {
     $(this).removeClass('highlight2');
     e.stopPropagation();
 })
 
+//  Navigate to the element by breadcrumb
 $('#Breadcrumb').on('click', 'span', function () {
 
     var breadlength = $('#Breadcrumb').children().length;
     var clickedelem = $(this).parent().index() + 1;
     var myparentlength = myparents.length;
 
-    console.log('breadlength:', breadlength);
-    console.log('clickedelem:', clickedelem);
-    console.log('myparentlength:', myparentlength);
-
     if (breadlength != clickedelem) {
-        console.log('camein');
+        
         var getelemindex = myparentlength - clickedelem;
-        console.log('getelemindex:', getelemindex);
+        
 
         var slectedelem = myparents[getelemindex];
-        console.log('slectedelem:', slectedelem);
+        
 
         $(slectedelem).trigger('click');
     }
 
 })
-
+/*  Menu Logic  -   Preview, Select Parent, Select Child, Select Previous,Select Next,
+                    Move Up, Move Down, Cut, Copy, Paste, Paste Before, Paste After, Paste Style,
+                    Clone, Delete, Undo*/
 $('.topIcon').on('click', function () {
     var thisid = this.id;
     var pastethis;
 
-    var prev = $(myElement).prev();
-    var next = $(myElement).next();
-    var parent = $(myElement).parent();
+        try {
+            var prev = $myElement.prev();
+            var next = $myElement.next();
+            var parent = $myElement.parent();
+        } catch (e) {
+            //Catch Statement
+        }
 
     try {
         if (thisid == 'PreView') {
@@ -453,13 +544,13 @@ $('.topIcon').on('click', function () {
             $('#DragandDrop').prop('src', '');
             $('#myScript').prop('src', '');
         } else if (thisid == 'Parent')
-            $(myElement).parent().trigger('click');
+            $myElement.parent().trigger('click');
         else if (thisid == 'Child')
-            $(myElement).children().first().trigger('click');
+            $myElement.children().first().trigger('click');
         else if (thisid == 'Previous')
-            $(myElement).prev().trigger('click');
+            $myElement.prev().trigger('click');
         else if (thisid == 'Next')
-            $(myElement).next().trigger('click');
+            $myElement.next().trigger('click');
         else if (thisid == 'MoveUp') {
             if ($(prev).length > 0) {
                 $('#Cut').trigger('click');
@@ -473,10 +564,10 @@ $('.topIcon').on('click', function () {
                 $('#PasteAfter').trigger('click');
             }
         } else if (thisid == 'Cut') {
-            myElementCopy = $(myElement).clone();
-            $(myElement).remove();
+            myElementCopy = $myElement.clone();
+            $myElement.remove();
         } else if (thisid == 'Copy')
-            myElementCopy = $(myElement).clone();
+            myElementCopy = $myElement.clone();
         else if (thisid == 'Paste') {
             pastethis = myElementCopy.clone();
             pastethis.removeClass('highlight');
@@ -486,29 +577,33 @@ $('.topIcon').on('click', function () {
                 isDesignViewClicked = false;
                 $(pastethis).trigger('click');
             } else {
-                $(myElement).append(pastethis);
+                $myElement.append(pastethis);
                 $(pastethis).trigger('click');
             }
 
         } else if (thisid == 'PasteBefore') {
             pastethis = myElementCopy.clone();
-            $(myElement).before(pastethis);
+            $myElement.before(pastethis);
             $(pastethis).trigger('click');
         } else if (thisid == 'PasteAfter') {
             pastethis = myElementCopy.clone();
-            $(myElement).after(pastethis);
+            $myElement.after(pastethis);
             $(pastethis).trigger('click');
         } else if (thisid == 'PasteStyle') {
+            replaceElement = $myElement.clone();
+            $ElementToreplace = $myElement;
             var myelemtstyle = myElementCopy.attr('Style');
-            $(myElement).attr('style', myelemtstyle);
+            $myElement.attr('style', myelemtstyle);
         } else if (thisid == 'Clone') {
-            $(myElement).after($(myElement).clone());
-            $(myElement).trigger('click');
+            $myElement.after($myElement.clone());
+            $myElement.trigger('click');
+        } else if (thisid == 'Edit') {
+            $myElement.attr('contenteditable','true');
+            $myElement.css('box-shadow','0px 0px 10px 0px blue');
+            $myElement.focus();
         } else if (thisid == 'Delete') {
-
-            $(myElement).remove();
+            $myElement.remove();
             $('#Inline-Styles').html('');
-
 
             if ($(next).length > 0)
                 $(next).trigger('click');
@@ -521,19 +616,27 @@ $('.topIcon').on('click', function () {
             if ($('#DesignView').children().length == 0)
                 $('#Breadcrumb').children().remove();
         } else if (thisid == 'Undo') {
-
+            if($(replaceElement).length>0){
+                $ElementToreplace.replaceWith($(replaceElement));
+                $(replaceElement).trigger('click');
+                for (var i = 0; i < $('form').length; i++) {
+                    $('form')[i].reset();
+                }
+            }
+            
         }
 
     } catch (err) {
-        console.log('');
+        
     }
 })
 
+//  Toogle between Design View, Split View, Source View
 $('.navlist').on('click', function () {
     var tabs = $(this).text() + "View";
+    var myDesign;
 
     $('#Design>div').addClass('d-none');
-
     $('.navlist').removeClass('activeTab');
 
     if (tabs == "DesignView") {
@@ -541,17 +644,37 @@ $('.navlist').on('click', function () {
         $('#SourceView').removeClass('col-6');
         $('#DesignView').addClass('col-12');
         $(this).addClass('activeTab')
-        $('#DesignView').height('530px');
+        if($('#Footer-Form').css('display').toLowerCase()=='none')
+            $("#Toogle-Footer-Form").trigger('click');
+        $('#Design').css('height', 'calc(100% - 197px)');
     } else if (tabs == "SourceView") {
-        editor.session.setValue($('#DesignView').html());
+        myDesign =$('#DesignView').html();
+        myDesign = myDesign.replace(/ui-draggable-handle/g, '');
+        myDesign = myDesign.replace(/ui-draggable/g, '');
+        myDesign = myDesign.replace(/ui-droppable-active/g, '');
+        myDesign = myDesign.replace(/ui-droppable/g, '');
+        myDesign = myDesign.replace(/highlight2/g, '');
+        myDesign = myDesign.replace(/highlight/g, '');
+        myDesign = myDesign.replace(/\s\s\s\s\"/g, '\"');
+        
+        editor.session.setValue(myDesign);
         $('#Footer-Form').hide();
         $('#SourceView').removeClass('d-none');
         $('#SourceView').removeClass('col-6');
         $('#SourceView').addClass('col-12');
         $(this).addClass('activeTab');
-        $('#SourceView').height('530px');
+        $('#Design').css('height', 'calc(100% - 30px)');
     } else if (tabs == "SplitView") {
-        editor.session.setValue($('#DesignView').html());
+        myDesign =$('#DesignView').html();
+        myDesign = myDesign.replace(/ui-draggable-handle/g, '');
+        myDesign = myDesign.replace(/ui-draggable/g, '');
+        myDesign = myDesign.replace(/ui-droppable-active/g, '');
+        myDesign = myDesign.replace(/ui-droppable/g, '');
+        myDesign = myDesign.replace(/highlight2/g, '');
+        myDesign = myDesign.replace(/highlight/g, '');
+        myDesign = myDesign.replace(/\s\s\s\s\"/g, '\"');
+        
+        editor.session.setValue(myDesign);
         $('#DesignView').removeClass('d-none');
         $('#Footer-Form').hide();
         $('#SourceView').removeClass('d-none');
@@ -561,26 +684,26 @@ $('.navlist').on('click', function () {
         $('#DesignView').removeClass('col-12');
         $('#DesignView').addClass('col-6');
         $(this).addClass('activeTab');
-        $('#DesignView').height('530px');
-        $('#SourceView').height('530px');
+        $('#Design').css('height','calc(100% - 30px)');
     }
 })
 
+//  Toogle The Side Panel
 $('#Toogle-SidePanel').on('click', function () {
 
     $(this).toggleClass('RotateY');
 
     if ($('#SidePanel').css('margin-left') == '0px') {
         $('#SidePanel').animate({
-            'margin-left': '-290px'
+            'margin-left': '-250px'
         }, function () {
             $('#Design').css({
-                'width': '1265px'
+                'width': '1300px'
             });
         });
     } else {
         $('#Design').css({
-            'width': '975px'
+            'width': '1015px'
         });
         $('#SidePanel').animate({
             'margin-left': '0px'
@@ -588,6 +711,7 @@ $('#Toogle-SidePanel').on('click', function () {
     }
 });
 
+//  Toogle Form and Tabs
 $(".toogleIcon").click(function () {
 
     var toogleTab = this.id.replace("Toogle-", "")
@@ -595,6 +719,7 @@ $(".toogleIcon").click(function () {
 
 });
 
+//  Toogle Footer Form by Adjusting DesignView and Footer form height
 $("#Toogle-Footer-Form").click(function () {
     var toogleTab;
 
@@ -603,19 +728,16 @@ $("#Toogle-Footer-Form").click(function () {
     var design = $('.navlist:eq(0)').hasClass('activeTab');
 
     if (design) {
-
         if (this.id == "Toogle-Footer-Form") {
             var display = $('#Footer-Form').css('display');
             toogleTab = this.id.replace("Toogle-", "")
 
             if (display == "block") {
-                $('#DesignView').height('530px');
-                $('#SourceView').height('530px');
                 $("#" + toogleTab).hide();
+                $('#Design').css('height', 'calc(100% - 30px)');
             } else {
-                $('#DesignView').height('358px');
-                $('#SourceView').height('358px');
                 $("#" + toogleTab).fadeIn();
+                $('#Design').css('height', 'calc(100% - 197px)');
             }
         } else {
             toogleTab = this.id.replace("Toogle-", "")
@@ -625,23 +747,25 @@ $("#Toogle-Footer-Form").click(function () {
     }
 });
 
-$('#Toogle-Footer-Form').trigger('click');
-
+//  Toogle Range Show and Hide
 $('#SidePanel .tooglerange').click(function () {
     $('.Range').not('#' + this.id + "-range").hide('fast');
     var rangeid = this.id + "-range";
     $("#" + rangeid).toggle('fast');
 });
 
+//  Hide Search Icon Search
 $('#searchProperty').on('input focus', function () {
     $('#searchicon').hide();
 })
 
+//  Show Search Icon on unSearch
 $('#searchProperty').on('blur', function () {
     if ($(this).val().length == 0)
         $('#searchicon').show();
 })
 
+// Search Logic
 $('#searchProperty').on('input', function () {
     var searchKey = $(this).val().replace(" ", "").replace("-", "").toLowerCase();
 
@@ -680,10 +804,39 @@ $('#searchProperty').on('input', function () {
 
 });
 
+//  Set Input value to range
 $('input[type="number"]').on("input change", function () {
 
-    var sliderid, unitid, inputid, inputval, unitval, index;
+    var sliderid;
 
+    
+    sliderid = "#" + this.id + "_";
+    if ($(this).val().length == 0)
+        $(sliderid).val(0);
+    else
+        $(sliderid).val($(this).val());
+});
+
+//  Set Range value to input
+$('input[type="range"]').on("input", function () {
+    var unitid, inputid, index;
+
+    inputid = "#" + this.id.replace("_", "");
+    unitid = inputid + "_unit";
+
+    $(inputid).val($(this).val());
+
+    index = $(unitid).prop('selectedIndex');
+    if (index >= 15)
+        $(unitid).val("px");
+    $(unitid).removeClass("select");
+    $(inputid).css("display", "block");
+});
+
+//  Clip value together logic
+$('input[type="number"], input[type="range"]').on('input', function(){
+    
+    var inputid, unitid, thisval, unitval;
     var thisid = this.id.split("-")[0];
 
     var pos = ["top", "right", "left", "bottom"];
@@ -693,99 +846,46 @@ $('input[type="number"]').on("input change", function () {
     var bspcing = ["border-spacing-h", "border-spacing-v"];
     var bgposition = ["background-position-x", "background-position-y"];
     var bgsize = ["background-size-width", "background-size-height"];
+    
+    
+    inputid =this.id.replace("_", "");
+    unitid =  "#" + inputid + "_unit";
 
-    inputid = "#" + this.id;
-    sliderid = "#" + this.id + "_";
-    unitid = inputid + "_unit";
-
-    inputval = $(this).val();
+    thisval = $(this).val();
     unitval = $(unitid).val();
 
-    if (layout.indexOf(this.id) >= 0 && $("#LayoutClip").is(':checked'))
-        ClipTwoValue("#width", "#height", inputval, unitval);
-    else if (bspcing.indexOf(this.id) >= 0 && $("#SpacingClip").is(':checked'))
-        ClipTwoValue("#border-spacing-h", "#border-spacing-v", inputval, unitval);
-    else if (bgposition.indexOf(this.id) >= 0 && $("#BgPositionClip").is(':checked'))
-        ClipTwoValue("#background-position-x", "#background-position-y", inputval, unitval);
-    else if (bgsize.indexOf(this.id) >= 0 && $("#BgSizeClip").is(':checked'))
-        ClipTwoValue("#background-size-width", "#background-size-height", inputval, unitval);
-    else if (thisid == "padding" && $("#PaddingClip").is(':checked'))
-        ClipIt("#padding-", inputval, unitval);
-    else if (thisid == "margin" && $("#MarginClip").is(':checked'))
-        ClipIt("#margin-", inputval, unitval);
-    else if (pos.indexOf(thisid) >= 0 && $("#PositionClip").is(':checked'))
-        ClipIt("#", inputval, unitval);
-    else if (br.indexOf(this.id) >= 0 && $("#RadiusClip").is(':checked'))
-        RadiusClipIt(inputval, unitval);
-    else {
-        sliderid = "#" + this.id + "_";
-        if ($(this).val().length == 0)
-            $(sliderid).val(0);
-        else
-            $(sliderid).val($(this).val());
-    }
-});
-
-$('input[type="range"]').on("input", function () {
-
-
-    var sliderid, unitid, inputid, sliderval, unitval, index;
-
-    var thisid = this.id.split("-")[0];
-
-    var pos = ["top_", "right_", "left_", "bottom_"];
-    var br = ["border-top-left-radius_", "border-top-right-radius_",
-              "border-bottom-left-radius_", "border-bottom-right-radius_"]
-    var layout = ["width_", "height_"];
-    var bspcing = ["border-spacing-h_", "border-spacing-v_"];
-    var bgposition = ["background-position-x_", "background-position-y_"];
-    var bgsize = ["background-size-width_", "background-size-height_"];
-
-
-    sliderid = "#" + this.id;
-    inputid = "#" + this.id.replace("_", "");
-    unitid = inputid + "_unit";
-
-    sliderval = $(this).val();
-    unitval = $(unitid).val();
-
-    if (layout.indexOf(this.id) >= 0 && $("#LayoutClip").is(':checked')) {
-        ClipTwoValue("#width", "#height", sliderval, unitval)
-    } else if (bspcing.indexOf(this.id) >= 0 && $("#SpacingClip").is(':checked')) {
-        ClipTwoValue("#border-spacing-h", "#border-spacing-v", sliderval, unitval)
-    } else if (bgposition.indexOf(this.id) >= 0 && $("#BgPositionClip").is(':checked')) {
-        ClipTwoValue("#background-position-x", "#background-position-y", sliderval, unitval)
-    } else if (bgsize.indexOf(this.id) >= 0 && $("#BgSizeClip").is(':checked')) {
-        ClipTwoValue("#background-size-width", "#background-size-height", sliderval, unitval)
+    if (layout.indexOf(inputid) >= 0 && $("#LayoutClip").is(':checked')) {
+        ClipTwoValue("#width", "#height", thisval, unitval)
+    } else if (bspcing.indexOf(inputid) >= 0 && $("#SpacingClip").is(':checked')) {
+        ClipTwoValue("#border-spacing-h", "#border-spacing-v", thisval, unitval)
+    } else if (bgposition.indexOf(inputid) >= 0 && $("#BgPositionClip").is(':checked')) {
+        ClipTwoValue("#background-position-x", "#background-position-y", thisval, unitval)
+    } else if (bgsize.indexOf(inputid) >= 0 && $("#BgSizeClip").is(':checked')) {
+        ClipTwoValue("#background-size-width", "#background-size-height", thisval, unitval)
     } else if (thisid == "padding" && $("#PaddingClip").is(':checked')) {
-        ClipIt("#padding-", sliderval, unitval)
+        ClipIt("#padding-", thisval, unitval)
     } else if (thisid == "margin" && $("#MarginClip").is(':checked')) {
-        ClipIt("#margin-", sliderval, unitval)
-    } else if (pos.indexOf(this.id) >= 0 && $("#PositionClip").is(':checked')) {
-        ClipIt("#", sliderval, unitval)
-    } else if (br.indexOf(this.id) >= 0 && $("#RadiusClip").is(':checked')) {
-        RadiusClipIt(sliderval, unitval)
-    } else {
-        $(inputid).val($(this).val());
+        ClipIt("#margin-", thisval, unitval)
+    } else if (pos.indexOf(inputid) >= 0 && $("#PositionClip").is(':checked')) {
+        ClipIt("#", thisval, unitval)
+    } else if (br.indexOf(inputid) >= 0 && $("#RadiusClip").is(':checked')) {
+        RadiusClipIt(thisval, unitval)
     }
+})
 
-    index = $(unitid).prop('selectedIndex');
-    if (index >= 15)
-        $(unitid).val("px");
-    $(unitid).removeClass("select");
-    $(inputid).css("display", "block");
-});
-
+//  Set input type color value to textbox
 $('input[type="color"]').on("input", function () {
     var inputid = "#" + this.id.replace("_", "");
     $(inputid).val($(this).val());
 });
 
+//  Set textbox color value o input  type color
 $($('input[type="color"]').prev()).on("input", function () {
     var inputid = "#" + this.id + "_";
     $(inputid).val($(this).val());
 });
 
+//  Units logic
 $('.unit').on("change", function () {
 
     var unitid, index, inputid;
@@ -804,11 +904,39 @@ $('.unit').on("change", function () {
 
 });
 
+//  Toogle Footer Tabs
+$('.FooterTabs').on('click',function(){
+    $('.FooterTabs').removeClass('activeTab');
+    var tabid=this.id.replace('Toogle-','');
+    $('#Footer-Form>div').css('display','none');
+    $('#Footer-Form>div').css('height','0');
+    $(this).addClass('activeTab');
+    $('#'+tabid).css('display','block');
+    $('#'+tabid).css('height','100%');
+})
+
+//  Closes the Preview mode
+$('.close').click(function() {
+            $('#bootstrap').prop('src', '')
+            $('#myScript').prop('src', 'js/myScript.js')
+            $('#DragandDrop').prop('src', 'js/DragandDrop.js')
+            $('#Design').removeClass("preview");
+            $('#Footer-Form').show();
+            $('#Design').css('height','calc(100% - 197px)');
+            $('#DesignView').css({
+                'max-width': 'none',
+                'width': 'auto'
+            })
+            $('.close').hide();
+        });
+
+//  Trigger the input file on click
 $('.browse').on("click", function () {
     var fileid = this.id.replace("-trigger", "");
     $("#" + fileid).trigger("click");
 });
 
+//  Set file name as url('File name') from file input
 $('input[type="file"]').on("change input", function () {
 
     var styleid = this.id.replace("-file", "");
@@ -821,6 +949,7 @@ $('input[type="file"]').on("change input", function () {
     $("#" + styleid).trigger("change");
 });
 
+//  Set file name as url('File name') from text input
 $('.file').on("change input", function () {
 
     var styleid = this.id.replace("-show", "");
@@ -829,13 +958,51 @@ $('.file').on("change input", function () {
     $("#" + styleid).trigger("change");
 });
 
+//  Trigger click to element selected by its Id
 $('#myDivids').on("change", function () {
     var value = $(this).val()
-    $("#selector").val(value);
-
-    $('#' + value).trigger('click');
-
+    if (value.length>0){
+        $('#' + value).trigger('click');
+        $("#selector").val("#"+value);
+        $('#myDivids').val(value);
+    }
+    else{
+        $("#selector").val('');
+    }
 });
+
+//  Set Extra Style
+$('#More-Form').on('input click','input',function(){
+    
+    var isThisProp=$(this).hasClass('prop')
+    var thisval=$(this).val().trim();
+    var prop,val;
+    
+    if (isThisProp){
+        prop = thisval;
+        val = $(this).parent().next().next().children().first().val();
+    }  
+    else{
+        val = thisval;
+        prop = $(this).parent().prev().prev().children().first().val();
+    }
+    
+    if (typeof prop!=='undefined' && typeof val!=='undefined')
+        if(prop.length>0 && val.length>0)
+            setstyle(prop,val);
+    
+    
+})
+
+//  Genereate Extra Style Row
+$('.addRow').on('click',function(){
+    $(this).before('<div class="row"> <div class="col-12 p-0"> <div class="list"> <div class="inputgroup w-100"> <input type="text" class="prop w-100" placeholder="Property"> </div> <span>:</span> <div class="inputgroup w-100"> <input type="text" class="val w-100" placeholder="Value"> <button class="deleteMore" type="button"><i class="fas fa-minus"></i></button> </div> </div> </div> </div>')
+})
+
+// Delete The dynamic created row od exra style
+$('#More-Form').on('click','.deleteMore',function(){
+    $(this).closest('.row').remove();
+})
 
 
 function ClipTwoValue(x, y, val, unit) {
@@ -925,7 +1092,7 @@ function RadiusClipIt(val, unit) {
     $("#border-bottom-left-radius_unit").val(unit);
     $("#border-bottom-right-radius_unit").val(unit);
 
-    $("#border-radius").val(val + unit);
+    $("#border-radius").val(val + unit +" "+val + unit +" "+val + unit +" "+val + unit +" ");
 
 
     $("#border-top-left-radius_unit").removeClass("select");
@@ -939,7 +1106,7 @@ function RadiusClipIt(val, unit) {
     $("#border-bottom-right-radius").css("display", "block");
 }
 
-
+//  Clear text and number input
 $('.delete').on("click", function () {
     var inputid = "#" + this.id.replace("delete-", "");
     var sliderid = inputid + "_";
@@ -950,6 +1117,7 @@ $('.delete').on("click", function () {
     $(inputid + "_unit").removeClass("select");
 });
 
+// Clear url input
 $('.delete-img').on("click", function () {
 
     var styleid = "#" + this.id.replace("delete-", "");
@@ -1049,65 +1217,70 @@ $('#delete-box-shadow').on("click", function () {
 
 });
 
+//  Reset all input of a form
 $('.deleteall').on("click", function () {
 
     var formid = this.id.replace("delete-", "");
     var obj, i;
 
 
-    if (formid == "Layout-Form") {
-        $('#Layout-Form .Range').hide("fast");
-        obj = ["width", "height", "min-width", "min-height", "max-width", "max-height",
-             "display", "box-sizing", "float", "clear", "overflow-x", "overflow-y",
-             "visibility", "z-index", "opacity"];
-        for (i in obj)
-            setstyle(obj[i], "null");
-    } else if (formid == "Position-Form") {
-        $('#Position-Form .Range').hide("fast");
-        obj = ["position", "top", "right", "bottom", "left"];
-        for (i in obj)
-            setstyle(obj[i], "null");
-    } else if (formid == "Margin-Form") {
-        $('#Margin-Form .Range').hide("fast");
-        obj = ["margin", "margin-top", "margin-right", "margin-bottom", "margin-left"];
-        for (i in obj)
-            setstyle(obj[i], "null");
-    } else if (formid == "Padding-Form") {
-        $('#Padding-Form .Range').hide("fast");
-        obj = ["padding", "padding-top", "padding-right", "padding-bottom", "padding-left"];
-        for (i in obj)
-            setstyle(obj[i], "null");
-    } else if (formid == "Text-Form") {
-        $('#Text-Form .Range').hide("fast");
-        obj = ["color", "font-family", "font-style", "font-variant", "font-weight",
-             "font-size", "line-height", "text-indent", "text-align", "text-decoration",
-             "text-shadow", "text-transform", "letter-spacing", "word-spacing", "white-space",
-             "vertical-align"];
-        for (i in obj)
-            setstyle(obj[i], "null");
-    } else if (formid == "List-Form") {
-        $('#List-Form .Range').hide("fast");
-        obj = ["list-style", "list-style-type", "list-style-position", "list-style-image"];
-        for (i in obj)
-            setstyle(obj[i], "null");
-    } else if (formid == "Border-Form") {
-        $('#Border-Form .Range').hide("fast");
-        obj = ["border", "border-width", "border-style", "border-color",
-             "border-top", "border-right", "border-bottom", "border-left",
-             "border-top-width", "border-right-width", "border-bottom-width", "border-left-width",
-             "border-top-style", "border-right-style", "border-bottom-style", "border-left-style",
-             "border-top-color", "border-right-color", "border-bottom-color", "border-left-color",
-             "border-radius", "border-top-left-radius", "border-top-right-radius",
-             "border-bottom-left-radius", "border-bottom-right-radius",
-             "border-collapse", "border-spacing"];
-        for (i in obj)
-            setstyle(obj[i], "null");
-    } else if (formid == "Background-Form") {
-        $('#Background-Form .Range').hide("fast");
-        obj = ["background", "background-size", "background-position", "background-color", "background-image",
-            "background-clip", "background-orgin", "background-attachment", "background-repeat", "box-shadow"];
-        for (i in obj)
-            setstyle(obj[i], "null");
+    try {
+        if (formid == "Layout-Form") {
+            $('#Layout-Form .Range').hide("fast");
+            obj = ["width", "height", "min-width", "min-height", "max-width", "max-height",
+                   "display", "box-sizing", "float", "clear", "overflow-x", "overflow-y",
+                   "visibility", "z-index", "opacity"];
+            for (i in obj)
+                setstyle(obj[i], "null");
+        } else if (formid == "Position-Form") {
+            $('#Position-Form .Range').hide("fast");
+            obj = ["position", "top", "right", "bottom", "left"];
+            for (i in obj)
+                setstyle(obj[i], "null");
+        } else if (formid == "Margin-Form") {
+            $('#Margin-Form .Range').hide("fast");
+            obj = ["margin", "margin-top", "margin-right", "margin-bottom", "margin-left"];
+            for (i in obj)
+                setstyle(obj[i], "null");
+        } else if (formid == "Padding-Form") {
+            $('#Padding-Form .Range').hide("fast");
+            obj = ["padding", "padding-top", "padding-right", "padding-bottom", "padding-left"];
+            for (i in obj)
+                setstyle(obj[i], "null");
+        } else if (formid == "Text-Form") {
+            $('#Text-Form .Range').hide("fast");
+            obj = ["color", "font-family", "font-style", "font-variant", "font-weight",
+                   "font-size", "line-height", "text-indent", "text-align", "text-decoration",
+                   "text-shadow", "text-transform", "letter-spacing", "word-spacing", "white-space",
+                   "vertical-align"];
+            for (i in obj)
+                setstyle(obj[i], "null");
+        } else if (formid == "List-Form") {
+            $('#List-Form .Range').hide("fast");
+            obj = ["list-style", "list-style-type", "list-style-position", "list-style-image"];
+            for (i in obj)
+                setstyle(obj[i], "null");
+        } else if (formid == "Border-Form") {
+            $('#Border-Form .Range').hide("fast");
+            obj = ["border", "border-width", "border-style", "border-color",
+                   "border-top", "border-right", "border-bottom", "border-left",
+                   "border-top-width", "border-right-width", "border-bottom-width", "border-left-width",
+                   "border-top-style", "border-right-style", "border-bottom-style", "border-left-style",
+                   "border-top-color", "border-right-color", "border-bottom-color", "border-left-color",
+                   "border-radius", "border-top-left-radius", "border-top-right-radius",
+                   "border-bottom-left-radius", "border-bottom-right-radius",
+                   "border-collapse", "border-spacing"];
+            for (i in obj)
+                setstyle(obj[i], "null");
+        } else if (formid == "Background-Form") {
+            $('#Background-Form .Range').hide("fast");
+            obj = ["background", "background-size", "background-position", "background-color", "background-image",
+                   "background-clip", "background-orgin", "background-attachment", "background-repeat", "box-shadow"];
+            for (i in obj)
+                setstyle(obj[i], "null");
+        }
+    } catch (e) {
+        //Catch Statement
     }
 
     $("#" + formid)[0].reset();
@@ -1115,7 +1288,6 @@ $('.deleteall').on("click", function () {
 
 
 });
-
 
 function showTab(mytab, button) {
 
@@ -1143,7 +1315,7 @@ function getvalue(x) {
 }
 
 function setstyle(prop, val) {
-
+    
     if ($('#selector').val().length > 0) {
         if (val != "null") {
             $("#Design " + $('#selector').val()).css(prop, val);
@@ -1151,10 +1323,12 @@ function setstyle(prop, val) {
             $("#Design " + $('#selector').val()).css(prop, "");
     } else {
         if (val != "null")
-            $(myElement).css(prop, val);
+            $myElement.css(prop, val);
         else
-            $(myElement).css(prop, "");
+            $myElement.css(prop, "");
     }
+    
+    ShowStyle();
 }
 
 function ShowStyle() {
@@ -1163,7 +1337,7 @@ function ShowStyle() {
     try {
         $("#Inline-Styles").html("");
 
-        style = $(myElement).attr("style");
+        style = $myElement.attr("style");
 
         var eachstyle = style.split(';');
 
@@ -1177,10 +1351,11 @@ function ShowStyle() {
 
 
     } catch (err) {
-        console.log('');
+        
     }
 }
 
+//  Set tag Attributes
 $('#Attributes input, #Attributes select').on('input change', function () {
 
     var value = $(this).val();
@@ -1191,12 +1366,15 @@ $('#Attributes input, #Attributes select').on('input change', function () {
     var attrib = this.id.replace("element", "");
     attrib = attrib.replace("_", "");
 
+    $myElement.attr(attrib, value);
+    
     if ($('#selector').val().length > 0) {
         $("#Design " + $('#selector').val()).attr(attrib, value);
     }
 
 })
 
+//  Set Tag Id
 $('#setId').on('click', function () {
 
     var array = new Array();
@@ -1219,16 +1397,17 @@ $('#setId').on('click', function () {
     }
     if (err == false) {
         $('#elementid').parent().removeClass('err');
-        $(myElement).attr('id', myid);
+        $myElement.attr('id', myid);
         myElement = "#" + myid;
     }
 
-    var title = $(myElement).prop("tagName").toLowerCase() + " #" + $(myElement).attr('id') + " ." + $(myElement).attr('class');
-    $(myElement).attr('title', title);
+    var title = $myElement.prop("tagName").toLowerCase() + " #" + $myElement.attr('id') + " ." + $myElement.attr('class');
+    $myElement.attr('title', title);
 
 })
 
-$('#Properties input,#Properties select,#Properties button').on("change input click", function () {
+//  Get Inline Styles
+$('#Properties input,#Properties select,#Properties button').on("change input click", function (e) {
 
     if ($(this).hasClass('prop') || $(this).hasClass('val'))
         return;
@@ -1260,6 +1439,13 @@ $('#Properties input,#Properties select,#Properties button').on("change input cl
     thisid = thisid.replace("delete-", "");
 
     var mystylevalue;
+    var test;
+    
+    $ElementToreplace = $myElement;
+    if(propnew!=thisid) {
+        propnew=thisid;
+        replaceElement = $myElement.clone();
+    }
 
     if (thisid == "visibility") {
         if ($("#visibility").is(':checked'))
@@ -1425,36 +1611,6 @@ $('#Properties input,#Properties select,#Properties button').on("change input cl
         mystylevalue = $(this).val();
 
     setstyle(thisid, mystylevalue);
-    ShowStyle();
-
+    
+    e.stopPropagation();
 });
-
-$('#More-Form').on('input click','input',function(){
-    
-    var isThisProp=$(this).hasClass('prop')
-    var thisval=$(this).val().trim();
-    var prop,val;
-    
-    if (isThisProp){
-        prop = thisval;
-        val = $(this).parent().next().next().children().first().val();
-    }  
-    else{
-        val = thisval;
-        prop = $(this).parent().prev().prev().children().first().val();
-    }
-    
-    if (typeof prop!=='undefined' && typeof val!=='undefined')
-        if(prop.length>0 && val.length>0)
-            setstyle(prop,val);
-    
-    ShowStyle();
-})
-
-$('.addRow').on('click',function(){
-    $(this).before('<div class="row"> <div class="col-12 p-0"> <div class="list"> <div class="inputgroup w-100"> <input type="text" class="prop w-100" placeholder="Property"> </div> <span>:</span> <div class="inputgroup w-100"> <input type="text" class="val w-100" placeholder="Value"> <button class="deleteMore" type="button"><i class="fas fa-minus"></i></button> </div> </div> </div> </div>')
-})
-
-$('#More-Form').on('click','.deleteMore',function(){
-    $(this).closest('.row').remove();
-})

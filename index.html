@@ -20,8 +20,8 @@
 <body>
 
     <div id="main" class="container-fluid">
-        <div class="row " id="PlayGround-Header" style="height:32px;">
-            <div class="col d-flex align-items-center">
+        <div class="row" id="PlayGround-Header" style="height:32px;">
+            <div class="col d-flex align-items-center" style="box-shadow: 1px 0 14px #7b7b7b;z-index: 20;">
                 <span style="font-size: 16px;">Element Id</span>
                 <select id="myDivids">
                     <option value="none" selected="" disabled="">none</option>
@@ -70,8 +70,11 @@
                     <div id="PasteStyle" class="topIcon" title="Paste Style - ctrl+shift+v">
                         <i class="fas fa-paint-brush "></i>
                     </div>
-                    <div id="Clone" class="topIcon" title="Clone">
+                    <div id="Clone" class="topIcon" title="Clone - ctrl-shift-d">
                         <i class="fas fa-clone"></i>
+                    </div>
+                    <div id="Edit" class="topIcon" title="Edit - ctrl-shift-e">
+                        <i class="fas fa-edit"></i>
                     </div>
                     <div id="Delete" class="topIcon" title="Delete - delete">
                         <i class="fas fa-trash"></i>
@@ -90,14 +93,12 @@
                 </div>
             </div>
         </div>
-        <div class="row no-gutters" style="overflow: hidden;">
-
+        <div id="Content" class="row no-gutters" style="">
             <div id="SidePanel">
-                <div id="Tools">
                     <div id="Attributes">
                         <!-- Attribute Tittle -->
                         <div class="col title list">
-                            Attributes
+                            Tag Attributes
                             <span class="ml-auto toogleIcon" id="Toogle-Attributes-Form">
                             <i class="fas fa-caret-down"></i>
                         </span>
@@ -270,9 +271,9 @@
                     </div>
                     <!-- Search bar-->
                     <div class="list">
-                        <div class="inputgroup w-100 p-3 bg-white">
+                        <div class="inputgroup w-100 p-3 bg-white border-left-0">
                             <span id="searchicon" style="position: absolute; color:#cccccc"><i class="fas fa-search"></i></span>
-                            <input class="w-100" type="search" id="searchProperty" placeholder="Search Property">
+                            <input class="w-100" type="search" id="searchProperty" placeholder="Search CSS Property">
                         </div>
                     </div>
                     <!-- Layout Tittle -->
@@ -296,7 +297,7 @@
                         <form id="Layout-Form">
                             <!-- width -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
                                         <span class="toogleIcon" id="Toogle-Width-Tab">
                                         <i class="fas fa-caret-right"></i>
@@ -435,7 +436,7 @@
                             </div>
                             <!-- Height -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
                                         <span class="toogleIcon" id="Toogle-Height-Tab">
                                     <i class="fas fa-caret-right"></i>
@@ -721,7 +722,7 @@
                             </div>
                             <!-- Z index -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
                                         <span class="lable">Z index: </span>
                                         <div class="inputgroup">
@@ -743,7 +744,7 @@
                             </div>
                             <!-- Opacity -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
                                         <span class="lable">Opacity: </span>
                                         <div class="inputgroup">
@@ -780,7 +781,7 @@
                             </div>
                         </div>
                         <!-- Position Form -->
-                        <form id="Position-Form">
+                        <form id="Position-Form" style="display:none;">
                             <!-- Position -->
                             <div class="row">
                                 <div class="col-12">
@@ -805,8 +806,9 @@
                             </div>
                             <!-- Top -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
+                                        <span class="lable d-none">Position Top </span>
                                         <span class="lable">Top: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -846,8 +848,9 @@
                             </div>
                             <!-- Right -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
+                                        <span class="lable d-none">Position Right </span>
                                         <span class="lable">Right: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -887,8 +890,9 @@
                             </div>
                             <!-- Bottom -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
+                                        <span class="lable d-none">Position Bottom </span>
                                         <span class="lable">Bottom: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -928,8 +932,9 @@
                             </div>
                             <!-- Left -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
+                                        <span class="lable d-none">Position Left</span>
                                         <span class="lable">Left: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -984,10 +989,10 @@
                             </div>
                         </div>
                         <!-- Margin Form -->
-                        <Form id="Margin-Form">
+                        <Form id="Margin-Form" style="display:none;">
                             <!-- Margin -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
                                         <span class="lable d-none">Margin:</span>
                                         <div class="inputgroup w-100">
@@ -1003,9 +1008,9 @@
                             </div>
                             <!-- Margin-Top -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
-                                        <span class="lable d-none">MarginTop:</span>
+                                        <span class="lable d-none">Margin Top</span>
                                         <span class="lable">Top: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1047,9 +1052,9 @@
                             </div>
                             <!-- Margin-Right -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
-                                        <span class="lable d-none">MarginRight:</span>
+                                        <span class="lable d-none">Margin Right</span>
                                         <span class="lable">Right: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1091,9 +1096,9 @@
                             </div>
                             <!-- Margin-Bottom -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
-                                        <span class="lable d-none">MarginBottom:</span>
+                                        <span class="lable d-none">Margin Bottom</span>
                                         <span class="lable">Bottom: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1135,9 +1140,9 @@
                             </div>
                             <!-- Margin-Left -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
-                                        <span class="lable d-none">MarginLeft:</span>
+                                        <span class="lable d-none">Margin Left</span>
                                         <span class="lable">Left: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1194,10 +1199,10 @@
                             </div>
                         </div>
                         <!-- Padding Form -->
-                        <Form id="Padding-Form">
+                        <Form id="Padding-Form" style="display:none;">
                             <!-- Padding -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
                                         <span class="lable d-none">Padding:</span>
                                         <div class="inputgroup w-100">
@@ -1213,9 +1218,9 @@
                             </div>
                             <!-- Padding-Top -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
-                                        <span class="lable d-none">PaddingTop:</span>
+                                        <span class="lable d-none">Padding Top</span>
                                         <span class="lable">Top: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1257,9 +1262,9 @@
                             </div>
                             <!-- Padding-Right -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
-                                        <span class="lable d-none">PaddingRight:</span>
+                                        <span class="lable d-none">Padding Right</span>
                                         <span class="lable">Right: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1301,9 +1306,9 @@
                             </div>
                             <!-- Padding-Bottom -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
-                                        <span class="lable d-none">PaddingBottom:</span>
+                                        <span class="lable d-none">Padding Bottom</span>
                                         <span class="lable">Bottom: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1345,9 +1350,9 @@
                             </div>
                             <!-- Padding-Left -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
-                                        <span class="lable d-none">PaddingLeft:</span>
+                                        <span class="lable d-none">Padding Left</span>
                                         <span class="lable">Left: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1398,13 +1403,14 @@
                             </div>
                         </div>
                         <!-- Text Form -->
-                        <Form id="Text-Form">
+                        <Form id="Text-Form" style="display:none;">
                             <!-- Font-Family -->
                             <div class="row">
-                                <div class="col-12">
-                                    <span class="d-none">Font Family</span>
+                                <div class="col-12 pr-1">
                                     <span>Family:</span>
                                     <div class="list">
+                                        <span class="d-none lable">Font Family</span>
+                                        <span class="d-none lable">Family</span>
                                         <div class="inputgroup w-100">
                                             <input type="text" class="short w-100" id="font-family">
                                         </div>
@@ -1418,9 +1424,9 @@
                             </div>
                             <!-- Color -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
-                                        <span class="d-none">Font Color</span>
+                                        <span class="lable d-none">Font Color</span>
                                         <span class="lable">Color: </span>
                                         <div class="inputgroup">
                                             <input type="text" id="color">
@@ -1438,7 +1444,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="list">
-                                        <span class="d-none">Font Style</span>
+                                        <span class="d-none lable">Font Style</span>
                                         <span class="lable">Style: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1457,7 +1463,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="list">
-                                        <span class="d-none">Font Variant</span>
+                                        <span class="d-none lable">Font Variant</span>
                                         <span class="lable">Variant: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1475,7 +1481,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="list">
-                                        <span class="d-none">Font Weight</span>
+                                        <span class="d-none lable">Font Weight</span>
                                         <span class="lable">Weight: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1502,9 +1508,9 @@
                             </div>
                             <!-- Font-Size -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
-                                        <span class="d-none">Font Size</span>
+                                        <span class="d-none lable">Font Size</span>
                                         <span class="lable">Size: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1558,7 +1564,7 @@
                             </div>
                             <!-- Line-Height -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
                                         <span class="lable">Line Height: </span>
                                         <div class="inputgroup">
@@ -1599,8 +1605,9 @@
                             </div>
                             <!-- Text-Indent -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
+                                        <span class="lable d-none">Indent</span>
                                         <span class="lable">Text Indent: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1642,17 +1649,16 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="list">
+                                        <span class="lable d-none">align</span>
                                         <span class="lable">Text align: </span>
                                         <div class="inputgroup">
-                                            <span>
-                                        <select id="text-align" class="select">
+                                            <select id="text-align" class="select">
                                             <option></option>
                                             <option value="left">left</option>
                                             <option value="right">right</option>
                                             <option value="center">center</option>
                                             <option value="justify">justify</option>
                                         </select>
-                                    </span>
                                         </div>
                                     </div>
                                 </div>
@@ -1661,7 +1667,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="list">
-                                        <span class="d-none">Text Decoration</span>
+                                        <span class="lable d-none">Text Decoration</span>
                                         <span class="lable">Decoration: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1679,7 +1685,7 @@
                             </div>
                             <!-- Text-Shadow -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <span class="lable">Text Shadow: </span>
                                     <div class="list">
                                         <span class="toogleIcon" id="Toogle-Text-Shadow-Tab">
@@ -1704,8 +1710,8 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="list">
-                                                    <span class="lable d-none">TextShadowHorizontalWidth </span>
-                                                    <span class="lable d-none">TextShadowWidth </span>
+                                                    <span class="lable d-none">Text Shadow Horizontal Width </span>
+                                                    <span class="lable d-none">Text Shadow Width </span>
                                                     <span class="lable">TS-H Width: </span>
                                                     <div class="inputgroup">
                                                         <span>
@@ -1747,8 +1753,8 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="list">
-                                                    <span class="lable d-none">TextShadowVerticalWidth </span>
-                                                    <span class="lable d-none">TextShadowWidth </span>
+                                                    <span class="lable d-none">Text Shadow Vertical Width </span>
+                                                    <span class="lable d-none">Text Shadow Width </span>
                                                     <span class="lable">TS-V Width: </span>
                                                     <div class="inputgroup">
                                                         <span>
@@ -1790,8 +1796,8 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="list">
-                                                    <span class="lable d-none">TextShadowWidth </span>
-                                                    <span class="lable d-none">TextShadowBlurWidth </span>
+                                                    <span class="lable d-none">Text Shadow Width </span>
+                                                    <span class="lable d-none">Text Shadow Blur Width </span>
                                                     <span class="lable">Blur: </span>
                                                     <div class="inputgroup">
                                                         <span>
@@ -1832,7 +1838,8 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="list">
-                                                    <span class="lable d-none">TextShadowColor </span>
+                                                    <span class="lable d-none">Text Shadow Color </span>
+                                                    <span class="lable d-none">Shadow Color </span>
                                                     <span class="lable">Color: </span>
                                                     <div class="inputgroup">
                                                         <input type="text" id="ts-color">
@@ -1853,6 +1860,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="list">
+                                        <span class="lable d-none">text Transform</span>
                                         <span class="lable">Transform: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1870,8 +1878,10 @@
                             </div>
                             <!-- Letter Spacing -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
+                                        <span class="lable d-none">Spacing </span>
+                                        <span class="lable d-none">Space </span>
                                         <span class="lable">LetterSpace: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1913,8 +1923,10 @@
                             </div>
                             <!-- Word Spacing -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
+                                        <span class="lable d-none">Spacing </span>
+                                        <span class="lable d-none">Space </span>
                                         <span class="lable">WordSpace: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1958,6 +1970,8 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="list">
+                                        <span class="lable d-none">Spacing </span>
+                                        <span class="lable d-none">Space </span>
                                         <span class="lable">WhiteSpace: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1976,47 +1990,47 @@
                             </div>
                             <!-- Vertical Align -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
+                                        <span class="lable d-none">Vertical Align</span>
                                         <span class="lable">V Align: </span>
                                         <div class="inputgroup">
                                             <span>
-                                        <input type="number" class="tooglerange" id="vertical-align">
-                                    </span>
+                                                <input type="number" class="tooglerange" id="vertical-align">
+                                            </span>
                                             <span>
-                                        <select id="vertical-align_unit"  class="unit">
-                                            <option value="px" selected>px</option>
-                                            <option value="%">%</option>
-                                            <option value="cm">cm</option>
-                                            <option value="mm">mm</option>
-                                            <option value="in">in</option>
-                                            <option value="pt">pt</option>
-                                            <option value="pc">pc</option>
-                                            <option value="em">em</option>
-                                            <option value="ex">ex</option>
-                                            <option value="ch">ch</option>
-                                            <option value="rem" disabled>rem</option>
-                                            <option value="vw" disabled>vw</option>
-                                            <option value="vh" disabled>vh</option>
-                                            <option value="vmin" disabled>vmin</option>
-                                            <option value="vmax" disabled>vmax</option>
-                                            <option disabled>------</option>
-                                            <option value="baseline">baseline</option>
-                                            <option value="sub">sub</option>
-                                            <option value="super">super</option>
-                                            <option value="top">top</option>
-                                            <option value="text-top">text-top</option>
-                                            <option value="middle">middle</option>
-                                            <option value="bottom">bottom</option>
-                                            <option value="text-bottom">text-bottom</option>
-                                        </select>
-                                    </span>
+                                                <select id="vertical-align_unit"  class="unit">
+                                                    <option value="px" selected>px</option>
+                                                    <option value="%">%</option>
+                                                    <option value="cm">cm</option>
+                                                    <option value="mm">mm</option>
+                                                    <option value="in">in</option>
+                                                    <option value="pt">pt</option>
+                                                    <option value="pc">pc</option>
+                                                    <option value="em">em</option>
+                                                    <option value="ex">ex</option>
+                                                    <option value="ch">ch</option>
+                                                    <option value="rem" disabled>rem</option>
+                                                    <option value="vw" disabled>vw</option>
+                                                    <option value="vh" disabled>vh</option>
+                                                    <option value="vmin" disabled>vmin</option>
+                                                    <option value="vmax" disabled>vmax</option>
+                                                    <option disabled>------</option>
+                                                    <option value="baseline">baseline</option>
+                                                    <option value="sub">sub</option>
+                                                    <option value="super">super</option>
+                                                    <option value="top">top</option>
+                                                    <option value="text-top">text-top</option>
+                                                    <option value="middle">middle</option>
+                                                    <option value="bottom">bottom</option>
+                                                    <option value="text-bottom">text-bottom</option>
+                                                </select>
+                                            </span>
                                         </div>
-
                                         <div class="remove">
                                             <button class="delete" id="delete-vertical-align" type="button">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                                                <i class="fas fa-trash"></i>
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="Range" id="vertical-align-range">
@@ -2035,10 +2049,10 @@
                             </div>
                         </div>
                         <!-- List Style Form-->
-                        <Form id="List-Form">
+                        <Form id="List-Form" style="display:none;">
                             <!-- List Style -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
                                         <span class="lable d-none">List Style: </span>
                                         <div class="inputgroup w-100">
@@ -2049,14 +2063,14 @@
                                             <i class="fas fa-trash"></i>
                                         </button>
                                         </div>
-                                        `</div>
+                                    </div>
                                 </div>
                             </div>
                             <!-- List Style Type -->
                             <div class="row">
                                 <div class="col-12">
                                     <div class="list">
-                                        <span class="lable d-none">ListType</span>
+                                        <span class="lable d-none">List Type</span>
                                         <span class="lable">Type: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -2096,7 +2110,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="list">
-                                        <span class="lable d-none">ListPosition</span>
+                                        <span class="lable d-none">List Position</span>
                                         <span class="lable">Position: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -2112,8 +2126,8 @@
                             </div>
                             <!-- List Style image -->
                             <div class="row">
-                                <div class="col-12">
-                                    <span class="lable d-none">ListImage</span>
+                                <div class="col-12 pr-1">
+                                    <span class="lable d-none">List Image</span>
                                     <span class="lable">Image: </span>
                                     <div class="list">
                                         <div class="inputgroup w-100">
@@ -2151,10 +2165,10 @@
                             </div>
                         </div>
                         <!-- Border Form-->
-                        <Form id="Border-Form">
+                        <Form id="Border-Form" style="display:none;">
                             <!-- Border -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
                                         <span class="toogleIcon" id="Toogle-Border-Tab">
                                     <i class="fas fa-caret-right"></i>
@@ -2206,7 +2220,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderWidth: </span>
-                                                                <span class="lable">All Width: </span>
+                                                                <span class="lable">Width: </span>
                                                                 <div class="inputgroup">
                                                                     <span>
                                                                     <input type="number" class="tooglerange" min="0" id="border-width">
@@ -2247,7 +2261,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderStyle: </span>
-                                                                <span class="lable">All Style: </span>
+                                                                <span class="lable">Style: </span>
                                                                 <div class="inputgroup">
                                                                     <span>
                                                                     <select id="border-style" class="select">
@@ -2272,8 +2286,8 @@
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <div class="list">
-                                                                <span class="lable d-none">BorderColor: </span>
-                                                                <span class="lable">All Color: </span>
+                                                                <span class="lable d-none">Border Color</span>
+                                                                <span class="lable">Color: </span>
                                                                 <div class="inputgroup">
                                                                     <input type="text" id="border-color">
                                                                     <input type="color" id="border-color_">
@@ -2314,7 +2328,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderTopWidth</span>
-                                                                <span class="lable">Top Width: </span>
+                                                                <span class="lable">Width: </span>
                                                                 <div class="inputgroup">
                                                                     <span>
                                                                     <input type="number" class="tooglerange" min="0" id="border-top-width">
@@ -2355,7 +2369,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderTopStyle</span>
-                                                                <span class="lable">Top Style: </span>
+                                                                <span class="lable">Style: </span>
                                                                 <div class="inputgroup">
                                                                     <span>
                                                                     <select id="border-top-style" class="select">
@@ -2381,7 +2395,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderTopColor</span>
-                                                                <span class="lable">Top Color: </span>
+                                                                <span class="lable">Color: </span>
                                                                 <div class="inputgroup">
                                                                     <input type="text" id="border-top-color">
                                                                     <input type="color" id="border-top-color_">
@@ -2422,7 +2436,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderRightWidth</span>
-                                                                <span class="lable">Right Width: </span>
+                                                                <span class="lable">Width: </span>
                                                                 <div class="inputgroup">
                                                                     <span>
                                                                     <input type="number" class="tooglerange" min="0" id="border-right-width">
@@ -2463,7 +2477,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderRightStyle</span>
-                                                                <span class="lable">Right Style: </span>
+                                                                <span class="lable">Style: </span>
                                                                 <div class="inputgroup">
                                                                     <span>
                                                                     <select id="border-right-style" class="select">
@@ -2489,7 +2503,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderRightColor</span>
-                                                                <span class="lable">Right Color: </span>
+                                                                <span class="lable">Color: </span>
                                                                 <div class="inputgroup">
                                                                     <input type="text" id="border-right-color">
                                                                     <input type="color" id="border-right-color_">
@@ -2530,7 +2544,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderBottomWidth</span>
-                                                                <span class="lable">Bottom Width: </span>
+                                                                <span class="lable">Width: </span>
                                                                 <div class="inputgroup">
                                                                     <span>
                                                                     <input type="number" class="tooglerange" min="0" id="border-bottom-width">
@@ -2571,7 +2585,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderBottomStyle</span>
-                                                                <span class="lable">Bottom Style: </span>
+                                                                <span class="lable">Style: </span>
                                                                 <div class="inputgroup">
                                                                     <span>
                                                                     <select id="border-bottom-style" class="select">
@@ -2597,7 +2611,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderBottomColor</span>
-                                                                <span class="lable">Bottom Color: </span>
+                                                                <span class="lable">Color: </span>
                                                                 <div class="inputgroup">
                                                                     <input type="text" id="border-bottom-color">
                                                                     <input type="color" id="border-bottom-color_">
@@ -2638,7 +2652,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderLeftWidth</span>
-                                                                <span class="lable">Left Width: </span>
+                                                                <span class="lable">Width: </span>
                                                                 <div class="inputgroup">
                                                                     <span>
                                                                     <input type="number" class="tooglerange" min="0" id="border-left-width">
@@ -2679,7 +2693,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderLeftStyle</span>
-                                                                <span class="lable">Left Style: </span>
+                                                                <span class="lable">Style: </span>
                                                                 <div class="inputgroup">
                                                                     <span>
                                                                     <select id="border-left-style" class="select">
@@ -2705,7 +2719,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderLeftColor</span>
-                                                                <span class="lable">Left Color: </span>
+                                                                <span class="lable">Color: </span>
                                                                 <div class="inputgroup">
                                                                     <input type="text" id="border-left-color">
                                                                     <input type="color" id="border-left-color_">
@@ -2726,7 +2740,7 @@
                             </div>
                             <!-- Border-Radius -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <span class="lable d-none">BorderRadius</span>
                                     <span class="lable">Radius:</span>
                                     <div class="labelClip">
@@ -2962,7 +2976,7 @@
                             </div>
                             <!-- Border-Spacing -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <span class="lable d-none">BorderSpacing:</span>
                                     <span class="lable">Spacing:</span>
                                     <div class="labelClip">
@@ -3088,10 +3102,10 @@
                             </div>
                         </div>
                         <!-- Background Form -->
-                        <Form id="Background-Form">
+                        <Form id="Background-Form" style="display:none;">
                             <!-- Background -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
                                         <span class="lable d-none">Background</span>
                                         <div class="inputgroup w-100">
@@ -3107,7 +3121,7 @@
                             </div>
                             <!-- Background-Color -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
                                         <span class="lable d-none"> BackgroundColor</span>
                                         <span class="lable"> Color: </span>
@@ -3193,9 +3207,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- List Style image -->
+                            <!-- Background image -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <span class="lable d-none">BackgroundImage</span>
                                     <span class="lable">Image: </span>
                                     <div class="list">
@@ -3225,7 +3239,7 @@
                             </div>
                             <!-- Background-Position -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <span class="lable d-none">BackgroundPosition:</span>
                                     <span class="lable">Position:</span>
                                     <div class="labelClip">
@@ -3356,7 +3370,7 @@
                             </div>
                             <!-- Background-Size -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <span class="lable d-none">BackgroundSize</span>
                                     <span class="lable">Size: </span>
                                     <div class=" labelClip">
@@ -3483,7 +3497,7 @@
                             </div>
                             <!-- Box Shadow -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <span class="lable">Box Shadow: </span>
                                     <div class="list">
                                         <span class="toogleIcon" id="Toogle-Box-Shadow-Tab">
@@ -3721,10 +3735,10 @@
                             </div>
                         </div>
                         <!-- Transform Form -->
-                        <Form id="Transform-Form">
+                        <Form id="Transform-Form" style="display:none;">
                             <!-- Transform -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
                                         <span class="lable d-none">TransForm:</span>
                                         <div class="inputgroup w-100">
@@ -3740,7 +3754,7 @@
                             </div>
                             <!-- Rotate -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
                                         <span class="toogleIcon" id="Toogle-Rotate-Tab">
                                             <i class="fas fa-caret-right"></i>
@@ -3782,7 +3796,7 @@
                             </div>
                             <!-- Skew -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
                                         <span class="lable">Skew: </span>
                                         <div class="inputgroup w-100">
@@ -3809,7 +3823,7 @@
                             </div>
                             <!-- Translate -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
                                         <span class="toogleIcon" id="Toogle-Translate-Tab">
                                         <i class="fas fa-caret-right"></i>
@@ -3964,7 +3978,7 @@
                             </div>
                             <!-- Scale -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pr-1">
                                     <div class="list">
                                         <span class="toogleIcon" id="Toogle-Scale-Tab">
                                         <i class="fas fa-caret-right"></i>
@@ -4128,20 +4142,19 @@
                             </div>
                         </div>
                         <!-- More Form-->
-                        <form id="More-Form">
+                        <form id="More-Form" style="display:none;">
                             <div class="row addRow">
                                 <div class="col-12 p-0">
                                     <div class="list">
                                         <span class="lable d-none">More</span>
                                         <div class="addMore w-100">
-                                           Click here <span class="addIcon"><i class="fas fa-plus-circle"></i></span> to Add More..
+                                            Click here <span class="addIcon"><i class="fas fa-plus-circle"></i></span> to Add More..
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
-                </div>
             </div>
             <div id="ToolSet">
                 <div id="Toogle-SidePanel" style="text-align:center;font-size: 17px;cursor: pointer;">
@@ -4186,78 +4199,50 @@
                 <div class="close">
                     <i class="fas fa-times"></i>
                 </div>
-                <div class="row no-gutters bg-white" style="height: 558px;">
-
-                    <div class="col-12 d-flex" id="Design">
+                <div class="row no-gutters bg-white" style="height: 100%">
+                    <div id="Design" class="col-12 d-flex">
                         <div class="col-12 d-none " id="SourceView"></div>
                         <div class="col-12 bg-white" id="DesignView"></div>
                     </div>
-
-                    <div class="row no-gutters list w-100">
-                        <div class="col-6 title list" style="    border-right: 1px solid #a0a0a0;">Inline Style</div>
-                        <div class="col-6 title list">Bootstrap Components
-                            <span class="ml-auto" id="Toogle-Footer-Form" style="cursor:pointer;">
-                                <i class="fas fa-caret-up"></i>
-                            </span>
-                        </div>
-
-                    </div>
-                    <form id="Footer-Form">
-                        <div class="row no-gutters">
-                            <div class="col-6" id="Inline-Styles">
-
+                    <div id="Library">
+                        <div class="row no-gutters list w-100">
+                            <div class="col-12 title list pl-0">
+                                <div class="FooterTabs activeTab" id="Toogle-Templates"><span>Templates</span></div>
+                                <div class="FooterTabs" id="Toogle-Images"><span>Images</span></div>
+                                <div class="FooterTabs" id="Toogle-Bootstrap-Components"><span>Bootstrap Components</span></div>
+                                <div class="FooterTabs" id="Toogle-Inline-Styles"><span>Inline Styles</span></div>
+                                <span class="ml-auto" id="Toogle-Footer-Form" style="cursor:pointer;">
+                                    <i class="fas fa-caret-down"></i>
+                                </span>
                             </div>
-                            <div class="col-6 text-center" id="Bootstrap-Components">
-                                <div style="display:inline-table">
-                                    <div id="ElemNavbarDark" class="DragElem">Nav Dark</div>
-                                    <div id="ElemNavbarLight" class="DragElem">Nav Light</div>
-                                    <div id="ElemNavPills" class="DragElem">Nav Pills</div>
-                                    <div id="ElemNavLinks" class="DragElem">Nav Link</div>
-                                    <div id="ElemJumbotron" class="DragElem">Jumbotron</div>
-                                    <div id="ElemJumbotronFluid" class="DragElem">Jumbotron Fluid</div>
-                                    <div id="ElemCard" class="DragElem">Card</div>
-                                    <div id="ElemCardFeatured" class="DragElem">Card Featured</div>
-                                    <div id="ElemCardDecks" class="DragElem">Card Decks</div>
-                                    <div id="ElemCardGroup" class="DragElem">Card Group</div>
-                                    <div id="ElemCardImageOverley" class="DragElem">Card Image Overley</div>
-                                    <div id="ElemCardPrimary" class="DragElem">Card Primary</div>
-                                    <div id="ElemCardColumn" class="DragElem">Card Column</div>
-                                    <div id="ElemMedia" class="DragElem">Media</div>
-                                    <div id="ElemMediaList" class="DragElem">Media List</div>
-                                    <div id="ElemAlert" class="DragElem">Alert</div>
-                                    <div id="ElemAlertContent" class="DragElem">Alert Content</div>
-                                    <div id="ElemBadge" class="DragElem">Badge</div>
-                                    <div id="ElemBreadcrumb" class="DragElem">Breadcrumb</div>
-                                    <div id="ElemForm" class="DragElem">Form</div>
-                                    <div id="ElemFormInline" class="DragElem">Form Inline</div>
-                                    <div id="ElemFormGrid" class="DragElem">Form Grid</div>
-                                    <div id="ElemFormHorizontal" class="DragElem">Form Horizontal</div>
-                                    <div id="ElemFormAuto" class="DragElem">Form Auto</div>
-                                    <div id="ElemInputGroup" class="DragElem">Input Group</div>
-                                    <div id="ElemCustomSelect" class="DragElem">Select</div>
-                                    <div id="ElemCustomRadio" class="DragElem">Radio</div>
-                                    <div id="ElemCustomRadioInline" class="DragElem">Radio Inline</div>
-                                    <div id="ElemCustomCheckbox" class="DragElem">Checkbox</div>
-                                    <div id="ElemButtonGroup" class="DragElem">Button Group</div>
-                                    <div id="ElemButtonGroupVertical" class="DragElem">Button Group Vertical</div>
-                                    <div id="ElemButtonList" class="DragElem">Button List</div>
-                                    <div id="ElemProgressbar" class="DragElem">Progressbar</div>
-                                    <div id="ElemPagination" class="DragElem">Pagination</div>
-
+                        </div>
+                        <form id="Footer-Form">
+                            <div id="Templates" style="width:100%;height:100%;">
+                                <div class="row no-gutters h-100">
+                                    <div class="col-2 h-100" id="Folders" style="overflow: auto;">
+                                        
+                                    </div>
+                                    <div class="col-10" id="Htmls"></div>
                                 </div>
                             </div>
-                        </div>
+                            <div id="Images" class="d-flex flex-wrap" style="display:none;overflow: auto;width:100%;height:100%;"></div>
+                            <div  id="Bootstrap-Components"  class="text-center" style="display:none;width:100%;height:100%;">
+                                <div style="display:inline-table"></div>
+                            </div>
+                            <div  id="Inline-Styles" style="display:none; overflow: auto;width:427px;height:100%;"></div>
                     </form>
+                    </div>
                 </div>
 
             </div>
         </div>
-        <div style="margin-top: -10px;">
+        <div>
             <ul id="Breadcrumb" class="breadcrumb">
             </ul>
         </div>
     </div>
 
+    <!-- Tags -->
     <div class="d-none">
         <div id="DragElemDiv" style="padding: 15px; border: 1px solid black;"><span>Div</span></div>
         <span id="DragElemSpan" style="border: 1px solid black;">Span</span>
@@ -4308,626 +4293,21 @@
 			<option value="6">option 6</option>
 		</select>
         <button id="DragElemButton"><span>Button</span></button>
-        <img id="DragElemImg" src="images/img1.jpg" alt="myImage">
+        <img id="DragElemImg" src="templates/General/images/img1.jpg" alt="myImage">
     </div>
-    <div class="d-none">
-        <nav id="DragElemNavbarDark" class="navbar navbar-expand-md navbar-dark bg-dark ">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown01">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
-                </form>
-            </div>
-        </nav>
-        <nav id="DragElemNavbarLight" class="navbar navbar-expand-md navbar-light bg-light">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown01">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
-                </form>
-            </div>
-        </nav>
-        <ul id="DragElemNavPills" class="nav nav-pills">
-            <a class="nav-link active" href="#">Active</a>
-            <a class="nav-link" href="#">Link</a>
-            <a class="nav-link" href="#">Link</a>
-            <a class="nav-link disabled" href="#">Disabled</a>
-        </ul>
-        <ul id="DragElemNavLinks" class="nav nav-pills">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">Active</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Separated link</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Another link</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-        </ul>
-        <div id="DragElemJumbotron" class="jumbotron">
-            <h1 class="display-4">Hello, world!</h1>
-            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-            <hr class="my-4">
-            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-            </p>
-        </div>
-        <div id="DragElemJumbotronFluid" class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <h1 class="display-4">Fluid jumbotron</h1>
-                <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-            </div>
-        </div>
-        <div id="DragElemCard" class="card" style="width: 18rem;">
-            <img class="card-img-top" src="images/img1.jpg" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div id="DragElemCardFeatured" class="card text-center">
-            <div class="card-header">
-                Featured
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-            <div class="card-footer text-muted">
-                2 days ago
-            </div>
-        </div>
-        <div id="DragElemCardImageOverley" class="card bg-dark text-white">
-            <img class="card-img" src="images/img2.jpg" alt="Card image">
-            <div class="card-img-overlay">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <p class="card-text">Last updated 3 mins ago</p>
-            </div>
-        </div>
-        <div id="DragElemCardDecks" class="card-deck">
-            <div class="card">
-                <img class="card-img-top" src="images/img1.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="images/img1.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="images/img1.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
-            </div>
-        </div>
-        <div id="DragElemCardGroup" class="card-group">
-            <div class="card">
-                <img class="card-img-top" src="images/img1.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="images/img1.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="images/img1.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
-            </div>
-        </div>
-        <div id="DragElemCardPrimary" class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-            <div class="card-header">Header</div>
-            <div class="card-body">
-                <h5 class="card-title">Primary card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div id="DragElemCardColumn" class="card-columns">
-            <div class="card">
-                <img class="card-img-top" src="images/img3.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title that wraps to a new line</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-            </div>
-            <div class="card p-3">
-                <blockquote class="blockquote mb-0 card-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                    <footer class="blockquote-footer">
-                        <small class="text-muted">
-                                Someone famous in <cite title="Source Title">Source Title</cite>
-                            </small>
-                    </footer>
-                </blockquote>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="images/img3.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-            <div class="card bg-primary text-white text-center p-3">
-                <blockquote class="blockquote mb-0">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
-                    <footer class="blockquote-footer">
-                        <small>
-                                Someone famous in <cite title="Source Title">Source Title</cite>
-                            </small>
-                    </footer>
-                </blockquote>
-            </div>
-            <div class="card text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img" src="images/img3.jpg" alt="Card image">
-            </div>
-            <div class="card p-3 text-right">
-                <blockquote class="blockquote mb-0">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                    <footer class="blockquote-footer">
-                        <small class="text-muted">
-                                Someone famous in <cite title="Source Title">Source Title</cite>
-                            </small>
-                    </footer>
-                </blockquote>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-        </div>
-        <div id="DragElemMedia" class="media">
-            <img class="mr-3" alt="64x64" style="width: 64px; height: 64px;" src="images/img1.jpg">
-            <div class="media-body">
-                <h5 class="mt-0 mb-1">Media heading</h5>
-                Text goes here...
-            </div>
-        </div>
-        <div id="DragElemMediaList">
-            <ul class="list-unstyled">
-                <li class="media">
-                    <img class="mr-3" alt="64x64" style="width: 64px; height: 64px;" src="images/img1.jpg">
-                    <div class="media-body">
-                        <h5 class="mt-0 mb-1">List-based media object</h5>
-                        Text goes here...
-                    </div>
-                </li>
-                <li class="media my-4">
-                    <img class="mr-3" src="images/img1.jpg" alt="64x64" style="width: 64px; height: 64px;">
-                    <div class="media-body">
-                        <h5 class="mt-0 mb-1">List-based media object</h5>
-                        Text goes here...
-                    </div>
-                </li>
-                <li class="media">
-                    <img class="mr-3" alt="64x64" style="width: 64px; height: 64px;" src="images/img1.jpg">
-                    <div class="media-body">
-                        <h5 class="mt-0 mb-1">List-based media object</h5>
-                        Text goes here...
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div id="DragElemAlert" class="alert alert-success alert-dismissible " role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span> </button>
-            <strong>Warning!</strong> Better check yourself, youre <a href="#" class="alert-link">not looking too good</a>
-        </div>
-        <div id="DragElemAlertContent" class="alert alert-success alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span> </button>
-            <h4 class="alert-heading">Well done!</h4>
-            <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
-            <hr>
-            <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
-        </div>
-        <span id="DragElemBadge" class="badge badge-info">10</span>
-        <nav id="DragElemBreadcrumb" aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Library</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Data</li>
-            </ol>
-        </nav>
-        <form id="DragElemForm">
-            <div class="form-group">
-                <label for="text">Name</label>
-                <input type="text" class="form-control" id="" placeholder="Name">
-            </div>
-            <div class="form-group">
-                <label for="Country">Country</label>
-                <select class="custom-select" id="Country" name="Country">
-                  <option selected>Open this select menu</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-              </select>
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            </div>
-            <div class="form-group custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
-            </div>
-            <div class="form-group">
-                <div class="custom-control custom-radio">
-                    <input type="radio" id="Gender1" name="Gender" class="custom-control-input">
-                    <label class="custom-control-label" for="Gender1">Male</label>
-                </div>
-                <div class="custom-control custom-radio">
-                    <input type="radio" id="Gender2" name="Gender" class="custom-control-input">
-                    <label class="custom-control-label" for="Gender2">Female</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary">Submit</button>
-                <button type="reset" class="btn btn-secondary">Cancel</button>
-            </div>
-        </form>
-        <form id="DragElemFormInline" class="form-inline">
-            <div class="form-group mb-2">
-                <label for="staticEmail2" class="sr-only">Email</label>
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="email@example.com">
-            </div>
-            <div class="form-group mx-sm-3 mb-2">
-                <label for="inputPassword2" class="sr-only">Password</label>
-                <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
-            </div>
-            <button type="button" class="btn btn-primary mb-2">Confirm identity</button>
-        </form>
-        <form id="DragElemFormGrid">
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="inputEmail4">Email</label>
-                    <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="inputPassword4">Password</label>
-                    <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputAddress">Address</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-            </div>
-            <div class="form-group">
-                <label for="inputAddress2">Address 2</label>
-                <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="inputCity">City</label>
-                    <input type="text" class="form-control" id="inputCity">
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="inputState">State</label>
-                    <select id="inputState" class="form-control">
-                        <option selected>Choose...</option>
-                        <option>...</option>
-                    </select>
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="inputZip">Zip</label>
-                    <input type="text" class="form-control" id="inputZip">
-                </div>
-            </div>
-            <div class="form-group custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
-            </div>
-            <div class="form-row justify-content-between col-8">
-                <button type="button" class="btn btn-primary">Sign in</button>
-                <button type="reset" class="btn btn-secondary">Cancel</button>
-            </div>
-        </form>
-        <form id="DragElemFormHorizontal">
-            <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-10">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-                <div class="col-sm-10">
-                    <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-                </div>
-            </div>
-            <fieldset class="form-group">
-                <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
-                    <div class="col-sm-10">
-                        <div class="form-group">
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="Gender1" name="Gender" class="custom-control-input">
-                                <label class="custom-control-label" for="Gender1">Male</label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="Gender2" name="Gender" class="custom-control-input">
-                                <label class="custom-control-label" for="Gender2">Female</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-            <div class="form-group row">
-                <div class="col-sm-2">Checkbox</div>
-                <div class="col-sm-10">
-                    <div class="form-group custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                        <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-7 row justify-content-between ">
-                    <button type="button" class="btn btn-primary">Sign in</button>
-                    <button type="reset" class="btn btn-secondary">Cancel</button>
-                </div>
-            </div>
-        </form>
-        <form id="DragElemFormAuto">
-            <div class="form-row align-items-center">
-                <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInput">Name</label>
-                    <input type="text" class="form-control mb-2" id="inlineFormInput" placeholder="Jane Doe">
-                </div>
-                <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup">Username</label>
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">@</div>
-                        </div>
-                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username">
-                    </div>
-                </div>
-                <div class="col-auto custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck1">
-                    <label class="custom-control-label ml-4" for="customCheck1">Check this</label>
-                </div>
-                <div class="col-auto">
-                    <button type="button" class="btn btn-primary mb-2">Submit</button>
-                </div>
-            </div>
-        </form>
-        <div id="DragElemInputGroup" class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">$</span>
-            </div>
-            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-            <div class="input-group-append">
-                <span class="input-group-text">.00</span>
-            </div>
-        </div>
-        <div id="DragElemCustomSelect" class="form-group">
-            <label for="Country">Country</label>
-            <select class="custom-select" id="Country" name="Country">
-                <option selected>Open this select menu</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select>
-        </div>
-        <div id="DragElemCustomRadio" class="form-group">
-            <div class="custom-control custom-radio">
-                <input type="radio" id="Gender1" name="Gender" class="custom-control-input">
-                <label class="custom-control-label" for="Gender1">Male</label>
-            </div>
-            <div class="custom-control custom-radio">
-                <input type="radio" id="Gender2" name="Gender" class="custom-control-input">
-                <label class="custom-control-label" for="Gender2">Female</label>
-            </div>
-        </div>
-        <div id="DragElemCustomRadioInline" class="form-group">
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="Gender1" name="Gender" class="custom-control-input">
-                <label class="custom-control-label" for="Gender1">Male</label>
-            </div>
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="Gender2" name="Gender" class="custom-control-input">
-                <label class="custom-control-label" for="Gender2">Female</label>
-            </div>
-        </div>
-        <div id="DragElemCustomCheckbox" class="form-group custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="customCheck1">
-            <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
-        </div>
-        <div id="DragElemButtonGroup" class="btn-group" role="group" aria-label="Button group with nested dropdown">
-            <button type="button" class="btn btn-secondary">1</button>
-            <button type="button" class="btn btn-secondary">2</button>
-            <button type="button" class="btn btn-secondary">3</button>
-
-            <div class="btn-group" role="group">
-                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Dropdown
-                </button>
-                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                    <a class="dropdown-item" href="#">Dropdown link</a>
-                    <a class="dropdown-item" href="#">Dropdown link</a>
-                </div>
-            </div>
-            <button type="button" class="btn btn-secondary">4</button>
-        </div>
-        <div id="DragElemButtonGroupVertical" class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown">
-            <button type="button" class="btn btn-secondary">1</button>
-            <button type="button" class="btn btn-secondary">2</button>
-            <button type="button" class="btn btn-secondary">3</button>
-
-            <div class="btn-group" role="group">
-                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Dropdown
-                </button>
-                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                    <a class="dropdown-item" href="#">Dropdown link</a>
-                    <a class="dropdown-item" href="#">Dropdown link</a>
-                </div>
-            </div>
-            <button type="button" class="btn btn-secondary">4</button>
-        </div>
-        <div id="DragElemButtonList" class="list-group">
-            <button type="button" class="list-group-item list-group-item-action active">
-                Cras justo odio
-            </button>
-            <button type="button" class="list-group-item list-group-item-action">Dapibus ac facilisis in</button>
-            <button type="button" class="list-group-item list-group-item-action">Morbi leo risus</button>
-            <button type="button" class="list-group-item list-group-item-action">Porta ac consectetur ac</button>
-            <button type="button" class="list-group-item list-group-item-action" disabled>Vestibulum at eros</button>
-        </div>
-        <div id="DragElemProgressbar" class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-        </div>
-        <nav id="DragElemPagination" aria-label="...">
-            <ul class="pagination">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">Previous</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active">
-                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-
+    
     <script src="js/jquery-3.2.1.min.js"></script>
     <script id="bootstrap" src=""></script>
-    <script src="ace-builds-master/src/ace.js"></script>
+    <script src="ace/src/ace.js"></script>
     <script src="jqueryui/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="roundSlider-1.3/src/roundslider.js"></script>
-    <script id = "myScript" src="js/myScript.js"></script>
+    <script id="myScript" src="js/myScript.js"></script>
+    <script  src="js/AjaxLibrary.js"></script>
     <script src="js/roundedSlider.js"></script>
     <script id="DragandDrop" src="js/DragandDrop.js"></script>
+    
 
-
-    <script>
-        $('.close').click(function () {
-            $('#bootstrap').prop('src','')
-            $('#myScript').prop('src','js/myScript.js')
-            $('#DragandDrop').prop('src','js/DragandDrop.js')
-            $('#Design').removeClass("preview");
-            $('#DesignView').css({
-                'max-width': 'none',
-                'width': 'auto',
-                'height': '530px'
-            })
-            $('.close').hide();
-        });
-    </script>
 </body>
 
 </html>

@@ -10,6 +10,7 @@
     overflow-y: hidden;
     overflow-x: auto;
     margin-bottom: 0;
+    background: #f1f1f1;
 }
 
 .breadcrumb li {
@@ -19,8 +20,8 @@
 .breadcrumb li span {
     color: white;
     text-decoration: none;
-    padding: 2px 10px 2px 24px;
-    background: #308a30;
+    padding: 2px 5px 2px 18px;
+    background: #008000;
     position: relative;
     display: block;
     float: left;
@@ -34,7 +35,7 @@
     height: 0;
     border-top: 13px solid transparent;
     border-bottom: 11px solid transparent;
-    border-left: 11px solid hsl(120, 48%, 36%);
+    border-left: 11px solid #008000;
     position: absolute;
     top: 50%;
     margin-top: -13px;
@@ -50,7 +51,7 @@
     height: 0;
     border-top: 14px solid transparent;
     border-bottom: 13px solid transparent;
-    border-left: 11px solid #e9ecef;
+    border-left: 11px solid #ffffff;
     position: absolute;
     top: 50%;
     margin-top: -14px;

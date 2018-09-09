@@ -8,16 +8,9 @@ I got an Idea to create this tool from W3Schools.
 In W3Scholl you could see a playgroung where you could test different css properties.
 This doses the same but It has all the CSS Properties to test it out.
 
-To use this version of the Tool You could just directly download and open the index.html.
+To use this version of the Tool you must need a local server to run.
 
-Just drang the elements to the playground element and change the CSS properties.
-All the CSS properties are applies as an inline Style.
+Many functionalities has been impolemented compared to the previous verion of this tool.
 
-you could also play with Bootstrap components.
-
-You could also directly edit your source with the help of the split view and Source view.
-you could swap (up, down left, right) the elements, preview the page,clone the element, cut, copy, paste, paste Style, undo and also delete the elements.
-
-The selectors can also be used here to modify more than one element style in the webpage.
-
-To modify the existing Template just copy the source code form your template and just paste it in this tool source view.
+I have also provided a standard email templates to use. Breadcrum to navigate the elements,
+Edit in place, browse your local files etc...
