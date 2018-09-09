@@ -3,10 +3,288 @@
 /* global document */
 /*global $*/
 /*eslint no-console:  ["error", { allow: ["warn", "error", "log","no-used-vars"] }] */
+var replaceWith = $('<div id="edit" contentEditable="true" class="editinplace"></div>'),
+    connectWith = $('input[name="hiddenField"]');
+
+
+var myElement;
+
+
+$('#elementclass').tagsinput({
+    delimiter: ' '
+})
+
+$('#Design').css('width','1145px');
+
+$('#DesignView').bind('DOMNodeInserted DOMNodeRemoved', function() {
+    
+    var array = new Array();
+    $('#DesignView').find("*").each(function () {
+        thisid=$(this).attr('id');
+        if(typeof thisid!=="undefined")
+            array.push(thisid.toLowerCase());
+    });
+    
+    $('#myDivids option').remove();
+    for(var i in array){
+        var opt='<option value="'+array[i]+'">'+array[i]+'</option>';
+        $('#myDivids').append(opt);
+    }
+});
+
+$('#DesignView').on('dblclick','label, span , p, font, td, th, h1, h2, h3, h4, h5', function () {
+    
+        var elem = $(this);
+
+        elem.hide();
+        elem.after(replaceWith);
+        replaceWith.focus();
+        replaceWith.text(elem.text());
+        
+        replaceWith.keyup(function(e){
+            if(e.keyCode == 13)
+            {
+                replaceWith.trigger("blur");
+            }
+        })
+    
+        replaceWith.blur(function () {
+
+            if ($(this).text() != "") {
+                connectWith.val($(this).text()).change();
+                elem.text($(this).text());
+            }
+            else{
+                elem.remove();
+            }
+
+            $(this).remove();
+            elem.show();
+        });
+})
+
+$('#DesignView').on('click', '*', function (e) {
+    
+    myElement = this;
+    
+    
+    $('#DesignView *').removeClass('highlight');
+    $(myElement).addClass('highlight');
+    
+    var thisid = $(this).attr('id');
+    var thisclass = $(this).attr('class');
+    var thistype = $(this).attr('type');
+    var thismin = $(this).attr('min');
+    var thismax = $(this).attr('max');
+    var thissrc = $(this).attr('src');
+    var thishref = $(this).attr('href');
+    var thisalt = $(this).attr('alt');
+    
+    
+    $('#elementid').val(thisid);
+    $('#elementclass').val('');
+    $('.bootstrap-tagsinput input').val('');
+    $('.bootstrap-tagsinput input').val(thisclass);
+    $('#elementtype').val(thistype);
+    $('#elementimin').val(thismin);
+    $('#elementmax').val(thismax);
+    $('#elementsrc').val(thissrc);
+    $('#elementhref').val(thishref);
+    $('#elementalt').val(thisalt);
+    
+    $('.bootstrap-tagsinput input').focus();
+    $('#elementid').focus();
+    $(myElement).focus();
+    
+    
+    
+    ShowStyle();
+    e.stopPropagation();
+})
+
+$('#Parent').on('click',function(){
+    $(myElement).parent().trigger('click');
+})
+
+$('#Child').on('click',function(){
+    $(myElement).children().trigger('click');
+})
+
+$('#Clone').on('click',function(){
+    $(myElement).parent().append($(myElement).clone());
+    $(myElement).trigger('click');
+});
+
+$('#DeleteThis').on('click',function(){
+    var next = $(myElement).next();
+    var prev = $(myElement).prev();
+    
+    $(myElement).remove();
+    
+    if($(next).length>0)
+        $(next).trigger('click');
+    else if($(prev).length>0)
+        $(prev).trigger('click');
+    else
+        $('#Inline-Styles').html('');
+})
+
+$('#PreView').click(function () {
+
+    $('.navlist:eq(0)').trigger('click');
+    $('#Design').addClass("preview");
+    $('#DesignView').css({'max-width':'none','width':'100%','height':'100%'})
+    $('.close').show();
+
+});
+
+$('.close').click(function () {
+
+    $('#Design').removeClass("preview");
+    $('#DesignView').css({'max-width':'none','width':'auto','height':'530px'})
+    $('.close').hide();
+});
+
+$('.navlist').on('click', function () {
+    var tabs = $(this).text() + "View";
+    
+    $('#Design>div').addClass('d-none');
+
+    $('.navlist').removeClass('activeTab');
+
+    if (tabs == "DesignView") {
+        $('#DesignView').removeClass('d-none');
+        $('#SourceView').removeClass('col-6');
+        $('#DesignView').addClass('col-12');
+        $(this).addClass('activeTab')
+        $('#DesignView').height('530px');
+    } else if (tabs == "SourceView") {
+        $('#Footer-Form').hide();
+        $('#SourceView').removeClass('d-none');
+        $('#SourceView').removeClass('col-6');
+        $('#SourceView').addClass('col-12');
+        $(this).addClass('activeTab');
+        $('#SourceView').height('530px');
+    } else if (tabs == "SplitView") {
+        $('#DesignView').removeClass('d-none');
+        $('#Footer-Form').hide();
+        $('#SourceView').removeClass('d-none');
+        $('#SourceView').removeClass('col-12');
+        $('#SourceView').addClass('col-6');
+        $('#DesignView').removeClass('d-none');
+        $('#DesignView').removeClass('col-12');
+        $('#DesignView').addClass('col-6');
+        $(this).addClass('activeTab');
+        $('#DesignView').height('530px');
+        $('#SourceView').height('530px');
+    }
+})
+
+$('#Toogle-SidePanel').on('click',function(){
+    
+    $(this).toggleClass('RotateY');
+    
+    if ($('#SidePanel').css('margin-left')=='0px'){
+        $('#SidePanel').animate({'margin-left': '-290px'},function(){
+            $('#Design').css({'width': '1435px'});
+        });
+    }
+    else{
+        $('#Design').css({'width': '1145px'});
+        $('#SidePanel').animate({'margin-left': '0px'});
+    }
+});
 
 $(".toogleIcon").click(function () {
+    
     var toogleTab = this.id.replace("Toogle-", "")
     $("#" + toogleTab).slideToggle("fast");
+
+});
+
+$("#Toogle-Footer-Form").click(function () {
+    var toogleTab;
+    
+    $(this).toggleClass('RotateX');
+
+    var design = $('.navlist:eq(0)').hasClass('activeTab');
+
+    if (design) {
+
+        if (this.id == "Toogle-Footer-Form") {
+            var display = $('#Footer-Form').css('display');
+            toogleTab = this.id.replace("Toogle-", "")
+
+            if (display == "block") {
+                $('#DesignView').height('530px');
+                $('#SourceView').height('530px');
+                $("#" + toogleTab).hide();
+            } else {
+                $('#DesignView').height('358px');
+                $('#SourceView').height('358px');
+                $("#" + toogleTab).fadeIn();
+            }
+        } else {
+            toogleTab = this.id.replace("Toogle-", "")
+            $("#" + toogleTab).slideToggle("fast");
+        }
+
+    }
+});
+
+$('#Toogle-Footer-Form').trigger('click');
+
+$('#SidePanel .tooglerange').click(function () {
+    $('.Range').not('#' + this.id + "-range").hide('fast');
+    var rangeid = this.id + "-range";
+    $("#" + rangeid).toggle('fast');
+});
+
+$('#searchProperty').on('input focus', function () {
+    $('#searchicon').hide();
+})
+
+$('#searchProperty').on('blur', function () {
+    if ($(this).val().length == 0)
+        $('#searchicon').show();
+})
+
+$('#searchProperty').on('input', function () {
+    var searchKey = $(this).val().replace(" ", "").replace("-", "").toLowerCase();
+
+
+    if (searchKey.length > 0) {
+        $('#SidePanel form').not('#Attributes-Form').hide();
+        $('#SidePanel .title').not('#Attributes .title').hide();
+
+
+        $("#Properties .row").filter(function () {
+            var found = false;
+            $(this).find('.lable').filter(function () {
+                if ($(this).text().replace(" ", "").replace("-", "").toLowerCase().indexOf(searchKey) > -1) {
+                    found = true;
+                }
+            })
+            if (found == true) {
+                $(this).show();
+                $(this).closest('#Properties form').show();
+                $(this).closest('#Properties form').prev().show();
+                $(this).closest('#Properties .tabcontent').show();
+                $("#Properties .tablinks").removeClass('activeTab')
+            } else {
+                $(this).hide();
+            }
+        });
+    } else {
+        $('#SidePanel form').not('#Attributes-Form').show();
+        $("#Properties .row").filter(function () {
+            $(this).show();
+        })
+        $('#Properties .title').show();
+        $('#Properties .tabcontent').not('#Border-Tab .tabcontent:eq(0)').hide();
+        $("#Properties .tablinks:eq(0)").addClass('activeTab')
+    }
+
 });
 
 $('input[type="number"]').on("input change", function () {
@@ -154,7 +432,11 @@ $('.file').on("change input", function () {
 });
 
 $('#myDivids').on("change", function () {
-    $("#selector").val($(this).val());
+    var value=$(this).val()
+    $("#selector").val(value);
+    
+    $('#'+value).trigger('click');
+    
 });
 
 
@@ -205,7 +487,7 @@ function ClipIt(x, val, unit) {
     $(x + "left_unit").val(unit);
 
     if (x != "#")
-        $(x.replace("-", "")).val(val + unit);
+        $(x.replace("-", "")).val(val + unit + " " + val + unit + " " + val + unit + " " + val + unit);
 
 
     $(x + "top_unit").removeClass("select");
@@ -279,26 +561,6 @@ $('.delete-img').on("click", function () {
 
 });
 
-$('#delete-myDivids').on("click", function () {
-    var thisdivid = $("#myDivids").val();
-    var array = new Array();
-    $("#" + thisdivid).find("*").each(function () {
-        array.push($(this).attr('id'));
-    });
-    console.log(array);
-    for (var i in array) {
-        $('#myDivids option[value=' + array[i] + ']').remove();
-    }
-    $('#myDivids option[value=' + thisdivid + ']').remove();
-    $("#" + thisdivid).remove();
-
-    $("#selector").val($("#myDivids").val());
-    $("#inlinestyles").html("");
-    for (var j = 0; j < $('form').length; j++) {
-        $('form')[j].reset();
-    }
-});
-
 $('#delete-text-shadow').on("click", function () {
 
     $('#text-shadow').val("");
@@ -363,31 +625,62 @@ $('#delete-border-spacing').on("click", function () {
 
 });
 
+$('#delete-box-shadow').on("click", function () {
+
+    $('#box-shadow').val("");
+
+    $('#bsh-width').val("");
+    $('#bsh-width_unit').val("px");
+    $('#bsh-width_').val(0);
+
+    $('#bsv-width').val("");
+    $('#bsv-width_unit').val("px");
+    $('#bsv-width_').val(0);
+
+    $('#bsb-width').val("");
+    $('#bsb-width_unit').val("px");
+    $('#bsb-width_').val(0);
+
+    $('#bss-width').val("");
+    $('#bss-width_unit').val("px");
+    $('#bss-width_').val(0);
+
+    $('#bs-color').val("");
+    $('#bs-inset').prop('checked', false);
+
+
+});
+
 $('.deleteall').on("click", function () {
 
     var formid = this.id.replace("delete-", "");
     var obj, i;
-    $("#" + formid)[0].reset();
+
 
     if (formid == "Layout-Form") {
+        $('#Layout-Form .Range').hide("fast");
         obj = ["width", "height", "min-width", "min-height", "max-width", "max-height",
              "display", "box-sizing", "float", "clear", "overflow-x", "overflow-y",
              "visibility", "z-index", "opacity"];
         for (i in obj)
             setstyle(obj[i], "null");
     } else if (formid == "Position-Form") {
+        $('#Position-Form .Range').hide("fast");
         obj = ["position", "top", "right", "bottom", "left"];
         for (i in obj)
             setstyle(obj[i], "null");
     } else if (formid == "Margin-Form") {
+        $('#Margin-Form .Range').hide("fast");
         obj = ["margin", "margin-top", "margin-right", "margin-bottom", "margin-left"];
         for (i in obj)
             setstyle(obj[i], "null");
     } else if (formid == "Padding-Form") {
+        $('#Padding-Form .Range').hide("fast");
         obj = ["padding", "padding-top", "padding-right", "padding-bottom", "padding-left"];
         for (i in obj)
             setstyle(obj[i], "null");
     } else if (formid == "Text-Form") {
+        $('#Text-Form .Range').hide("fast");
         obj = ["color", "font-family", "font-style", "font-variant", "font-weight",
              "font-size", "line-height", "text-indent", "text-align", "text-decoration",
              "text-shadow", "text-transform", "letter-spacing", "word-spacing", "white-space",
@@ -395,10 +688,12 @@ $('.deleteall').on("click", function () {
         for (i in obj)
             setstyle(obj[i], "null");
     } else if (formid == "List-Form") {
+        $('#List-Form .Range').hide("fast");
         obj = ["list-style", "list-style-type", "list-style-position", "list-style-image"];
         for (i in obj)
             setstyle(obj[i], "null");
     } else if (formid == "Border-Form") {
+        $('#Border-Form .Range').hide("fast");
         obj = ["border", "border-width", "border-style", "border-color",
              "border-top", "border-right", "border-bottom", "border-left",
              "border-top-width", "border-right-width", "border-bottom-width", "border-left-width",
@@ -410,27 +705,143 @@ $('.deleteall').on("click", function () {
         for (i in obj)
             setstyle(obj[i], "null");
     } else if (formid == "Background-Form") {
+        $('#Background-Form .Range').hide("fast");
         obj = ["background", "background-size", "background-position", "background-color", "background-image",
             "background-clip", "background-orgin", "background-attachment", "background-repeat", "box-shadow"];
         for (i in obj)
             setstyle(obj[i], "null");
     }
 
+    $("#" + formid)[0].reset();
+
+
+
 });
 
 
 function showTab(mytab, button) {
 
-    $(".Bordertabcontent").hide();
-    $(".tablinks").removeClass('activeTab')
+    $("#Border-Tab .tabcontent").hide();
+    $(".tablinks").removeClass('activeTab');
 
     $(mytab).show();
     $(button).addClass('activeTab');
 }
 
-$('input,select,button').on("change input click", function () {
+function getvalue(x) {
+    var val = $("#" + x).val();
+    var unitval = $("#" + x + "_unit").val();
+    var unitindex = $("#" + x + "_unit").prop('selectedIndex');
 
-    var hasUnit = ["width", "height", "min-width", "min-height", "max-width", "max-height",
+    if (unitindex >= 15)
+        return unitval;
+    else if (val === "undefined" || val.length == 0)
+        return "null"
+    else
+    if (typeof unitval === "undefined")
+        return val;
+    else
+        return val + unitval;
+}
+
+function setstyle(prop, val) {
+    
+    if($('#selector').val().length>0){
+        if (val != "null")
+            $("#"+$('#selector').val()).css(prop, val);
+        else
+            $("#"+$('#selector').val()).css(prop, "");
+    }
+    else{
+        if (val != "null")
+            $(myElement).css(prop, val);
+        else
+            $(myElement).css(prop, "");   
+    }
+
+
+}
+
+function ShowStyle() {
+
+    var style, allstyle, elemId, myselector;
+    try {
+
+        style = $(myElement).attr("style");
+        $("#Inline-Styles").html("");
+        allstyle = style.replace(/;/g, "; <br/>");
+        $("#Inline-Styles").html(allstyle);
+
+    } catch (err) {
+
+    }
+}
+
+$('#Attributes input, #Attributes select').on('input change',function(){
+    
+    var value = $(this).val();
+    
+    if(this.id=="elementid")
+        return;
+    if(this.id=="elementtype")
+        $(myElement).attr('type',value);
+    else if(this.id=="elementname")
+        $(myElement).attr('name',value);
+    else if(this.id=="elementmin")
+        $(myElement).attr('min',value);
+    else if(this.id=="elementmax")
+        $(myElement).attr('max',value);
+    else if(this.id=="elementsrc")
+        $(myElement).attr('src',value);
+    else if(this.id=="elementhref")
+        $(myElement).attr('href',value);
+    else if(this.id=="elementtalt")
+        $(myElement).attr('alt',value);
+//    else
+//        $(myElement).attr('class',value.replace(/,/g, " "));
+    
+    var title=$(myElement).prop("tagName").toLowerCase()+" #"+$(myElement).attr('id')+" ."+$(myElement).attr('class');
+    $(myElement).attr('title',title);
+
+})
+
+$('#setId').on('click',function(){
+    
+    var array = new Array();
+    var err=false;
+    var myid = $('#elementid').val().toLowerCase();
+    var thisid;
+    $('html').find("*").each(function () {
+        thisid=$(this).attr('id');
+        if(typeof thisid!=="undefined")
+            array.push(thisid.toLowerCase());
+    });
+    
+   
+    for (var i in array) {
+        if(array[i]==myid){
+            $('#elementid').parent().addClass('err');
+            err=true;
+            break;
+        }
+    }
+    if(err==false){
+        $('#elementid').parent().removeClass('err');
+        $(myElement).attr('id',myid);
+        myElement="#"+myid;
+    }
+    
+    var title=$(myElement).prop("tagName").toLowerCase()+" #"+$(myElement).attr('id')+" ."+$(myElement).attr('class');
+    $(myElement).attr('title',title);
+    
+})
+
+$('#Properties input,#Properties select,#Properties button').on("change input click", function () {
+
+    if (typeof myElement==="undefined")
+        return;
+    
+    var hasUnit = ["min-width", "min-height", "max-width", "max-height",
                     "font-size", "line-height", "text-indent",
                     "border-width", "border-top-width", "border-right-width", "border-bottom-width", "border-left-width",
                     "letter-spacing", "word-spacing", "vertical-align"];
@@ -456,25 +867,21 @@ $('input,select,button').on("change input click", function () {
     thisid = thisid.replace("_", "");
     thisid = thisid.replace("delete-", "");
 
-
     var mystylevalue;
-
-    //console.clear();
-    //console.log(thisid);
-    //return;
-
 
     if (thisid == "visibility") {
         if ($("#visibility").is(':checked'))
             setstyle("visibility", "visible");
         else
             setstyle("visibility", "hidden");
-    } else if (thisid == "border-collapse") {
+    } 
+    else if (thisid == "border-collapse") {
         if ($("#border-collapse").is(':checked'))
             setstyle("border-collapse", "collapse");
         else
             setstyle("border-collapse", "separate");
-    } else if (ts.indexOf(thisid) >= 0) {
+    } 
+    else if (ts.indexOf(thisid) >= 0) {
 
         var tsh = getvalue("tsh-width");
         var tsv = getvalue("tsv-width");
@@ -489,7 +896,8 @@ $('input,select,button').on("change input click", function () {
         }
         var tsval = $("#text-shadow").val();
         setstyle("text-shadow", tsval);
-    } else if (boxsdw.indexOf(thisid) >= 0) {
+    } 
+    else if (boxsdw.indexOf(thisid) >= 0) {
         var bshorizontal = getvalue("bsh-width");
         var bsvertical = getvalue("bsv-width");
         var bsblur = getvalue("bsb-width");
@@ -514,7 +922,8 @@ $('input,select,button').on("change input click", function () {
 
         var boxShadowval = $("#box-shadow").val();
         setstyle("box-shadow", boxShadowval);
-    } else if (bckps.indexOf(thisid) >= 0) {
+    } 
+    else if (bckps.indexOf(thisid) >= 0) {
         var bkgrnd = thisid.split("-")[1];
 
         if (bkgrnd == "position") {
@@ -527,7 +936,8 @@ $('input,select,button').on("change input click", function () {
             }
             var bposition = $("#background-position").val();
             setstyle("background-position", bposition);
-        } else if (bkgrnd == "size") {
+        } 
+        else if (bkgrnd == "size") {
             var sw = getvalue("background-size-width");
             var sh = getvalue("background-size-height");
 
@@ -539,7 +949,8 @@ $('input,select,button').on("change input click", function () {
             var bsize = $("#background-size").val();
             setstyle("background-size", bsize);
         }
-    } else if (thisid == "border-spacing-h" || thisid == "border-spacing-v") {
+    } 
+    else if (thisid == "border-spacing-h" || thisid == "border-spacing-v") {
         var bspacingh = getvalue("border-spacing-h");
         var bspacingv = getvalue("border-spacing-v");
 
@@ -550,14 +961,16 @@ $('input,select,button').on("change input click", function () {
 
         var borderspacingval = $("#border-spacing").val();
         setstyle("border-spacing", borderspacingval);
-    } else if (thisid == "width" || thisid == "height") {
+    } 
+    else if (thisid == "width" || thisid == "height") {
 
         var width = getvalue("width");
         var height = getvalue("height");
 
         setstyle("width", width);
         setstyle("height", height);
-    } else if (pos.indexOf(thisid) >= 0) {
+    } 
+    else if (pos.indexOf(thisid) >= 0) {
 
         var postop = getvalue("top");
         var posright = getvalue("right");
@@ -568,7 +981,8 @@ $('input,select,button').on("change input click", function () {
         setstyle("right", posright);
         setstyle("bottom", posbottom);
         setstyle("left", posleft);
-    } else if (mpb.indexOf(thisid) >= 0) {
+    } 
+    else if (mpb.indexOf(thisid) >= 0) {
 
         var a = thisid.split("-")[0];
 
@@ -593,7 +1007,8 @@ $('input,select,button').on("change input click", function () {
                 if (l != "null")
                     setstyle(a + "-left", l);
             }
-        } else if (a == "border") {
+        } 
+        else if (a == "border") {
             var tl = getvalue("border-top-left-radius");
             var tr = getvalue("border-top-right-radius");
             var bl = getvalue("border-bottom-left-radius");
@@ -614,7 +1029,8 @@ $('input,select,button').on("change input click", function () {
                     setstyle("border-bottom-right-radius", br);
             }
         }
-    } else if (file.indexOf(thisid) >= 0) {
+    } 
+    else if (file.indexOf(thisid) >= 0) {
 
         var styleid = thisid.replace("-show", "");
         styleid = styleid.replace("-file", "");
@@ -622,7 +1038,8 @@ $('input,select,button').on("change input click", function () {
         var imgurl = $("#" + styleid).val();
 
         setstyle(styleid, imgurl);
-    } else if (hasUnit.indexOf(thisid) >= 0)
+    } 
+    else if (hasUnit.indexOf(thisid) >= 0)
         mystylevalue = getvalue(thisid);
     else
         mystylevalue = $(this).val();
@@ -633,68 +1050,3 @@ $('input,select,button').on("change input click", function () {
 
 });
 
-$("#demoDIV div").on("click", function () {
-    $("#myDivids").val(this.id);
-    ShowStyle();
-});
-
-function getvalue(x) {
-    var val = $("#" + x).val();
-    var unitval = $("#" + x + "_unit").val();
-    var unitindex = $("#" + x + "_unit").prop('selectedIndex');
-
-    if (unitindex >= 15)
-        return unitval;
-    else if (val === "undefined" || val.length == 0)
-        return "null"
-    else
-    if (typeof unitval === "undefined")
-        return val;
-    else
-        return val + unitval;
-}
-
-function setstyle(prop, val) {
-
-    var myelement = $("#myDivids").val();
-    var myselector = $("#selector").val();
-    if (myselector == "" || myselector === "undefined") {
-        if (myelement !== null && typeof myelement !== "undefined" && myelement != "") {
-            if (val != "null")
-                $("#" + myelement).css(prop, val);
-            else
-                $("#" + myelement).css(prop, "");
-        }
-    } else {
-        if (val != "null")
-            $("#" + myselector).css(prop, val);
-        else
-            $("#" + myselector).css(prop, "");
-    }
-}
-
-function ShowStyle() {
-
-    var style, allstyle, elemId, myselector;
-    try {
-        elemId = $("#myDivids").val();
-        myselector = $("#selector").val();
-
-        if (myselector == "" || myselector === "undefined") {
-            if (elemId !== null && typeof elemId !== "undefined" && elemId != "") {
-                style = $("#" + elemId).attr("style");
-                $("#inlinestyles").html("");
-                allstyle = style.replace(/;/g, "; <br/>");
-                $("#inlinestyles").html(allstyle);
-            }
-        } else {
-            style = $("#" + myselector).attr("style");
-            $("#inlinestyles").html("");
-            allstyle = style.replace(/;/g, "; <br/>");
-            $("#inlinestyles").html(allstyle);
-        }
-
-        } catch (err) {
-            console.log("Err");
-        }
-    }

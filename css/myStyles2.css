@@ -1,0 +1,328 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: verdana;
+    font-size: 14px;
+    padding: 10px;
+}
+
+#main.container-fluid{
+    box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 3px, rgba(0, 0, 0, 0.239216) 0px 1px 2px;
+    margin: 0 auto;
+    background-color: rgb(241, 241, 241);
+}
+
+#SidePanel{
+    width: 320px;
+}
+
+#PlayGround {
+    
+}
+
+form {
+    padding: 15px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-family: Consolas, 'Courier New', Courier, monospace;
+    font-size: 16px;
+    background-color: rgb(255, 255, 255);
+}
+#demoDIV {
+    margin-left: 10px;
+    margin-top: 3px;
+    margin-right: 15px;
+    border: 1px solid rgb(195, 195, 195);
+    height: 280px;
+    background-color: rgb(255, 255, 255);
+    overflow: auto;
+}
+
+div.demoHeader {
+    font-size: 17px;
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    color: rgb(85, 85, 85);
+}
+
+.title {
+    top: 0px;
+    padding: 4px 8px 4px 20px;
+    font-size: 16px;
+    background-color: rgb(202, 232, 202);
+    position: sticky;
+    z-index: 10;
+}
+.Property,
+.Elements,.Styles {
+    overflow: auto;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    margin-right: 15px;
+    height: 200px;
+    background-color: rgb(255, 255, 255);
+}
+.Elements{
+    display: inline-block;
+    width: 300px;
+}
+#Elements{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.Styles{
+    display: inline-block;
+    margin-left: 0;
+    width: 550px;
+}
+.Layout {
+    overflow: auto;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    margin-right: 15px;
+    height: 541px;
+    background-color: rgb(255, 255, 255);
+}
+
+.Layout .Range {
+    flex: 1;
+    padding: 9px;
+    display: none;
+}
+
+.Layout input[type="color"],
+.Layout input[type="text"],
+.Layout input[type="number"],
+.Layout Select {
+    height: 20px;
+    border: 0;
+    padding-left: 6px;
+    outline: none;
+}
+
+.Layout Select {
+    width: 38px;
+    padding-left: 0;
+}
+
+.borderStyle {
+    width: 85px;
+    padding: 0;
+}
+.select{
+    width: 88px !important;
+    padding: 0;
+}
+.Layout input[type="number"] {
+    width: 50px;
+}
+
+.Layout input[type="text"] {
+    width: 70px;
+}
+
+.Layout input[type="color"] {
+    width: 18px;
+    padding: 0;
+}
+
+.inputgroup {
+    float: left;
+    margin-top: 4px;
+    border: 1px solid #c5c5c5;
+    height: 22px;
+}
+
+.list{
+    display: flex;
+    line-height: 2;
+}
+
+.lable {
+    float: left;
+    font-size: 14px;
+}
+#Layout-Form .lable{
+    width: 110px;
+}
+#Position-Form .lable {
+    width: 90px;
+}
+#Margin-Form .lable, #Padding-Form .lable {
+    width: 106px;
+}
+#Text-Form .lable, #List-Form .lable {
+    width: 106px !important
+}
+.remove{
+    margin-left: auto;
+}
+#Border-Form .lable {
+    width: 105px !important;
+}
+#Border-Form .short {
+    width: 260px !important;
+}
+#Border-Form {
+    padding-bottom: 5px;
+}
+#Color .lable {
+    float: left;
+    width: 200px;
+}
+#Background-Form .lable{
+    width: 108px !important
+}
+#Background-Form {
+    min-height: 500px;
+    padding-bottom: 0;
+}
+
+#Box-Shadow-Tab .lable, 
+#Text-Shadow-Tab .lable, 
+Border-Radius-Tab .lable,
+#Background-Position-Tab .lable,
+#Background-Size-Tab .lable{
+    width: 85px !important;
+}
+#List-Style-Tab .lable {
+    width: 110px;
+}
+.Layout label {
+    display: inline-block;
+    width: Calc(100% - 35px);
+}
+.delete, 
+.deleteall, 
+.deleteElement, 
+.delete-img{
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+    display: block;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    margin-top: 5px;
+    color:#a3a3a3;
+    outline: none;
+}
+
+.delete:hover, 
+.deleteall:hover, 
+.deleteElement:hover, 
+.delete-img:hover{
+    color:#000000;
+}
+
+.short{
+    width: 270px !important;
+}
+
+.DragElem {
+    display: inline-block;
+    background: #ffff00;
+    border: 1px solid black;
+    width: 50px;
+    height: 50px;
+    line-height: 53px;
+    color: #000000;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 14px;
+}
+.Divid{
+    position: absolute;
+    margin-top: 2px;
+    width: 120px;
+    height: 26px;
+    margin-left: 21px;
+}
+.myDragButton{
+    width: 100px;
+    height: 30px;
+}
+.tab{
+    margin-top: 10px;
+    display: flex;
+    line-height: 2;
+    font-size: 16px;
+    background-color: rgb(202, 232, 202);
+    height: 35px;
+    box-shadow: 0 -1px 5px #9e9e9e;
+}
+.tab button{
+    background: transparent;
+    border: 0;
+    padding: 0 10px 0 10px;
+}
+.Bordertabcontent,.tabcontent{
+    border-Top:0;
+    padding: 15px 10px;
+    display: none;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 5px #9e9e9e;
+    margin-top: 10px;
+}
+.Bordertabcontent{
+    margin-top: 0px;
+}
+
+.activeTab{
+    background: #a1d9a1 !important;
+}
+
+.Layout input#lsi {
+    width: 232px !important;
+}
+
+div#inlinestyles {
+    line-height: 24px;
+    font-size: 14px;
+}
+#myDivids {
+    width: 135px;
+    height: 25px;
+    margin-right: 12px;
+}
+.toogleIcon{
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+    margin-left: -14px;
+    cursor: pointer;
+}
+.labelClip{
+    border: 0;
+    float:none;
+    display: inline-block; 
+    margin-top: 0; 
+    margin-left: 0;
+}
+.browse{
+    float: left;
+    background: #cae8ca;
+    padding: 3px;
+}
+.browse:hover{
+    background: #8fc18f;
+    cursor: pointer;
+}
+.file{
+    width: 248px !important;
+}
+#selector{
+    margin-top: 4px;
+    margin-right: 11px;
+    width: 230px;
+}
+
+#demoDIV:after {
+    content: "";
+    display: block;
+    height: 110px;
+}

@@ -1,16 +1,15 @@
 .customCheckbox {
     display: block;
     position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
     cursor: pointer;
     font-size: 22px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    color: #97cc97;
-    font-size: 18px;
+    //color: #97cc97;
+    color: #4CAF50;
+    font-size: 16px;
 }
 
 /* Hide the browser's default checkbox */
@@ -56,8 +55,8 @@
 .customCheckbox .checkmark:after {
     left: 6px;
     top: 2px;
-    width: 4px;
-    height: 8px;
+    width: 6px;
+    height: 10px;
     border: solid white;
     border-width: 0 3px 3px 0;
     -webkit-transform: rotate(45deg);
