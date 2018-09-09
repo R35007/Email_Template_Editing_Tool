@@ -1,76 +1,275 @@
 /*eslint-disable no-unused-vars*/
 /* eslint-env browser */
 /* global document */
-/*global $*/
+/*global $, ace*/
 /*eslint no-console:  ["error", { allow: ["warn", "error", "log","no-used-vars"] }] */
-var replaceWith = $('<div id="edit" contentEditable="true" class="editinplace"></div>'),
-    connectWith = $('input[name="hiddenField"]');
+
+var keys = {};
+$(document).on('keydown', function (e) {
+
+    if (keys[e.keyCode]) {
+        return;
+    }
+
+    var mycombination = new Array();
+    if (!($('input').is(":focus")) && !($('#edit').is(":focus"))) {
+        keys[e.which] = true;
+        //        console.log(keys);
+        for (var i in keys) {
+            if (!keys.hasOwnProperty(i)) continue;
+            mycombination.push(i);
+        }
+        try {
+            if (mycombination.join() == '17,88')
+                $('#Cut').trigger('click');
+            else if (mycombination.join() == '17,67')
+                $('#Copy').trigger('click');
+            else if (mycombination.join() == '17,86')
+                $('#Paste').trigger('click');
+            else if (mycombination.join() == '17,38,86')
+                $('#PasteBefore').trigger('click');
+            else if (mycombination.join() == '17,40,86')
+                $('#PasteAfter').trigger('click');
+            else if (mycombination.join() == '16,17,86')
+                $('#PasteStyle').trigger('click');
+            else if (mycombination.join() == '16,17,38' || mycombination.join() == '16,17,37')
+                $('#MoveUp').trigger('click');
+            else if (mycombination.join() == '16,17,40' || mycombination.join() == '16,17,39')
+                $('#MoveDown').trigger('click');
+            else if (mycombination.join() == '46')
+                $('#Delete').trigger('click');
+        } catch (err) {
+            console.log('');
+        }
+    }
+
+});
+$(document).on('keyup', function (e) {
+    delete keys[e.which];
+});
 
 
-var myElement;
+var replaceWith = $('<div id="edit" contentEditable="true" class="editinplace"></div>');
+var myElement, myparents, myElementCopy;
+var isDesignViewClicked = false;
+
+var availableClasses = [
+    "alert-primary", "alert-secondary", "alert-success", "alert-info", "alert-warning", "alert-danger", "alert-light", "alert-dark", "alert-link", "alert-dismissible",
+    "alert-heading", "badge", "badge-pill", "badge-primary", "badge-secondary", "badge-success", "badge-info", "badge-warning", "badge-danger", "badge-light",
+    "badge-dark", "breadcrumb", "btn-primary", "btn-secondary", "btn-success", "btn-info", "btn-warning", "btn-danger", "btn-light", "btn-dark",
+    "btn-link", "btn-outline-primary", "btn-outline-secondary", "btn-outline-success", "btn-outline-info", "btn-outline-warning", "btn-outline-danger", "btn-outline-light", "btn-outline-dark", "btn-group",
+    "btn-group-lg", "btn-group-sm", "btn-group-vertical", "btn-group (nested)", "btn-toolbar", "btn-lg", "btn-sm", "btn-block", "active", "disabled",
+    "card", "card-body", "card-title", "card-subtitle", "card-text", "card-link", "card-img-top", "card-img-bottom", "card-img-overlay", "list-group",
+    "card-header", "card-header", "card-footer", "card-group", "card-deck", "card-columns", "carousel", "slide", "carousel-fade", "carousel-indicators",
+    "carousel-caption", "collapse", "accordion", "dropdown", "dropup", "dropright", "dropleft", "dropdown-header", "dropdown-item-text", "dropdown-divider",
+    "dropdown-item disabled", "dropdown-menu-right", "form-group", "form-inline", "form-control", "form-control-lg", "form-control-sm", "form-control-file", "form-control-plaintext", "form-control-range",
+    "form-check", "form-check-inline", "disabled items", "readonly", "input-group", "input-group-prepend", "input-group-append", "input-group-sm", "input-group-lg", "checkbox",
+    "radio", "dropdown", "custom-checkbox", "custom-radio", "custom-select", "custom-file", "custom-range", "container", "container-fluid", "row",
+    "col-sm-", "col-md-", "col-lg-", "col-xl-", "col", "no-gutters", "offset-", "order-", "img-fluid", "img-thumbnail",
+    "Jumbotron", "jumbotron", "jumbotron-fluid", "list-group", "list-group-item", "list-group-item-action", "list-group-item-primary", "list-group-item-secondary", "list-group-item-success", "list-group-item-info",
+    "list-group-item-warning", "list-group-item-danger", "list-group-item-light", "list-group-item-dark", "list-group with badges", "list-group with d-flex", "media", "d-flex", "align-self-start", "align-self-center",
+    "align-self-end", "modal", "modal-dialog-centered", "modal fade", "modal-lg", "modal-sm", "ul.nav", "nav.nav", "justify-content-start", "justify-content-center",
+    "justify-content-end", "flex-column", "nav-tabs", "nav-pills", "nav-fill", "nav-justified", "nav with flex utils", "nav-tabs with dropdown", "nav-pills with dropdown", "navbar",
+    "navbar-brand", "navbar with form", "navbar-text", "navbar-dark bg-dark", "navbar-light", "fixed-top", "sticky-top", "collapse", "navbar-collapse", "navbar-toggler",
+    "navbar-expand-", "pagination", "page-item", "pagination-lg", "pagination-sm", "popovers", "dismissible", "progress", "progress-bar", "multiple",
+    "progress-bar", "progress-bar-striped", "progress-bar-striped", "progress-bar-animated", "data-spy", "table", "thead-light", "thead-dark", "table-striped", "table-bordered",
+    "table-borderless", "table-hover", "table-sm", "table-", "table-reflow", "table-active", "table-primary", "table-secondary", "table-success", "table-info",
+    "table-warning", "table-danger", "table-light", "table-dark", "tooltip", "display-1", "display-2", "display-3", "display-4", "lead",
+    "blockquote", "blockquote-footer", "blockquote-reverse", "list-unstyled", "list-inline", "dl-horizontal", "border", "border-", "border-primary", "border-secondary",
+    "border-success", "border-danger", "border-warning", "border-info", "border-light", "border-dark", "border-white", "rounded", "rounded-circle", "rounded-",
+    "bg-primary", "bg-secondary", "bg-success", "bg-info", "bg-warning", "bg-danger", "bg-light", "bg-dark", "bg-white", "text-primary",
+    "text-secondary", "text-success", "text-info", "text-warning", "text-danger", "text-light", "text-dark", "text-white", "d-block", "d-sm-block",
+    "d-md-block", "d-lg-block", "d-xl-block", "sm", "md", "lg", "xl", "xs", "d-flex", "d-*-flex",
+    "d-nline", "d-*-inline", "d-inline-block", "d-*-inline-block", "d-inline-flex", "d-*-inline-flex", "d-none", "d-*-none", "d-table", "d-*-table",
+    "d-table-cell", "d-*-table-cell", "d-print-", "flex-*-column", "flex-*-column-reverse", "flex-*-row", "flex-*-row-reverse", "flex-*-nowrap", "flex-*-wrap", "flex-*-wrap-reverse",
+    "flex-fill", "flex-*-grow-1", "flex-*-grow-0", "flex-*-shrink-1", "flex-*-shrink-0", "justify-content-*-start", "justify-content-*-end", "justify-content-*-center", "justify-content-*-between", "justify-content-*-around",
+    "align-content-*-start", "align-content-*-end", "align-content-*-center", "align-content-*-around", "align-content-*-stretch", "align-items-*-start", "align-items-*-end", "align-items-*-center", "align-items-*-baseline", "align-items-*-stretch",
+    "align-self-*-start", "align-self-*-end", "align-self-*-center", "align-self-*-baseline", "align-self-*-stretch", "order-*-#", "close", "embed-responsive", "shadow-none", "shadow-sm",
+    "shadow", "shadow-lg", "invisible", "visible", "sr-only", "sr-only-focusable", "align-*", "clearfix", "fixed-top", "fixed-bottom",
+    "sticky-top", "float-*-left", "float-*-right", "float-*-none", "w-100", "h-100", "mw-100", "mh-100", "m-1", "mt-1",
+    "mr-1", "mb-1", "ml-1", "mx-1", "my-1", "p-1", "pt-1", "pr-1", "pb-1", "pl-1",
+    "px-1", "py-1", "font-weight-bold", "font-weight-light", "font-weight-normal", "font-italic", "text-monospace", "text-justify", "text-nowrap", "text-left",
+    "text-*-left", "text-right", "text-*-right", "text-center", "text-*-center", "text-lowercase", "text-uppercase", "text-capitalize", "text-truncate", "text-body",
+    "text-black-50", "text-white-50", "text-muted", "text-hide"
+]
+
+var editor = ace.edit("SourceView");
+editor.setOptions({
+    hScrollBarAlwaysVisible: false,
+    vScrollBarAlwaysVisible: false,
+    autoScrollEditorIntoView: true,
+    fontSize: 16
+});
+editor.setTheme("ace/theme/monokai");
+editor.session.setMode("ace/mode/html");
+
+$("#elementClass").autocomplete({
+    source: availableClasses
+});
 
 
-$('#elementclass').tagsinput({
-    delimiter: ' '
+editor.session.on('change', function (delta) {
+    // delta.start, delta.end, delta.lines, delta.action
+    var a = editor.getValue();
+    $('#DesignView').html(a);
+});
+
+$('#elementClass').on('keyup keydown', function (e) {
+    var thisval = $(this).val().replace(' ', '');
+    if (e.keyCode == 32 || e.keyCode == 13) {
+        if (thisval.length > 0 && thisval !== '') {
+            var classArray = $(this).val().trim().split(' ');
+            var existClass = [];
+
+            $('#myTags .badge').each(function () {
+                var myclass = $(this).children().first().text();
+                existClass.push(myclass);
+            });
+
+            for (var i in classArray) {
+                if (classArray[i].trim().length > 0 && classArray[i].trim() != '') {
+                    if (existClass.indexOf(classArray[i]) < 0) {
+                        var myClassBadge = '<span class="badge badge-success"><span class="classTagName">' + classArray[i] + '</span><span class="ml-2 removeTag">x</span></span>';
+                        $('#myTags').append(myClassBadge);
+                        $(myElement).addClass(thisval);
+                    } else {
+                        $('#myTags .badge').each(function () {
+                            var myclass = $(this).children().first().text();
+                            if (myclass == classArray[i]) {
+                                $(this).fadeOut('fast');
+                                $(this).fadeIn('fast');
+                            }
+                        });
+                    }
+
+                }
+
+            }
+        }
+        $(this).val('');
+    }
 })
 
-$('#Design').css('width','1145px');
+$('#elementClass').on('keydown', function (e) {
+    var thisval = $(this).val().replace(' ', '');
+    if (e.keyCode == 8 && (thisval.length == 0 || thisval == '')) {
+        var removeClass = $('#myTags').children().last('span.badge').children().first().text();
+        $(myElement).removeClass(removeClass);
+        $('#myTags').children().last().remove();
+    }
+})
 
-$('#DesignView').bind('DOMNodeInserted DOMNodeRemoved', function() {
-    
+$('#myTags').on('click', '.removeTag', function () {
+    var removeClass = $(this).prev().text();
+    $(myElement).removeClass(removeClass);
+    $(this).parent().remove();
+})
+
+$('#myTags').on('click', '.classTagName', function () {
+    var editClass = $(this).text();
+    $(this).parent().remove();
+    $(myElement).removeClass(editClass);
+    $('#elementClass').val(editClass);
+    $('#elementClass').focus();
+})
+
+$('#Design').css('width', '975px');
+
+$('#DesignView').bind('DOMNodeInserted DOMNodeRemoved', function () {
     var array = new Array();
     $('#DesignView').find("*").each(function () {
-        thisid=$(this).attr('id');
-        if(typeof thisid!=="undefined")
+        var thisid = $(this).attr('id');
+        if (typeof thisid !== "undefined")
             array.push(thisid.toLowerCase());
     });
-    
+
     $('#myDivids option').remove();
-    for(var i in array){
-        var opt='<option value="'+array[i]+'">'+array[i]+'</option>';
+    for (var i in array) {
+        var opt = '<option value="' + array[i] + '">' + array[i] + '</option>';
         $('#myDivids').append(opt);
     }
 });
 
-$('#DesignView').on('dblclick','label, span , p, font, td, th, h1, h2, h3, h4, h5', function () {
-    
-        var elem = $(this);
+$('#DesignView').on('dblclick', 'label, span , p, font, td, th, h1, h2, h3, h4, h5', function (e) {
 
-        elem.hide();
-        elem.after(replaceWith);
-        replaceWith.focus();
-        replaceWith.text(elem.text());
-        
-        replaceWith.keyup(function(e){
-            if(e.keyCode == 13)
-            {
-                replaceWith.trigger("blur");
-            }
-        })
-    
-        replaceWith.blur(function () {
+    var elem = $(this);
 
-            if ($(this).text() != "") {
-                connectWith.val($(this).text()).change();
-                elem.text($(this).text());
-            }
-            else{
-                elem.remove();
-            }
+    elem.hide();
+    elem.after(replaceWith);
+    replaceWith.focus();
+    replaceWith.text(elem.text());
+
+    replaceWith.keyup(function (e) {
+        if (e.keyCode == 13) {
+            replaceWith.trigger("blur");
+        }
+    })
+
+    replaceWith.blur(function () {
+
+        if ($(this).text() != "") {
+            elem.text($(this).text());
+        } else {
+            elem.remove();
+        }
+
+        $(this).remove();
+        elem.show();
+    });
+    e.stopPropagation();
+})
+
+$('#Inline-Styles').on('dblclick', '.value', function (e) {
+
+    var elem = $(this);
+    var prop, val;
+
+    elem.hide();
+    elem.after(replaceWith);
+    replaceWith.focus();
+    replaceWith.text(elem.text());
+
+    prop = elem.prev().text().replace(' ', '');
+
+    replaceWith.keyup(function (e) {
+        if (e.keyCode == 13) {
+            replaceWith.trigger("blur");
+        }
+    })
+
+    replaceWith.blur(function () {
+
+        if ($(this).text() == '') {
+            setstyle(prop, '');
+            ShowStyle();
+        } else {
+            elem.text($(this).text());
+
+            val = $(this).text();
+            setstyle(prop, val);
 
             $(this).remove();
             elem.show();
-        });
+        }
+
+    });
+    e.stopPropagation();
+})
+
+$('#Inline-Styles').on('click', '.delete', function () {
+    var prop = $(this).prev().prev().text().replace(' ', '');
+    setstyle(prop, '');
+    ShowStyle();
 })
 
 $('#DesignView').on('click', '*', function (e) {
-    
+
     myElement = this;
-    
-    
+    isDesignViewClicked = false;
+    $('#selector').val('');
     $('#DesignView *').removeClass('highlight');
     $(myElement).addClass('highlight');
-    
+
     var thisid = $(this).attr('id');
     var thisclass = $(this).attr('class');
     var thistype = $(this).attr('type');
@@ -79,75 +278,260 @@ $('#DesignView').on('click', '*', function (e) {
     var thissrc = $(this).attr('src');
     var thishref = $(this).attr('href');
     var thisalt = $(this).attr('alt');
-    
-    
+    var thisalign = $(this).attr('align');
+    var thisvalign = $(this).attr('valign');
+    var thisheight = $(this).attr('height');
+    var thiswidth = $(this).attr('width');
+    var thisbgcolor = $(this).attr('bgcolor');
+
+
     $('#elementid').val(thisid);
-    $('#elementclass').val('');
-    $('.bootstrap-tagsinput input').val('');
-    $('.bootstrap-tagsinput input').val(thisclass);
+    $('#myTags').children().remove();
+    $('#elementClass').val('');
+    thisclass = thisclass.replace('ui-draggable', '');
+    thisclass = thisclass.replace('ui-draggable-handle', '');
+    thisclass = thisclass.replace('ui-droppable', '');
+    thisclass = thisclass.replace('highlight2', '');
+    thisclass = thisclass.replace('highlight', '');
+    if (thisclass.trim().length > 0) {
+        var classArray = thisclass.trim().split(' ');
+        for (var i in classArray) {
+            if (classArray[i].trim().length > 0 && classArray[i].trim() != '') {
+                var myClassBadge = '<span class="badge badge-success"><span class="classTagName">' + classArray[i] + '</span><span class="ml-2 removeTag">x</span></span>';
+                $('#myTags').append(myClassBadge);
+            }
+        }
+    }
+
+
+
     $('#elementtype').val(thistype);
     $('#elementimin').val(thismin);
     $('#elementmax').val(thismax);
     $('#elementsrc').val(thissrc);
     $('#elementhref').val(thishref);
     $('#elementalt').val(thisalt);
-    
-    $('.bootstrap-tagsinput input').focus();
-    $('#elementid').focus();
-    $(myElement).focus();
-    
-    
-    
+    $('#elementalign').val(thisalign);
+    $('#elementvalign').val(thisvalign);
+    $('#elementheight').val(thisheight);
+    $('#elementwidth').val(thiswidth);
+    $('#elementbgcolor').val(thisbgcolor);
+    $('#elementbgcolor_').val(thisbgcolor);
+
+
+    $('#Breadcrumb').children().remove();
+
+    myparents = $(myElement).parentsUntil('#DesignView');
+
+    var hashid, dotclass;
+
+    if (typeof thisid !== 'undefined') {
+        if (thisid != '' && thisid.length > 0)
+            hashid = "#" + thisid;
+        else
+            hashid = '';
+    } else
+        hashid = '';
+
+
+    if (typeof thisclass !== 'undefined') {
+        if (thisclass.trim() != '' && thisclass.trim().length > 0)
+            dotclass = '.' + thisclass.trim().replace(/\ /g, '.');
+        else
+            dotclass = '';
+    } else
+        dotclass = '';
+
+
+    var mybreadlinklistthis = '<li><span>' + $(myElement).prop('tagName').toLowerCase() + ' ' + hashid + ' ' + dotclass + '</span></li>'
+    $('#Breadcrumb').prepend(mybreadlinklistthis);
+
+    for (var i in myparents) {
+
+        var parentelement = myparents[i].tagName;
+
+        if (typeof parentelement !== "undefined") {
+            parentelement = parentelement.toLowerCase();
+
+            var parentid = myparents[i].id;
+            var parentclass = myparents[i].className;
+
+            parentclass = parentclass.replace('ui-draggable', '');
+            parentclass = parentclass.replace('ui-draggable-handle', '');
+            parentclass = parentclass.replace('ui-droppable', '');
+            parentclass = parentclass.replace('highlight2', '');
+            parentclass = parentclass.replace('highlight', '');
+            parentclass = parentclass.trim().replace(/\ /g, '.');
+
+            if (typeof parentid !== 'undefined') {
+                if (parentid != '' && parentid.length > 0)
+                    hashid = "#" + parentid;
+                else
+                    hashid = '';
+            } else
+                hashid = '';
+
+            if (typeof parentclass !== 'undefined') {
+                if (parentclass != '' && parentclass.length > 0)
+                    dotclass = '.' + parentclass;
+                else
+                    dotclass = '';
+            } else
+                dotclass = '';
+
+            var mybreadlinklist = '<li><span>' + parentelement + ' ' + hashid + ' ' + dotclass + '</span></li>'
+            $('#Breadcrumb').prepend(mybreadlinklist);
+        }
+    }
+
     ShowStyle();
+
+    e.stopPropagation();
+
+
+})
+
+$('#DesignView').on('click', function () {
+    $('#DesignView *').removeClass('highlight');
+    myElement = '';
+    isDesignViewClicked = true;
+})
+
+$('#DesignView').on('mouseover', '*', function (e) {
+    $(this).addClass('highlight2');
     e.stopPropagation();
 })
 
-$('#Parent').on('click',function(){
-    $(myElement).parent().trigger('click');
+$('#DesignView').on('mouseout', '*', function (e) {
+    $(this).removeClass('highlight2');
+    e.stopPropagation();
 })
 
-$('#Child').on('click',function(){
-    $(myElement).children().trigger('click');
+$('#Breadcrumb').on('click', 'span', function () {
+
+    var breadlength = $('#Breadcrumb').children().length;
+    var clickedelem = $(this).parent().index() + 1;
+    var myparentlength = myparents.length;
+
+    console.log('breadlength:', breadlength);
+    console.log('clickedelem:', clickedelem);
+    console.log('myparentlength:', myparentlength);
+
+    if (breadlength != clickedelem) {
+        console.log('camein');
+        var getelemindex = myparentlength - clickedelem;
+        console.log('getelemindex:', getelemindex);
+
+        var slectedelem = myparents[getelemindex];
+        console.log('slectedelem:', slectedelem);
+
+        $(slectedelem).trigger('click');
+    }
+
 })
 
-$('#Clone').on('click',function(){
-    $(myElement).parent().append($(myElement).clone());
-    $(myElement).trigger('click');
-});
+$('.topIcon').on('click', function () {
+    var thisid = this.id;
+    var pastethis;
 
-$('#DeleteThis').on('click',function(){
-    var next = $(myElement).next();
     var prev = $(myElement).prev();
-    
-    $(myElement).remove();
-    
-    if($(next).length>0)
-        $(next).trigger('click');
-    else if($(prev).length>0)
-        $(prev).trigger('click');
-    else
-        $('#Inline-Styles').html('');
+    var next = $(myElement).next();
+    var parent = $(myElement).parent();
+
+    try {
+        if (thisid == 'PreView') {
+            $('.navlist:eq(0)').trigger('click');
+            $('#Footer-Form').hide();
+            $('#Design').addClass("preview");
+            $('#DesignView').css({
+                'max-width': 'none',
+                'width': '100%',
+                'height': '100%'
+            })
+            $('.close').show();
+            $('#bootstrap').prop('src', 'js/bootstrap.min.js');
+            $('#DragandDrop').prop('src', '');
+            $('#myScript').prop('src', '');
+        } else if (thisid == 'Parent')
+            $(myElement).parent().trigger('click');
+        else if (thisid == 'Child')
+            $(myElement).children().first().trigger('click');
+        else if (thisid == 'Previous')
+            $(myElement).prev().trigger('click');
+        else if (thisid == 'Next')
+            $(myElement).next().trigger('click');
+        else if (thisid == 'MoveUp') {
+            if ($(prev).length > 0) {
+                $('#Cut').trigger('click');
+                $(prev).trigger('click');
+                $('#PasteBefore').trigger('click');
+            }
+        } else if (thisid == 'MoveDown') {
+            if ($(next).length > 0) {
+                $('#Cut').trigger('click');
+                $(next).trigger('click');
+                $('#PasteAfter').trigger('click');
+            }
+        } else if (thisid == 'Cut') {
+            myElementCopy = $(myElement).clone();
+            $(myElement).remove();
+        } else if (thisid == 'Copy')
+            myElementCopy = $(myElement).clone();
+        else if (thisid == 'Paste') {
+            pastethis = myElementCopy.clone();
+            pastethis.removeClass('highlight');
+            pastethis.removeClass('highlight2');
+            if (isDesignViewClicked) {
+                $('#DesignView').append(pastethis);
+                isDesignViewClicked = false;
+                $(pastethis).trigger('click');
+            } else {
+                $(myElement).append(pastethis);
+                $(pastethis).trigger('click');
+            }
+
+        } else if (thisid == 'PasteBefore') {
+            pastethis = myElementCopy.clone();
+            $(myElement).before(pastethis);
+            $(pastethis).trigger('click');
+        } else if (thisid == 'PasteAfter') {
+            pastethis = myElementCopy.clone();
+            $(myElement).after(pastethis);
+            $(pastethis).trigger('click');
+        } else if (thisid == 'PasteStyle') {
+            var myelemtstyle = myElementCopy.attr('Style');
+            $(myElement).attr('style', myelemtstyle);
+        } else if (thisid == 'Clone') {
+            $(myElement).after($(myElement).clone());
+            $(myElement).trigger('click');
+        } else if (thisid == 'Delete') {
+
+            $(myElement).remove();
+            $('#Inline-Styles').html('');
+
+
+            if ($(next).length > 0)
+                $(next).trigger('click');
+            else if ($(prev).length > 0)
+                $(prev).trigger('click');
+            else if ($(parent).length > 0)
+                $(parent).trigger('click');
+
+
+            if ($('#DesignView').children().length == 0)
+                $('#Breadcrumb').children().remove();
+        } else if (thisid == 'Undo') {
+
+        }
+
+    } catch (err) {
+        console.log('');
+    }
 })
-
-$('#PreView').click(function () {
-
-    $('.navlist:eq(0)').trigger('click');
-    $('#Design').addClass("preview");
-    $('#DesignView').css({'max-width':'none','width':'100%','height':'100%'})
-    $('.close').show();
-
-});
-
-$('.close').click(function () {
-
-    $('#Design').removeClass("preview");
-    $('#DesignView').css({'max-width':'none','width':'auto','height':'530px'})
-    $('.close').hide();
-});
 
 $('.navlist').on('click', function () {
     var tabs = $(this).text() + "View";
-    
+
     $('#Design>div').addClass('d-none');
 
     $('.navlist').removeClass('activeTab');
@@ -159,6 +543,7 @@ $('.navlist').on('click', function () {
         $(this).addClass('activeTab')
         $('#DesignView').height('530px');
     } else if (tabs == "SourceView") {
+        editor.session.setValue($('#DesignView').html());
         $('#Footer-Form').hide();
         $('#SourceView').removeClass('d-none');
         $('#SourceView').removeClass('col-6');
@@ -166,6 +551,7 @@ $('.navlist').on('click', function () {
         $(this).addClass('activeTab');
         $('#SourceView').height('530px');
     } else if (tabs == "SplitView") {
+        editor.session.setValue($('#DesignView').html());
         $('#DesignView').removeClass('d-none');
         $('#Footer-Form').hide();
         $('#SourceView').removeClass('d-none');
@@ -180,23 +566,30 @@ $('.navlist').on('click', function () {
     }
 })
 
-$('#Toogle-SidePanel').on('click',function(){
-    
+$('#Toogle-SidePanel').on('click', function () {
+
     $(this).toggleClass('RotateY');
-    
-    if ($('#SidePanel').css('margin-left')=='0px'){
-        $('#SidePanel').animate({'margin-left': '-290px'},function(){
-            $('#Design').css({'width': '1435px'});
+
+    if ($('#SidePanel').css('margin-left') == '0px') {
+        $('#SidePanel').animate({
+            'margin-left': '-290px'
+        }, function () {
+            $('#Design').css({
+                'width': '1265px'
+            });
         });
-    }
-    else{
-        $('#Design').css({'width': '1145px'});
-        $('#SidePanel').animate({'margin-left': '0px'});
+    } else {
+        $('#Design').css({
+            'width': '975px'
+        });
+        $('#SidePanel').animate({
+            'margin-left': '0px'
+        });
     }
 });
 
 $(".toogleIcon").click(function () {
-    
+
     var toogleTab = this.id.replace("Toogle-", "")
     $("#" + toogleTab).slideToggle("fast");
 
@@ -204,7 +597,7 @@ $(".toogleIcon").click(function () {
 
 $("#Toogle-Footer-Form").click(function () {
     var toogleTab;
-    
+
     $(this).toggleClass('RotateX');
 
     var design = $('.navlist:eq(0)').hasClass('activeTab');
@@ -388,6 +781,11 @@ $('input[type="color"]').on("input", function () {
     $(inputid).val($(this).val());
 });
 
+$($('input[type="color"]').prev()).on("input", function () {
+    var inputid = "#" + this.id + "_";
+    $(inputid).val($(this).val());
+});
+
 $('.unit').on("change", function () {
 
     var unitid, index, inputid;
@@ -432,11 +830,11 @@ $('.file').on("change input", function () {
 });
 
 $('#myDivids').on("change", function () {
-    var value=$(this).val()
+    var value = $(this).val()
     $("#selector").val(value);
-    
-    $('#'+value).trigger('click');
-    
+
+    $('#' + value).trigger('click');
+
 });
 
 
@@ -745,100 +1143,94 @@ function getvalue(x) {
 }
 
 function setstyle(prop, val) {
-    
-    if($('#selector').val().length>0){
-        if (val != "null")
-            $("#"+$('#selector').val()).css(prop, val);
-        else
-            $("#"+$('#selector').val()).css(prop, "");
-    }
-    else{
+
+    if ($('#selector').val().length > 0) {
+        if (val != "null") {
+            $("#Design " + $('#selector').val()).css(prop, val);
+        } else
+            $("#Design " + $('#selector').val()).css(prop, "");
+    } else {
         if (val != "null")
             $(myElement).css(prop, val);
         else
-            $(myElement).css(prop, "");   
+            $(myElement).css(prop, "");
     }
-
-
 }
 
 function ShowStyle() {
 
     var style, allstyle, elemId, myselector;
     try {
+        $("#Inline-Styles").html("");
 
         style = $(myElement).attr("style");
-        $("#Inline-Styles").html("");
-        allstyle = style.replace(/;/g, "; <br/>");
-        $("#Inline-Styles").html(allstyle);
+
+        var eachstyle = style.split(';');
+
+        for (var i in eachstyle) {
+            if (typeof eachstyle[i] !== 'undefined' && eachstyle[i] != null && eachstyle[i] != '') {
+                var mylist = '<div class="list"><div class="prop">' + eachstyle[i].split(':')[0] + '</div>&nbsp;:&nbsp;<span class="value">' + eachstyle[i].split(':')[1] + '</span><div class="delete ml-auto"><i class="fas fa-minus"></i></div>'
+                $("#Inline-Styles").append(mylist);
+            }
+
+        }
+
 
     } catch (err) {
-
+        console.log('');
     }
 }
 
-$('#Attributes input, #Attributes select').on('input change',function(){
-    
+$('#Attributes input, #Attributes select').on('input change', function () {
+
     var value = $(this).val();
-    
-    if(this.id=="elementid")
+
+    if (this.id == "elementid" || this.id == "elementClass")
         return;
-    if(this.id=="elementtype")
-        $(myElement).attr('type',value);
-    else if(this.id=="elementname")
-        $(myElement).attr('name',value);
-    else if(this.id=="elementmin")
-        $(myElement).attr('min',value);
-    else if(this.id=="elementmax")
-        $(myElement).attr('max',value);
-    else if(this.id=="elementsrc")
-        $(myElement).attr('src',value);
-    else if(this.id=="elementhref")
-        $(myElement).attr('href',value);
-    else if(this.id=="elementtalt")
-        $(myElement).attr('alt',value);
-//    else
-//        $(myElement).attr('class',value.replace(/,/g, " "));
-    
-    var title=$(myElement).prop("tagName").toLowerCase()+" #"+$(myElement).attr('id')+" ."+$(myElement).attr('class');
-    $(myElement).attr('title',title);
+
+    var attrib = this.id.replace("element", "");
+    attrib = attrib.replace("_", "");
+
+    if ($('#selector').val().length > 0) {
+        $("#Design " + $('#selector').val()).attr(attrib, value);
+    }
 
 })
 
-$('#setId').on('click',function(){
-    
+$('#setId').on('click', function () {
+
     var array = new Array();
-    var err=false;
+    var err = false;
     var myid = $('#elementid').val().toLowerCase();
     var thisid;
     $('html').find("*").each(function () {
-        thisid=$(this).attr('id');
-        if(typeof thisid!=="undefined")
+        thisid = $(this).attr('id');
+        if (typeof thisid !== "undefined")
             array.push(thisid.toLowerCase());
     });
-    
-   
+
+
     for (var i in array) {
-        if(array[i]==myid){
+        if (array[i] == myid) {
             $('#elementid').parent().addClass('err');
-            err=true;
+            err = true;
             break;
         }
     }
-    if(err==false){
+    if (err == false) {
         $('#elementid').parent().removeClass('err');
-        $(myElement).attr('id',myid);
-        myElement="#"+myid;
+        $(myElement).attr('id', myid);
+        myElement = "#" + myid;
     }
-    
-    var title=$(myElement).prop("tagName").toLowerCase()+" #"+$(myElement).attr('id')+" ."+$(myElement).attr('class');
-    $(myElement).attr('title',title);
-    
+
+    var title = $(myElement).prop("tagName").toLowerCase() + " #" + $(myElement).attr('id') + " ." + $(myElement).attr('class');
+    $(myElement).attr('title', title);
+
 })
 
 $('#Properties input,#Properties select,#Properties button').on("change input click", function () {
 
-    if (typeof myElement==="undefined")
+    if ($(this).hasClass('prop') || $(this).hasClass('val'))
         return;
     
     var hasUnit = ["min-width", "min-height", "max-width", "max-height",
@@ -874,14 +1266,12 @@ $('#Properties input,#Properties select,#Properties button').on("change input cl
             setstyle("visibility", "visible");
         else
             setstyle("visibility", "hidden");
-    } 
-    else if (thisid == "border-collapse") {
+    } else if (thisid == "border-collapse") {
         if ($("#border-collapse").is(':checked'))
             setstyle("border-collapse", "collapse");
         else
             setstyle("border-collapse", "separate");
-    } 
-    else if (ts.indexOf(thisid) >= 0) {
+    } else if (ts.indexOf(thisid) >= 0) {
 
         var tsh = getvalue("tsh-width");
         var tsv = getvalue("tsv-width");
@@ -896,8 +1286,7 @@ $('#Properties input,#Properties select,#Properties button').on("change input cl
         }
         var tsval = $("#text-shadow").val();
         setstyle("text-shadow", tsval);
-    } 
-    else if (boxsdw.indexOf(thisid) >= 0) {
+    } else if (boxsdw.indexOf(thisid) >= 0) {
         var bshorizontal = getvalue("bsh-width");
         var bsvertical = getvalue("bsv-width");
         var bsblur = getvalue("bsb-width");
@@ -922,8 +1311,7 @@ $('#Properties input,#Properties select,#Properties button').on("change input cl
 
         var boxShadowval = $("#box-shadow").val();
         setstyle("box-shadow", boxShadowval);
-    } 
-    else if (bckps.indexOf(thisid) >= 0) {
+    } else if (bckps.indexOf(thisid) >= 0) {
         var bkgrnd = thisid.split("-")[1];
 
         if (bkgrnd == "position") {
@@ -936,8 +1324,7 @@ $('#Properties input,#Properties select,#Properties button').on("change input cl
             }
             var bposition = $("#background-position").val();
             setstyle("background-position", bposition);
-        } 
-        else if (bkgrnd == "size") {
+        } else if (bkgrnd == "size") {
             var sw = getvalue("background-size-width");
             var sh = getvalue("background-size-height");
 
@@ -949,8 +1336,7 @@ $('#Properties input,#Properties select,#Properties button').on("change input cl
             var bsize = $("#background-size").val();
             setstyle("background-size", bsize);
         }
-    } 
-    else if (thisid == "border-spacing-h" || thisid == "border-spacing-v") {
+    } else if (thisid == "border-spacing-h" || thisid == "border-spacing-v") {
         var bspacingh = getvalue("border-spacing-h");
         var bspacingv = getvalue("border-spacing-v");
 
@@ -961,16 +1347,14 @@ $('#Properties input,#Properties select,#Properties button').on("change input cl
 
         var borderspacingval = $("#border-spacing").val();
         setstyle("border-spacing", borderspacingval);
-    } 
-    else if (thisid == "width" || thisid == "height") {
+    } else if (thisid == "width" || thisid == "height") {
 
         var width = getvalue("width");
         var height = getvalue("height");
 
         setstyle("width", width);
         setstyle("height", height);
-    } 
-    else if (pos.indexOf(thisid) >= 0) {
+    } else if (pos.indexOf(thisid) >= 0) {
 
         var postop = getvalue("top");
         var posright = getvalue("right");
@@ -981,8 +1365,7 @@ $('#Properties input,#Properties select,#Properties button').on("change input cl
         setstyle("right", posright);
         setstyle("bottom", posbottom);
         setstyle("left", posleft);
-    } 
-    else if (mpb.indexOf(thisid) >= 0) {
+    } else if (mpb.indexOf(thisid) >= 0) {
 
         var a = thisid.split("-")[0];
 
@@ -1007,8 +1390,7 @@ $('#Properties input,#Properties select,#Properties button').on("change input cl
                 if (l != "null")
                     setstyle(a + "-left", l);
             }
-        } 
-        else if (a == "border") {
+        } else if (a == "border") {
             var tl = getvalue("border-top-left-radius");
             var tr = getvalue("border-top-right-radius");
             var bl = getvalue("border-bottom-left-radius");
@@ -1029,8 +1411,7 @@ $('#Properties input,#Properties select,#Properties button').on("change input cl
                     setstyle("border-bottom-right-radius", br);
             }
         }
-    } 
-    else if (file.indexOf(thisid) >= 0) {
+    } else if (file.indexOf(thisid) >= 0) {
 
         var styleid = thisid.replace("-show", "");
         styleid = styleid.replace("-file", "");
@@ -1038,15 +1419,42 @@ $('#Properties input,#Properties select,#Properties button').on("change input cl
         var imgurl = $("#" + styleid).val();
 
         setstyle(styleid, imgurl);
-    } 
-    else if (hasUnit.indexOf(thisid) >= 0)
+    } else if (hasUnit.indexOf(thisid) >= 0)
         mystylevalue = getvalue(thisid);
     else
         mystylevalue = $(this).val();
 
     setstyle(thisid, mystylevalue);
-
     ShowStyle();
 
 });
 
+$('#More-Form').on('input click','input',function(){
+    
+    var isThisProp=$(this).hasClass('prop')
+    var thisval=$(this).val().trim();
+    var prop,val;
+    
+    if (isThisProp){
+        prop = thisval;
+        val = $(this).parent().next().next().children().first().val();
+    }  
+    else{
+        val = thisval;
+        prop = $(this).parent().prev().prev().children().first().val();
+    }
+    
+    if (typeof prop!=='undefined' && typeof val!=='undefined')
+        if(prop.length>0 && val.length>0)
+            setstyle(prop,val);
+    
+    ShowStyle();
+})
+
+$('.addRow').on('click',function(){
+    $(this).before('<div class="row"> <div class="col-12 p-0"> <div class="list"> <div class="inputgroup w-100"> <input type="text" class="prop w-100" placeholder="Property"> </div> <span>:</span> <div class="inputgroup w-100"> <input type="text" class="val w-100" placeholder="Value"> <button class="deleteMore" type="button"><i class="fas fa-minus"></i></button> </div> </div> </div> </div>')
+})
+
+$('#More-Form').on('click','.deleteMore',function(){
+    $(this).closest('.row').remove();
+})

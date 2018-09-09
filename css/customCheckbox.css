@@ -12,6 +12,10 @@
     font-size: 16px;
 }
 
+.customCheckbox:hover {
+    color: green !important;
+}
+
 /* Hide the browser's default checkbox */
 .customCheckbox input {
     position: absolute;

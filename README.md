@@ -16,7 +16,7 @@ All the CSS properties are applies as an inline Style.
 you could also play with Bootstrap components.
 
 You could also directly edit your source with the help of the split view and Source view.
-you could swap the elements, preview the page,clone the element and also delete the elements.
+you could swap (up, down left, right) the elements, preview the page,clone the element, cut, copy, paste, paste Style, undo and also delete the elements.
 
 The selectors can also be used here to modify more than one element style in the webpage.
 

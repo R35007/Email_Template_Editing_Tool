@@ -1,0 +1,78 @@
+.breadcrumb {
+    list-style: none;
+    overflow: hidden;
+    font: 13px Sans-Serif;
+    display: flex;
+    flex-wrap: nowrap;
+    list-style: none;
+    padding: 0;
+    height: 25px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    margin-bottom: 0;
+}
+
+.breadcrumb li {
+    float: left;
+}
+
+.breadcrumb li span {
+    color: white;
+    text-decoration: none;
+    padding: 2px 10px 2px 24px;
+    background: #308a30;
+    position: relative;
+    display: block;
+    float: left;
+    cursor: pointer;
+}
+
+.breadcrumb li span::after {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 13px solid transparent;
+    border-bottom: 11px solid transparent;
+    border-left: 11px solid hsl(120, 48%, 36%);
+    position: absolute;
+    top: 50%;
+    margin-top: -13px;
+    left: 100%;
+    z-index: 2;
+    z-index: 2;
+}
+
+.breadcrumb li span::before {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 14px solid transparent;
+    border-bottom: 13px solid transparent;
+    border-left: 11px solid #e9ecef;
+    position: absolute;
+    top: 50%;
+    margin-top: -14px;
+    margin-left: 2px;
+    left: 100%;
+    z-index: 1;
+}
+
+.breadcrumb li:first-child span {
+    padding-left: 10px;
+}
+
+.breadcrumb li:last-child span {
+    border-radius: 4px;
+    overflow: hidden;
+    padding-right: 20px;
+}
+
+.breadcrumb li span:hover {
+    background: #205920;
+}
+
+.breadcrumb li span:hover:after {
+    border-left-color: #205920 !important;
+}

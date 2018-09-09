@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
     <title>Play It</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="jqueryui/jquery-ui.css">
-    <link rel="stylesheet" href="css/tagsinput.css">
     <link rel="stylesheet" href="roundSlider-1.3/src/roundslider.css">
     <link rel="stylesheet" href="css/myStyles.css">
     <link rel="stylesheet" href="css/customCheckbox.css">
@@ -14,16 +14,85 @@
     <link rel="stylesheet" href="css/slider.css">
     <link rel="stylesheet" href="css/scrollbar.css">
     <link rel="stylesheet" href="css/placeholder.css">
+    <link rel="stylesheet" href="css/breadcrumb.css">
 </head>
 
 <body>
 
     <div id="main" class="container-fluid">
-        <div class="row no-gutters" style="overflow: hidden;">
-            <div id="SidePanel">
-                <div class="col mt-2">
-                    <h5>Css Properties</h5>
+        <div class="row " id="PlayGround-Header" style="height:32px;">
+            <div class="col d-flex align-items-center">
+                <span style="font-size: 16px;">Element Id</span>
+                <select id="myDivids">
+                    <option value="none" selected="" disabled="">none</option>
+                </select>
+                <span style="font-size: 16px;">Selector</span>
+                <input type="text" id="selector">
+                <div class="d-flex justify-content-center align-items-center">
+                    <div id="PreView" class="topIcon" title="Preview">
+                        <span><i class="fas fa-eye"></i></span>
+                    </div>
+                    <div id="Parent" class="topIcon" title="Select parent">
+                        <i class="fas fa-level-up-alt"></i>
+                    </div>
+                    <div id="Child" class="topIcon" title="Select Child">
+                        <i class="fas fa-level-down-alt"></i>
+                    </div>
+                    <div id="Previous" class="topIcon" title="Select Previous">
+                        <i class="fas fa-step-backward"></i>
+                    </div>
+                    <div id="Next" class="topIcon" title="Select Next">
+                        <i class="fas fa-step-forward "></i>
+                    </div>
+                    <div id="MoveUp" class="topIcon" title="Move Up - ctrl+Shift+up">
+                        <i class="fas fa-angle-double-up"></i>
+                    </div>
+                    <div id="MoveDown" class="topIcon" title="Move Down - ctrl+Shift+down">
+                        <i class="fas fa-angle-double-down"></i>
+                    </div>
+                    <div id="Cut" class="topIcon" title="Cut - ctrl+x">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <div id="Copy" class="topIcon" title="Copy - ctrl+c">
+                        <i class="fas fa-copy"></i>
+                    </div>
+                    <div id="Paste" class="topIcon" title="Paste - ctrl+p">
+                        <i class="fas fa-paste"></i>
+                    </div>
+                    <div id="PasteBefore" class="topIcon" title="Paste Before - ctrl+up+v">
+                        <i class="fas fa-paste"></i>
+                        <i class="fas fa-long-arrow-alt-up "></i>
+                    </div>
+                    <div id="PasteAfter" class="topIcon" title="Paste after - ctrl+down+v">
+                        <i class="fas fa-paste"></i>
+                        <i class="fas fa-long-arrow-alt-down "></i>
+                    </div>
+                    <div id="PasteStyle" class="topIcon" title="Paste Style - ctrl+shift+v">
+                        <i class="fas fa-paint-brush "></i>
+                    </div>
+                    <div id="Clone" class="topIcon" title="Clone">
+                        <i class="fas fa-clone"></i>
+                    </div>
+                    <div id="Delete" class="topIcon" title="Delete - delete">
+                        <i class="fas fa-trash"></i>
+                    </div>
+                    <div id="Undo" class="topIcon" title="Undo">
+                        <i class="fas fa-undo"></i>
+                    </div>
                 </div>
+                <div class="col list pr-0">
+
+                    <div class="d-flex w-100 justify-content-end" style="margin-top: 9px;">
+                        <div class="navlist activeTab">Design</div>
+                        <div class="navlist">Split</div>
+                        <div class="navlist">Source</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row no-gutters" style="overflow: hidden;">
+
+            <div id="SidePanel">
                 <div id="Tools">
                     <div id="Attributes">
                         <!-- Attribute Tittle -->
@@ -39,7 +108,7 @@
                             <div class="row">
                                 <div class="col">
                                     <span class="lable">Id: </span>
-                                    <div class="inputgroup w-100 list">
+                                    <div class="inputgroup w-100 ">
                                         <input type="text" id="elementid" class="w-100">
                                         <span id="setId">Ok</span>
                                     </div>
@@ -49,8 +118,70 @@
                             <div class="row">
                                 <div class="col">
                                     <span class="lable">Classes: </span>
-                                    <div class="inputgroup w-100 taginput">
-                                        <input type="text" id="elementclass" class="w-100" data-role="tagsinput">
+                                    <div class="w-100 taginput bootstrap-tagsinput">
+                                        <div id="myTags"></div>
+                                        <div class="ui-widget">
+                                            <input type="text" id="elementClass" class="w-100" placeholder="Search and Add Classes Here">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Align and VAlign -->
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="lable">Align: </span>
+                                    <div class="inputgroup w-100 list">
+                                        <select id="elementalign" class="w-100">
+                                            <option value=""></option>
+                                            <option value="left">left</option>
+                                            <option value="center">center</option>
+                                            <option value="right">right</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <span class="lable">Valign: </span>
+                                    <div class="inputgroup w-100 list">
+                                        <select id="elementvalign" class="w-100">
+                                            <option value=""></option>
+                                            <option value="top">top</option>
+                                            <option value="middle">middle</option>
+                                            <option value="bottom">bottom</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Height and width -->
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="lable">Height: </span>
+                                    <div class="inputgroup w-100 list">
+                                        <input type="text" id="elementHeight" class="w-100">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <span class="lable">Width: </span>
+                                    <div class="inputgroup w-100 list">
+                                        <input type="text" id="elementWidth" class="w-100">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Background-Color -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <span class="lable d-none">Background-Color: </span>
+                                    <span class="lable d-none">BackgroundColor: </span>
+                                    <span class="lable">Bg Color: </span>
+                                    <div class="list">
+                                        <div class="inputgroup">
+                                            <input type="text" id="elementbgcolor">
+                                            <input type="color" id="elementbgcolor_">
+                                        </div>
+                                        <div class="remove">
+                                            <button class="delete" id="delete-elementbgcolor" type="button">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -77,19 +208,10 @@
                                             <option value="week">week</option>
                                             <option value="radio">radio</option>
                                             <option value="checkbox">checkbox</option>
-                                            <option value="button">button</option>
                                             <option value="submit">submit</option>
+                                            <option value="button">button</option>
                                             <option value="reset">reset</option>
                                         </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Name -->
-                            <div class="row">
-                                <div class="col">
-                                    <span class="lable">Name: </span>
-                                    <div class="inputgroup w-100 list">
-                                        <input type="text" id="elementname" class="w-100">
                                     </div>
                                 </div>
                             </div>
@@ -105,6 +227,15 @@
                                     <span class="lable">max: </span>
                                     <div class="inputgroup w-100 list">
                                         <input type="number" id="elementmax" class="w-100">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Name -->
+                            <div class="row">
+                                <div class="col">
+                                    <span class="lable">Name: </span>
+                                    <div class="inputgroup w-100 list">
+                                        <input type="text" id="elementname" class="w-100">
                                     </div>
                                 </div>
                             </div>
@@ -1271,6 +1402,7 @@
                             <!-- Font-Family -->
                             <div class="row">
                                 <div class="col-12">
+                                    <span class="d-none">Font Family</span>
                                     <span>Family:</span>
                                     <div class="list">
                                         <div class="inputgroup w-100">
@@ -1288,6 +1420,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="list">
+                                        <span class="d-none">Font Color</span>
                                         <span class="lable">Color: </span>
                                         <div class="inputgroup">
                                             <input type="text" id="color">
@@ -1305,6 +1438,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="list">
+                                        <span class="d-none">Font Style</span>
                                         <span class="lable">Style: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1323,6 +1457,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="list">
+                                        <span class="d-none">Font Variant</span>
                                         <span class="lable">Variant: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1340,6 +1475,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="list">
+                                        <span class="d-none">Font Weight</span>
                                         <span class="lable">Weight: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1368,6 +1504,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="list">
+                                        <span class="d-none">Font Size</span>
                                         <span class="lable">Size: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1524,6 +1661,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="list">
+                                        <span class="d-none">Text Decoration</span>
                                         <span class="lable">Decoration: </span>
                                         <div class="inputgroup">
                                             <span>
@@ -1542,7 +1680,6 @@
                             <!-- Text-Shadow -->
                             <div class="row">
                                 <div class="col-12">
-
                                     <span class="lable">Text Shadow: </span>
                                     <div class="list">
                                         <span class="toogleIcon" id="Toogle-Text-Shadow-Tab">
@@ -3031,11 +3168,11 @@
                                         <span class="lable">Orgin: </span>
                                         <div class="inputgroup">
                                             <select id="background-orgin" class="select">
-                                                            <option></option>
-                                                            <option value="padding-box">padding-box</option>
-                                                            <option value="border-box">border-box</option>
-                                                            <option value="content-box">content-box</option>
-                                                        </select>
+                                                <option></option>
+                                                <option value="padding-box">padding-box</option>
+                                                <option value="border-box">border-box</option>
+                                                <option value="content-box">content-box</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -3367,7 +3504,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div id="Box-Shadow-Tab" class="tabcontent">
-                                        <!-- Text Shadow-Horizontal-Width -->
+                                        <!-- Box Shadow-Horizontal-Width -->
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="list">
@@ -3585,7 +3722,7 @@
                         </div>
                         <!-- Transform Form -->
                         <Form id="Transform-Form">
-                             <!-- Transform -->
+                            <!-- Transform -->
                             <div class="row">
                                 <div class="col-12">
                                     <div class="list">
@@ -3595,8 +3732,8 @@
                                         </div>
                                         <div class="remove">
                                             <button class="delete" id="delete-transform" type="button">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
+                                                <i class="fas fa-trash"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -3606,28 +3743,403 @@
                                 <div class="col-12">
                                     <div class="list">
                                         <span class="toogleIcon" id="Toogle-Rotate-Tab">
-                                        <i class="fas fa-caret-right"></i>
-                                    </span>
+                                            <i class="fas fa-caret-right"></i>
+                                        </span>
                                         <span class="lable">Rotate: </span>
-                                        <div class="inputgroup">
-                                            <input type="number" class="tooglerange" min="0" id="rotate">
+                                        <div class="inputgroup w-100">
+                                            <input type="text" class="tooglerange w-100" min="0" id="rotate">
                                         </div>
 
                                         <div class="remove">
-                                            <button class="delete" id="delete-width" type="button">
+                                            <button class="delete" id="delete-rotate" type="button">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                         </div>
                                     </div>
-                                    <div class="list mt-2" id="rotate-range">
-                                        <div id="rotatex" class="rslider mr-2"></div>
-                                        <div id="rotatey" class="rslider mr-2"></div>
-                                        <div id="rotatez" class="rslider"></div>
+                                    <div class="list  justify-content-center" id="rotate-range" style="display:none;">
+                                        <div id="rotateall" class="rslider"></div>
                                     </div>
                                 </div>
                             </div>
-                           
+                            <!--Rotate Tab-->
+                            <div id="Rotate-Tab" class="tabcontent">
+                                <div class="col-12">
+                                    <div class="list  justify-content-center" id="rotate-range">
+                                        <div class="mr-2">
+                                            <div class="text-center">X</div>
+                                            <div id="rotatex" class="rslider"></div>
+                                        </div>
+                                        <div class="mr-2">
+                                            <div class="text-center">Y</div>
+                                            <div id="rotatey" class="rslider"></div>
+                                        </div>
+                                        <div>
+                                            <div class="text-center">Z</div>
+                                            <div id="rotatez" class="rslider"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Skew -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="list">
+                                        <span class="lable">Skew: </span>
+                                        <div class="inputgroup w-100">
+                                            <input type="text" class="tooglerange w-100" min="0" id="skew">
+                                        </div>
+
+                                        <div class="remove">
+                                            <button class="delete" id="delete-skew" type="button">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                        </div>
+                                    </div>
+                                    <div class="list justify-content-center" id="skew-range" style="display:none;">
+                                        <div class="mr-2">
+                                            <div class="text-center">X</div>
+                                            <div id="skewx" class="rslider"></div>
+                                        </div>
+                                        <div class="mr-2">
+                                            <div class="text-center">Y</div>
+                                            <div id="skewy" class="rslider"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Translate -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="list">
+                                        <span class="toogleIcon" id="Toogle-Translate-Tab">
+                                        <i class="fas fa-caret-right"></i>
+                                    </span>
+                                        <span class="lable">Translate: </span>
+                                        <div class="inputgroup w-100">
+                                            <input type="text" class="tooglerange w-100" min="0" id="Translate">
+                                        </div>
+                                        <div class="remove">
+                                            <button class="delete" id="delete-Translate" type="button">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Translate Tab -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <div id="Translate-Tab" class="tabcontent">
+                                        <!--Translate X-->
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="list">
+                                                    <span class="lable">Translate X: </span>
+                                                    <div class="inputgroup">
+                                                        <span>
+                                                    <input type="number" class="tooglerange" min="0" id="Translate-x">
+                                                </span>
+                                                        <span>
+                                                    <select id="Translate-x_unit"  class="unit">
+                                                        <option value="px" selected>px</option>
+                                                        <option value="%">%</option>
+                                                        <option value="cm">cm</option>
+                                                        <option value="mm">mm</option>
+                                                        <option value="in">in</option>
+                                                        <option value="pt">pt</option>
+                                                        <option value="pc">pc</option>
+                                                        <option value="em">em</option>
+                                                        <option value="ex">ex</option>
+                                                        <option value="ch">ch</option>
+                                                        <option value="rem">rem</option>
+                                                        <option value="vw">vw</option>
+                                                        <option value="vh">vh</option>
+                                                        <option value="vmin">vmin</option>
+                                                        <option value="vmax">vmax</option>
+                                                        <option disabled>------</option>
+                                                        <option value="auto">auto</option>
+                                                    </select>
+                                                </span>
+                                                    </div>
+                                                    <div class="remove">
+                                                        <button class="delete" id="delete-Translate-x" type="button">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                    </div>
+                                                </div>
+                                                <div class="Range" id="Translate-x-range">
+                                                    <input type="range" value="0" min="-1000" max="1000" class="slider" id="Translate-x_">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!--Translate Y-->
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="list">
+                                                    <span class="lable">Translate Y: </span>
+                                                    <div class="inputgroup">
+                                                        <span>
+                                                    <input type="number" class="tooglerange" min="0" id="Translate-y">
+                                                </span>
+                                                        <span>
+                                                    <select id="Translate-y_unit"  class="unit">
+                                                        <option value="px" selected>px</option>
+                                                        <option value="%">%</option>
+                                                        <option value="cm">cm</option>
+                                                        <option value="mm">mm</option>
+                                                        <option value="in">in</option>
+                                                        <option value="pt">pt</option>
+                                                        <option value="pc">pc</option>
+                                                        <option value="em">em</option>
+                                                        <option value="ex">ex</option>
+                                                        <option value="ch">ch</option>
+                                                        <option value="rem">rem</option>
+                                                        <option value="vw">vw</option>
+                                                        <option value="vh">vh</option>
+                                                        <option value="vmin">vmin</option>
+                                                        <option value="vmax">vmax</option>
+                                                        <option disabled>------</option>
+                                                        <option value="auto">auto</option>
+                                                    </select>
+                                                </span>
+                                                    </div>
+                                                    <div class="remove">
+                                                        <button class="delete" id="delete-Translate-y" type="button">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                    </div>
+                                                </div>
+                                                <div class="Range" id="Translate-y-range">
+                                                    <input type="range" value="0" min="-1000" max="1000" class="slider" id="Translate-y_">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!--Translate Z-->
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="list">
+                                                    <span class="lable">Translate Z: </span>
+                                                    <div class="inputgroup">
+                                                        <span>
+                                                    <input type="number" class="tooglerange" min="0" id="Translate-z">
+                                                </span>
+                                                        <span>
+                                                    <select id="Translate-z_unit"  class="unit">
+                                                        <option value="px" selected>px</option>
+                                                        <option value="%">%</option>
+                                                        <option value="cm">cm</option>
+                                                        <option value="mm">mm</option>
+                                                        <option value="in">in</option>
+                                                        <option value="pt">pt</option>
+                                                        <option value="pc">pc</option>
+                                                        <option value="em">em</option>
+                                                        <option value="ex">ex</option>
+                                                        <option value="ch">ch</option>
+                                                        <option value="rem">rem</option>
+                                                        <option value="vw">vw</option>
+                                                        <option value="vh">vh</option>
+                                                        <option value="vmin">vmin</option>
+                                                        <option value="vmax">vmax</option>
+                                                        <option disabled>------</option>
+                                                        <option value="auto">auto</option>
+                                                    </select>
+                                                </span>
+                                                    </div>
+                                                    <div class="remove">
+                                                        <button class="delete" id="delete-Translate-z" type="button">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                    </div>
+                                                </div>
+                                                <div class="Range" id="Translate-z-range">
+                                                    <input type="range" value="0" min="-1000" max="1000" class="slider" id="Translate-z_">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Scale -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="list">
+                                        <span class="toogleIcon" id="Toogle-Scale-Tab">
+                                        <i class="fas fa-caret-right"></i>
+                                    </span>
+                                        <span class="lable">Scale: </span>
+                                        <div class="inputgroup w-100">
+                                            <input type="text" class="tooglerange w-100" min="0" id="Scale">
+                                        </div>
+                                        <div class="remove">
+                                            <button class="delete" id="delete-Scale" type="button">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Scale Tab -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <div id="Scale-Tab" class="tabcontent">
+                                        <!--Scale X-->
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="list">
+                                                    <span class="lable">Scale X: </span>
+                                                    <div class="inputgroup">
+                                                        <span>
+                                                    <input type="number" class="tooglerange" min="0" id="Scale-x">
+                                                </span>
+                                                        <span>
+                                                    <select id="Scale-x_unit"  class="unit">
+                                                        <option value="px" selected>px</option>
+                                                        <option value="%">%</option>
+                                                        <option value="cm">cm</option>
+                                                        <option value="mm">mm</option>
+                                                        <option value="in">in</option>
+                                                        <option value="pt">pt</option>
+                                                        <option value="pc">pc</option>
+                                                        <option value="em">em</option>
+                                                        <option value="ex">ex</option>
+                                                        <option value="ch">ch</option>
+                                                        <option value="rem">rem</option>
+                                                        <option value="vw">vw</option>
+                                                        <option value="vh">vh</option>
+                                                        <option value="vmin">vmin</option>
+                                                        <option value="vmax">vmax</option>
+                                                        <option disabled>------</option>
+                                                        <option value="auto">auto</option>
+                                                    </select>
+                                                </span>
+                                                    </div>
+                                                    <div class="remove">
+                                                        <button class="delete" id="delete-Scale-x" type="button">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                    </div>
+                                                </div>
+                                                <div class="Range" id="Scale-x-range">
+                                                    <input type="range" value="0" min="-1000" max="1000" class="slider" id="Scale-x_">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!--Scale Y-->
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="list">
+                                                    <span class="lable">Scale Y: </span>
+                                                    <div class="inputgroup">
+                                                        <span>
+                                                    <input type="number" class="tooglerange" min="0" id="Scale-y">
+                                                </span>
+                                                        <span>
+                                                    <select id="Scale-y_unit"  class="unit">
+                                                        <option value="px" selected>px</option>
+                                                        <option value="%">%</option>
+                                                        <option value="cm">cm</option>
+                                                        <option value="mm">mm</option>
+                                                        <option value="in">in</option>
+                                                        <option value="pt">pt</option>
+                                                        <option value="pc">pc</option>
+                                                        <option value="em">em</option>
+                                                        <option value="ex">ex</option>
+                                                        <option value="ch">ch</option>
+                                                        <option value="rem">rem</option>
+                                                        <option value="vw">vw</option>
+                                                        <option value="vh">vh</option>
+                                                        <option value="vmin">vmin</option>
+                                                        <option value="vmax">vmax</option>
+                                                        <option disabled>------</option>
+                                                        <option value="auto">auto</option>
+                                                    </select>
+                                                </span>
+                                                    </div>
+                                                    <div class="remove">
+                                                        <button class="delete" id="delete-Scale-y" type="button">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                    </div>
+                                                </div>
+                                                <div class="Range" id="Scale-y-range">
+                                                    <input type="range" value="0" min="-1000" max="1000" class="slider" id="Scale-y_">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!--Scale Z-->
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="list">
+                                                    <span class="lable">Scale Z: </span>
+                                                    <div class="inputgroup">
+                                                        <span>
+                                                    <input type="number" class="tooglerange" min="0" id="Scale-z">
+                                                </span>
+                                                        <span>
+                                                    <select id="Scale-z_unit"  class="unit">
+                                                        <option value="px" selected>px</option>
+                                                        <option value="%">%</option>
+                                                        <option value="cm">cm</option>
+                                                        <option value="mm">mm</option>
+                                                        <option value="in">in</option>
+                                                        <option value="pt">pt</option>
+                                                        <option value="pc">pc</option>
+                                                        <option value="em">em</option>
+                                                        <option value="ex">ex</option>
+                                                        <option value="ch">ch</option>
+                                                        <option value="rem">rem</option>
+                                                        <option value="vw">vw</option>
+                                                        <option value="vh">vh</option>
+                                                        <option value="vmin">vmin</option>
+                                                        <option value="vmax">vmax</option>
+                                                        <option disabled>------</option>
+                                                        <option value="auto">auto</option>
+                                                    </select>
+                                                </span>
+                                                    </div>
+                                                    <div class="remove">
+                                                        <button class="delete" id="delete-Scale-z" type="button">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                    </div>
+                                                </div>
+                                                <div class="Range" id="Scale-z-range">
+                                                    <input type="range" value="0" min="-1000" max="1000" class="slider" id="Scale-z_">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </Form>
+                        <!-- More Title-->
+                        <div class="title list">
+                            More:
+                            <div class="remove">
+                                <button class="deleteall" id="delete-More-Form" type="button">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            </div>
+                        </div>
+                        <!-- More Form-->
+                        <form id="More-Form">
+                            <div class="row addRow">
+                                <div class="col-12 p-0">
+                                    <div class="list">
+                                        <span class="lable d-none">More</span>
+                                        <div class="addMore w-100">
+                                           Click here <span class="addIcon"><i class="fas fa-plus-circle"></i></span> to Add More..
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -3651,70 +4163,31 @@
                     <i class="fas fa-list-ul"></i>
                 </div>
                 <div id="ElemA" title="anchor" class="tools">
-                   <i class="fas fa-anchor"></i>
+                    <i class="fas fa-anchor"></i>
                 </div>
                 <div id="ElemTable" title="table" class="tools">
-                   <i class="fas fa-table"></i>
+                    <i class="fas fa-table"></i>
                 </div>
                 <div id="ElemInput" title="input" class="tools">
-                   <i class="far fa-keyboard"></i>
+                    <i class="far fa-keyboard"></i>
                 </div>
                 <div id="ElemSelect" title="Select" class="tools">
-                   <i class="far fa-caret-square-down"></i>
+                    <i class="far fa-caret-square-down"></i>
                 </div>
                 <div id="ElemButton" title="Button" class="tools">
-                   <div style="font-size: 16px;font-weight: bold;">ok</div>
+                    <div style="font-size: 16px;font-weight: bold;">ok</div>
                 </div>
                 <div id="ElemImg" title="image" class="tools">
-                   <i class="far fa-image"></i>
+                    <i class="far fa-image"></i>
                 </div>
             </div>
             <div id="PlayGround" class="col ml-3">
-                <div class="row" id="PlayGround-Header" style="height:40px;">
-                    <div class="col list">
-                        <h5 class="mb-0">Play Ground:</h5>
-                        <select id="myDivids">
-                            <option value="none" selected="" disabled="">none</option>
-                        </select>
-                        <span class="lable" style="margin-left: 20px;">Selector</span>
-                        <input type="text" id="selector">
-                        <div class="remove">
-                            <button class="delete" id="delete-selector" type="button" style="margin-top: 0;">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                        </div>
 
-                        <div class="col list pr-0">
-                            <div class="d-flex justify-content-center">
-                                <div id="PreView" class="topIcon" title="Preview">
-                                    <span><i class="fas fa-eye"></i></span>
-                                </div>
-                                <div id="Parent" class="topIcon" title="Select parent">
-                                    <i class="fas fa-level-up-alt"></i>
-                                </div>
-                                <div id="Child" class="topIcon" title="Select Child">
-                                    <i class="fas fa-level-down-alt"></i>
-                                </div>
-                                <div id="Clone" class="topIcon" title="Clone">
-                                    <i class="fas fa-clone"></i>
-                                </div>
-                                <div id="DeleteThis" class="topIcon" title="Delete Current">
-                                    <i class="fas fa-trash"></i>
-                                </div>
-                            </div>
-                            <div class="d-flex w-100 justify-content-end" style="margin-top: 9px;">
-                                <div class="navlist activeTab">Design</div>
-                                <div class="navlist">Split</div>
-                                <div class="navlist">Source</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="close">
                     <i class="fas fa-times"></i>
                 </div>
                 <div class="row no-gutters bg-white" style="height: 558px;">
-                    
+
                     <div class="col-12 d-flex" id="Design">
                         <div class="col-12 d-none " id="SourceView"></div>
                         <div class="col-12 bg-white" id="DesignView"></div>
@@ -3738,16 +4211,39 @@
                                 <div style="display:inline-table">
                                     <div id="ElemNavbarDark" class="DragElem">Nav Dark</div>
                                     <div id="ElemNavbarLight" class="DragElem">Nav Light</div>
+                                    <div id="ElemNavPills" class="DragElem">Nav Pills</div>
+                                    <div id="ElemNavLinks" class="DragElem">Nav Link</div>
                                     <div id="ElemJumbotron" class="DragElem">Jumbotron</div>
                                     <div id="ElemJumbotronFluid" class="DragElem">Jumbotron Fluid</div>
                                     <div id="ElemCard" class="DragElem">Card</div>
                                     <div id="ElemCardFeatured" class="DragElem">Card Featured</div>
                                     <div id="ElemCardDecks" class="DragElem">Card Decks</div>
+                                    <div id="ElemCardGroup" class="DragElem">Card Group</div>
+                                    <div id="ElemCardImageOverley" class="DragElem">Card Image Overley</div>
+                                    <div id="ElemCardPrimary" class="DragElem">Card Primary</div>
+                                    <div id="ElemCardColumn" class="DragElem">Card Column</div>
                                     <div id="ElemMedia" class="DragElem">Media</div>
                                     <div id="ElemMediaList" class="DragElem">Media List</div>
+                                    <div id="ElemAlert" class="DragElem">Alert</div>
+                                    <div id="ElemAlertContent" class="DragElem">Alert Content</div>
+                                    <div id="ElemBadge" class="DragElem">Badge</div>
+                                    <div id="ElemBreadcrumb" class="DragElem">Breadcrumb</div>
                                     <div id="ElemForm" class="DragElem">Form</div>
+                                    <div id="ElemFormInline" class="DragElem">Form Inline</div>
+                                    <div id="ElemFormGrid" class="DragElem">Form Grid</div>
+                                    <div id="ElemFormHorizontal" class="DragElem">Form Horizontal</div>
+                                    <div id="ElemFormAuto" class="DragElem">Form Auto</div>
                                     <div id="ElemInputGroup" class="DragElem">Input Group</div>
-                                    
+                                    <div id="ElemCustomSelect" class="DragElem">Select</div>
+                                    <div id="ElemCustomRadio" class="DragElem">Radio</div>
+                                    <div id="ElemCustomRadioInline" class="DragElem">Radio Inline</div>
+                                    <div id="ElemCustomCheckbox" class="DragElem">Checkbox</div>
+                                    <div id="ElemButtonGroup" class="DragElem">Button Group</div>
+                                    <div id="ElemButtonGroupVertical" class="DragElem">Button Group Vertical</div>
+                                    <div id="ElemButtonList" class="DragElem">Button List</div>
+                                    <div id="ElemProgressbar" class="DragElem">Progressbar</div>
+                                    <div id="ElemPagination" class="DragElem">Pagination</div>
+
                                 </div>
                             </div>
                         </div>
@@ -3755,24 +4251,27 @@
                 </div>
 
             </div>
-
+        </div>
+        <div style="margin-top: -10px;">
+            <ul id="Breadcrumb" class="breadcrumb">
+            </ul>
         </div>
     </div>
-    
+
     <div class="d-none">
-        <div id="DragElemDiv" style="background-color: #caecca;padding: 15px; border: 1px solid black;"><span>Div</span></div>
-        <span id="DragElemSpan" style="background-color: #caecca;border: 1px solid black;">Span</span>
-        <p id="DragElemP" style="background-color: #caecca; padding: 15px; border: 1px solid black;"><span>pragraph</span></p>
-        <h1 id="DragElemH1" style="background-color: #caecca; padding: 15px; border: 1px solid black;">Heading1</h1>
-        <ul id="DragElemUl" style="background-color: #caecca; border: 1px solid black;">
-            <li style="background-color: #caecca; padding: 15px; border: 1px solid black;"><span>Item 1</span></li>
-            <li style="background-color: #caecca; padding: 15px; border: 1px solid black;"><span>Item 2</span></li>
-            <li style="background-color: #caecca; padding: 15px; border: 1px solid black;"><span>Item 3</span></li>
-            <li style="background-color: #caecca; padding: 15px; border: 1px solid black;"><span>Item 4</span></li>
-            <li style="background-color: #caecca; padding: 15px; border: 1px solid black;"><span>Item 5</span></li>
+        <div id="DragElemDiv" style="padding: 15px; border: 1px solid black;"><span>Div</span></div>
+        <span id="DragElemSpan" style="border: 1px solid black;">Span</span>
+        <p id="DragElemP" style="padding: 15px; border: 1px solid black;"><span>pragraph</span></p>
+        <h1 id="DragElemH1" style="padding: 15px; border: 1px solid black;">Heading1</h1>
+        <ul id="DragElemUl" style="border: 1px solid black;">
+            <li style="padding: 15px; border: 1px solid black;"><span>Item 1</span></li>
+            <li style="padding: 15px; border: 1px solid black;"><span>Item 2</span></li>
+            <li style="padding: 15px; border: 1px solid black;"><span>Item 3</span></li>
+            <li style="padding: 15px; border: 1px solid black;"><span>Item 4</span></li>
+            <li style="padding: 15px; border: 1px solid black;"><span>Item 5</span></li>
         </ul>
-        <a href="#" id="DragElemA" style="background-color: #caecca; border: 1px solid black;">www.google.com</a>
-        <table id="DragElemTable" style="background-color: #caecca; padding: 15px; border: 1px solid black;">
+        <a href="#" id="DragElemA" style="border: 1px solid black;">www.google.com</a>
+        <table id="DragElemTable" style="padding: 15px; border: 1px solid black;">
             <tr>
                 <td>col1</td>
                 <td>col2</td>
@@ -3811,47 +4310,15 @@
         <button id="DragElemButton"><span>Button</span></button>
         <img id="DragElemImg" src="images/img1.jpg" alt="myImage">
     </div>
-    <div  class="d-none">
+    <div class="d-none">
         <nav id="DragElemNavbarDark" class="navbar navbar-expand-md navbar-dark bg-dark ">
             <a class="navbar-brand" href="#">Navbar</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-        
+
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div>
-            </nav>
-        <nav id="DragElemNavbarLight" class="navbar navbar-expand-md navbar-light bg-light">
-                <a class="navbar-brand" href="#">Navbar</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            
-                <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                    <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
@@ -3864,18 +4331,77 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
                         </div>
                     </li>
-                    </ul>
-                    <form class="form-inline my-2 my-lg-0">
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
+                </form>
+            </div>
+        </nav>
+        <nav id="DragElemNavbarLight" class="navbar navbar-expand-md navbar-light bg-light">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown01">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
+                </form>
+            </div>
+        </nav>
+        <ul id="DragElemNavPills" class="nav nav-pills">
+            <a class="nav-link active" href="#">Active</a>
+            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link disabled" href="#">Disabled</a>
+        </ul>
+        <ul id="DragElemNavLinks" class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Active</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Separated link</a>
                 </div>
-            </nav>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Another link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+        </ul>
         <div id="DragElemJumbotron" class="jumbotron">
             <h1 class="display-4">Hello, world!</h1>
             <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
@@ -3912,6 +4438,14 @@
                 2 days ago
             </div>
         </div>
+        <div id="DragElemCardImageOverley" class="card bg-dark text-white">
+            <img class="card-img" src="images/img2.jpg" alt="Card image">
+            <div class="card-img-overlay">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text">Last updated 3 mins ago</p>
+            </div>
+        </div>
         <div id="DragElemCardDecks" class="card-deck">
             <div class="card">
                 <img class="card-img-top" src="images/img1.jpg" alt="Card image cap">
@@ -3941,6 +4475,109 @@
                 </div>
                 <div class="card-footer">
                     <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+        <div id="DragElemCardGroup" class="card-group">
+            <div class="card">
+                <img class="card-img-top" src="images/img1.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="images/img1.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="images/img1.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+        <div id="DragElemCardPrimary" class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+            <div class="card-header">Header</div>
+            <div class="card-body">
+                <h5 class="card-title">Primary card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+        <div id="DragElemCardColumn" class="card-columns">
+            <div class="card">
+                <img class="card-img-top" src="images/img3.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title that wraps to a new line</h5>
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                </div>
+            </div>
+            <div class="card p-3">
+                <blockquote class="blockquote mb-0 card-body">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                    <footer class="blockquote-footer">
+                        <small class="text-muted">
+                                Someone famous in <cite title="Source Title">Source Title</cite>
+                            </small>
+                    </footer>
+                </blockquote>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="images/img3.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+            <div class="card bg-primary text-white text-center p-3">
+                <blockquote class="blockquote mb-0">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
+                    <footer class="blockquote-footer">
+                        <small>
+                                Someone famous in <cite title="Source Title">Source Title</cite>
+                            </small>
+                    </footer>
+                </blockquote>
+            </div>
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img" src="images/img3.jpg" alt="Card image">
+            </div>
+            <div class="card p-3 text-right">
+                <blockquote class="blockquote mb-0">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                    <footer class="blockquote-footer">
+                        <small class="text-muted">
+                                Someone famous in <cite title="Source Title">Source Title</cite>
+                            </small>
+                    </footer>
+                </blockquote>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                 </div>
             </div>
         </div>
@@ -3976,50 +4613,193 @@
                 </li>
             </ul>
         </div>
-        <div id="DragElemForm">
-            <form>
-                <div class="form-group">
-                    <label for="text">Name</label>
-                    <input type="text" class="form-control" id="" placeholder="Name">
+        <div id="DragElemAlert" class="alert alert-success alert-dismissible " role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span> </button>
+            <strong>Warning!</strong> Better check yourself, youre <a href="#" class="alert-link">not looking too good</a>
+        </div>
+        <div id="DragElemAlertContent" class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span> </button>
+            <h4 class="alert-heading">Well done!</h4>
+            <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+            <hr>
+            <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+        </div>
+        <span id="DragElemBadge" class="badge badge-info">10</span>
+        <nav id="DragElemBreadcrumb" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Library</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Data</li>
+            </ol>
+        </nav>
+        <form id="DragElemForm">
+            <div class="form-group">
+                <label for="text">Name</label>
+                <input type="text" class="form-control" id="" placeholder="Name">
+            </div>
+            <div class="form-group">
+                <label for="Country">Country</label>
+                <select class="custom-select" id="Country" name="Country">
+                  <option selected>Open this select menu</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+              </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+            <div class="form-group custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
+            </div>
+            <div class="form-group">
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="Gender1" name="Gender" class="custom-control-input">
+                    <label class="custom-control-label" for="Gender1">Male</label>
                 </div>
-                <div class="form-group">
-                    <label for="Country">Country</label>
-                    <select class="custom-select" id="Country" name="Country">
-                      <option selected>Open this select menu</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                  </select>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="Gender2" name="Gender" class="custom-control-input">
+                    <label class="custom-control-label" for="Gender2">Female</label>
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-secondary">Cancel</button>
+            </div>
+        </form>
+        <form id="DragElemFormInline" class="form-inline">
+            <div class="form-group mb-2">
+                <label for="staticEmail2" class="sr-only">Email</label>
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="email@example.com">
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="inputPassword2" class="sr-only">Password</label>
+                <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+            </div>
+            <button type="button" class="btn btn-primary mb-2">Confirm identity</button>
+        </form>
+        <form id="DragElemFormGrid">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Email</label>
+                    <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Password</label>
+                    <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
                 </div>
-                <div class="form-group custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck1">
-                    <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
+            </div>
+            <div class="form-group">
+                <label for="inputAddress">Address</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+            </div>
+            <div class="form-group">
+                <label for="inputAddress2">Address 2</label>
+                <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputCity">City</label>
+                    <input type="text" class="form-control" id="inputCity">
                 </div>
-                <div class="form-group">
-                    <div class="custom-control custom-radio">
-                        <input type="radio" id="Gender1" name="Gender" class="custom-control-input">
-                        <label class="custom-control-label" for="Gender1">Male</label>
+                <div class="form-group col-md-4">
+                    <label for="inputState">State</label>
+                    <select id="inputState" class="form-control">
+                        <option selected>Choose...</option>
+                        <option>...</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputZip">Zip</label>
+                    <input type="text" class="form-control" id="inputZip">
+                </div>
+            </div>
+            <div class="form-group custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
+            </div>
+            <div class="form-row justify-content-between col-8">
+                <button type="button" class="btn btn-primary">Sign in</button>
+                <button type="reset" class="btn btn-secondary">Cancel</button>
+            </div>
+        </form>
+        <form id="DragElemFormHorizontal">
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                </div>
+            </div>
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
+                    <div class="col-sm-10">
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Gender1" name="Gender" class="custom-control-input">
+                                <label class="custom-control-label" for="Gender1">Male</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Gender2" name="Gender" class="custom-control-input">
+                                <label class="custom-control-label" for="Gender2">Female</label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="custom-control custom-radio">
-                        <input type="radio" id="Gender2" name="Gender" class="custom-control-input">
-                        <label class="custom-control-label" for="Gender2">Female</label>
+                </div>
+            </fieldset>
+            <div class="form-group row">
+                <div class="col-sm-2">Checkbox</div>
+                <div class="col-sm-10">
+                    <div class="form-group custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                        <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
                     </div>
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-7 row justify-content-between ">
+                    <button type="button" class="btn btn-primary">Sign in</button>
                     <button type="reset" class="btn btn-secondary">Cancel</button>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
+        <form id="DragElemFormAuto">
+            <div class="form-row align-items-center">
+                <div class="col-auto">
+                    <label class="sr-only" for="inlineFormInput">Name</label>
+                    <input type="text" class="form-control mb-2" id="inlineFormInput" placeholder="Jane Doe">
+                </div>
+                <div class="col-auto">
+                    <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">@</div>
+                        </div>
+                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username">
+                    </div>
+                </div>
+                <div class="col-auto custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                    <label class="custom-control-label ml-4" for="customCheck1">Check this</label>
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-primary mb-2">Submit</button>
+                </div>
+            </div>
+        </form>
         <div id="DragElemInputGroup" class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">$</span>
@@ -4029,32 +4809,125 @@
                 <span class="input-group-text">.00</span>
             </div>
         </div>
-        
+        <div id="DragElemCustomSelect" class="form-group">
+            <label for="Country">Country</label>
+            <select class="custom-select" id="Country" name="Country">
+                <option selected>Open this select menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div>
+        <div id="DragElemCustomRadio" class="form-group">
+            <div class="custom-control custom-radio">
+                <input type="radio" id="Gender1" name="Gender" class="custom-control-input">
+                <label class="custom-control-label" for="Gender1">Male</label>
+            </div>
+            <div class="custom-control custom-radio">
+                <input type="radio" id="Gender2" name="Gender" class="custom-control-input">
+                <label class="custom-control-label" for="Gender2">Female</label>
+            </div>
+        </div>
+        <div id="DragElemCustomRadioInline" class="form-group">
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="Gender1" name="Gender" class="custom-control-input">
+                <label class="custom-control-label" for="Gender1">Male</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="Gender2" name="Gender" class="custom-control-input">
+                <label class="custom-control-label" for="Gender2">Female</label>
+            </div>
+        </div>
+        <div id="DragElemCustomCheckbox" class="form-group custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="customCheck1">
+            <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
+        </div>
+        <div id="DragElemButtonGroup" class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            <button type="button" class="btn btn-secondary">1</button>
+            <button type="button" class="btn btn-secondary">2</button>
+            <button type="button" class="btn btn-secondary">3</button>
+
+            <div class="btn-group" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Dropdown
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <a class="dropdown-item" href="#">Dropdown link</a>
+                    <a class="dropdown-item" href="#">Dropdown link</a>
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary">4</button>
+        </div>
+        <div id="DragElemButtonGroupVertical" class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown">
+            <button type="button" class="btn btn-secondary">1</button>
+            <button type="button" class="btn btn-secondary">2</button>
+            <button type="button" class="btn btn-secondary">3</button>
+
+            <div class="btn-group" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Dropdown
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <a class="dropdown-item" href="#">Dropdown link</a>
+                    <a class="dropdown-item" href="#">Dropdown link</a>
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary">4</button>
+        </div>
+        <div id="DragElemButtonList" class="list-group">
+            <button type="button" class="list-group-item list-group-item-action active">
+                Cras justo odio
+            </button>
+            <button type="button" class="list-group-item list-group-item-action">Dapibus ac facilisis in</button>
+            <button type="button" class="list-group-item list-group-item-action">Morbi leo risus</button>
+            <button type="button" class="list-group-item list-group-item-action">Porta ac consectetur ac</button>
+            <button type="button" class="list-group-item list-group-item-action" disabled>Vestibulum at eros</button>
+        </div>
+        <div id="DragElemProgressbar" class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+        </div>
+        <nav id="DragElemPagination" aria-label="...">
+            <ul class="pagination">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item active">
+                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
-   
-    <script src="js/bootstrap.min.js"></script>
+
     <script src="js/jquery-3.2.1.min.js"></script>
+    <script id="bootstrap" src=""></script>
     <script src="ace-builds-master/src/ace.js"></script>
     <script src="jqueryui/jquery-ui.js"></script>
-    <script src="js/myeditor.js"></script>
-    <script src="js/tagsinput.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="roundSlider-1.3/src/roundslider.js"></script>
-    <script src="js/myScript.js"></script>
-    <script src="js/DragandDrop.js"></script>
-    
+    <script id = "myScript" src="js/myScript.js"></script>
+    <script src="js/roundedSlider.js"></script>
+    <script id="DragandDrop" src="js/DragandDrop.js"></script>
+
+
     <script>
-        $("#rotatex, #rotatey, #rotatez").roundSlider({
-            radius: 40,
-            width: 10,
-            handleSize: "+8",
-            handleShape: "dot",
-            sliderType: "min-range",
-            value: 0,
-            max: "360"
+        $('.close').click(function () {
+            $('#bootstrap').prop('src','')
+            $('#myScript').prop('src','js/myScript.js')
+            $('#DragandDrop').prop('src','js/DragandDrop.js')
+            $('#Design').removeClass("preview");
+            $('#DesignView').css({
+                'max-width': 'none',
+                'width': 'auto',
+                'height': '530px'
+            })
+            $('.close').hide();
         });
     </script>
-
 </body>
 
 </html>

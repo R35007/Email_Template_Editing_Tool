@@ -1,18 +1,22 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
-body{
+
+body {
     font-family: calibri;
     font-size: 14px;
     padding: 10px;
+    padding-bottom: 0;
 }
-#main.container-fluid{
+
+#main.container-fluid {
     box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 3px, rgba(0, 0, 0, 0.239216) 0px 1px 2px;
     margin: 0 auto;
     background-color: rgb(241, 241, 241);
 }
-#SidePanel{
+
+#SidePanel {
     width: 290px;
     margin-left: 0;
 }
@@ -26,12 +30,12 @@ body{
     background-color: rgb(255, 255, 255);
 }
 
-#SidePanel .title, #PlayGround .title {
+#SidePanel .title,
+#PlayGround .title {
     top: 0px;
     padding: 5px 15px;
     height: 30px;
     font-size: 16px;
-    //background-color: rgb(202, 232, 202);
     background-color: rgb(145, 215, 145);
     position: sticky;
     z-index: 10;
@@ -46,22 +50,24 @@ body{
     overflow: hidden;
 }
 
-#SidePanel .list, #PlayGround .list{
+#SidePanel .list,
+#PlayGround .list {
     display: flex;
     line-height: 2;
     align-items: center;
 }
 
-#SidePanel .lable, #PlayGround .lable{
+#SidePanel .lable,
+#PlayGround .lable {
     font-family: calibri;
 }
 
 
-#SidePanel .delete, 
-#SidePanel .deleteall, 
+#SidePanel .delete,
+#SidePanel .deleteall,
 #PlayGround-Header .deleteElement,
 #PlayGround-Header .delete,
-#SidePanel .delete-img{
+#SidePanel .delete-img {
     width: 20px;
     height: 20px;
     padding: 0;
@@ -69,23 +75,23 @@ body{
     display: block;
     border: 0;
     background: transparent;
-    cursor: pointer;
-    //color:#a3a3a3;
-    color:#519651;
+    cursor: pointer; //color:#a3a3a3;
+    color: #519651;
     outline: none;
     font-size: 12px;
 }
 
-#SidePanel .delete:hover, 
-#SidePanel .deleteall:hover, 
-#SidePanel .deleteElement:hover, 
+#SidePanel .delete:hover,
+#SidePanel .deleteall:hover,
+#SidePanel .deleteElement:hover,
 #SidePanel .delete-img:hover,
 #PlayGround-Header .deleteElement:hover,
-#PlayGround-Header .delete:hover{
-    color:#000000;
+#PlayGround-Header .delete:hover {
+    color: #000000;
 }
 
-#SidePanel .toogleIcon,  #PlayGround .toogleIcon{
+#SidePanel .toogleIcon,
+#PlayGround .toogleIcon {
     display: flex;
     align-items: center;
     margin-right: 10px;
@@ -93,101 +99,98 @@ body{
     cursor: pointer;
 }
 
-#SidePanel input, #SidePanel Select, #PlayGround-Header select{
+#SidePanel input,
+#SidePanel Select,
+#PlayGround-Header select {
     height: 20px;
     border: 0;
     outline: none;
     font-size: 13px;
 }
 
-#SidePanel input[type="number"]{
+#SidePanel input[type="number"] {
     width: 70px;
     text-align: center;
 }
 
-#SidePanel input[type="text"]{
+#SidePanel input[type="text"] {
     width: 104px;
     padding-left: 10px;
 }
 
-#SidePanel input[type="color"]{
+#SidePanel input[type="color"] {
     width: 16px;
     height: 16px;
     cursor: pointer;
 }
 
 #SidePanel input[type="color"]::-webkit-color-swatch-wrapper {
-	padding: 0;
+    padding: 0;
 }
 
-#SidePanel .unit{
+#SidePanel .unit {
     width: 50px;
     padding-left: 0;
     font-size: 13px;
 }
 
-#SidePanel .select{
+#SidePanel .select {
     width: 120px;
     font-size: 13px;
 }
 
-#SidePanel .Range{
-    display:none;
+#SidePanel .Range {
+    display: none;
 }
 
-#SidePanel .remove{
+#SidePanel .remove {
     margin-left: auto;
 }
 
-#SidePanel .search{
+#SidePanel .search {
     border-width: 1px 0;
     border-style: solid;
-    border-color: #d1d1d1;    
+    border-color: #d1d1d1;
 }
 
 #Tools {
-    height: 565px;
+    height: 560px;
     margin-bottom: 10px;
     overflow: hidden;
 }
 
-#Toogle-Attributes-Form{
-    margin-right: 5px !important;   
+#Toogle-Attributes-Form {
+    margin-right: 5px !important;
 }
-#Attributes{
+
+#Attributes {
     overflow: auto;
     max-height: 250px;
 }
 
-#Properties{
+#Properties {
     overflow: auto;
     height: 495px;
     margin-bottom: 15px;
 }
 
-#Attributes-Form .lable{
+#Attributes-Form .lable {
     line-height: 2
 }
 
-#Attributes-Form .taginput{
-    height:120px;
-}
 
-#Attributes-Form input{
+#Attributes-Form input {
     width: 100%;
 }
 
-#Background-Form{
-    min-height: 617px;
-}
 
-#SidePanel .lable{
-    width:90px;
+#SidePanel .lable {
+    width: 90px;
     font-size: 14px;
 }
 
-.tabcontent{
-    border-Top:0;
+.tabcontent {
+    border-Top: 0;
     padding: 15px 10px;
     display: none;
     margin-bottom: 10px;
@@ -195,7 +198,7 @@ body{
     margin-top: 10px;
 }
 
-.tab{
+.tab {
     margin-top: 10px;
     display: flex;
     line-height: 2;
@@ -204,7 +207,8 @@ body{
     height: 30px;
     box-shadow: 0 -1px 5px #9e9e9e;
 }
-.tab button{
+
+.tab button {
     background: transparent;
     border: 0;
     padding: 0 10px 0 10px;
@@ -212,49 +216,35 @@ body{
     outline: none;
 }
 
-.activeTab{
+.activeTab {
     background: #55a655 !important;
     color: #d8f3d8;
 }
 
 
-.bootstrap-tagsinput{
-    border: 0;
-    border-radius: 0;
-    height:118px;
-    overflow: auto;
-}
-
-.bootstrap-tagsinput .badge{
-    background-color: #00a700;
-    margin: 2px 0;
-}
-.bootstrap-tagsinput input {
-    width: 100% !important;
-}
-
-.browse{
+.browse {
     background: #cae8ca;
     padding: 3px;
 }
-.browse:hover{
+
+.browse:hover {
     background: #8fc18f;
     cursor: pointer;
 }
 
-.labelClip{
+.labelClip {
     border: 0;
-    float:none;
-    display: inline-block; 
-    margin-top: 0; 
+    float: none;
+    display: inline-block;
+    margin-top: 0;
     margin-left: 0;
 }
 
-#SourceView{
+#SourceView {
     height: 530px;
 }
 
-#DesignView{
+#DesignView {
     height: 530px;
     overflow: auto;
     padding: 0;
@@ -268,14 +258,14 @@ body{
 }
 
 
-#Footer-Form{
+#Footer-Form {
     height: 167px;
     width: 100%;
     background-color: #ffffff;
     display: none;
 }
 
-.navlist{
+.navlist {
     top: 0px;
     padding: 1px 10px;
     font-size: 14px;
@@ -286,19 +276,18 @@ body{
     position: relative;
 }
 
-.navlist:hover{
+.navlist:hover {
     background-color: rgb(127, 200, 127);
 }
 
-#ToolSet{
+#ToolSet {
     background: #91d791;
     margin-right: -15px;
-    width: 40px;
-    margin-top: 40px;
+    width: 25px;
     height: 560px;
 }
 
-.preview{
+.preview {
     position: fixed;
     z-index: 2000;
     top: 0;
@@ -308,7 +297,7 @@ body{
     background: #f1f1f1;
 }
 
-.close{
+.close {
     position: fixed;
     top: 0;
     right: 0;
@@ -318,29 +307,50 @@ body{
     display: none;
 }
 
-.close:hover{
+.close:hover {
     opacity: 0.5
 }
 
-.topIcon{
+.topIcon {
     padding: 3px;
     cursor: pointer;
     opacity: 0.3;
     position: relative;
     margin: 5px;
 }
-.topIcon:hover{
+
+.topIcon:hover {
     opacity: 1;
 }
 
-#Inline-Styles{
+#Inline-Styles {
     border-right: 1px solid #d8d8d8;
-    padding: 15px;
+    padding: 15px 5px;
     height: 167px;
     overflow: auto;
 }
 
-#Bootstrap-Components{
+#Inline-Styles div.list {
+    padding: 2px 10px;
+}
+
+#Inline-Styles div.list:hover {
+    background-color: #f3f3f3;
+}
+
+#Inline-Styles .delete {
+    padding: 0px 7px;
+    margin-right: -10px;
+    cursor: pointer;
+    opacity: 0.3;
+}
+
+#Inline-Styles .delete:hover {
+    background-color: #d2d2d2;
+    opacity: 1;
+}
+
+#Bootstrap-Components {
     padding: 15px;
     height: 167px;
     overflow: auto;
@@ -356,79 +366,178 @@ body{
     margin: 5px;
     font-size: 14px;
     z-index: 1000;
+    transition: .3s all ease;
 }
 
-#myDivids , #selector{
-    width: 170px;
+.DragElem:hover {
+    background: #308a30;
+    color: white;
+}
+
+#myDivids,
+#selector {
+    width: 213px;
     height: 25px !important;
-    margin-right: 12px;
-    margin-left: 30px;
-}
-#selector{
-    margin-left: 15px;
-    width:230px
+    margin-right: 29px;
+    margin-left: 7px;
 }
 
-.highlight{
+#selector {
+    margin-left: 15px;
+    width: 230px
+}
+
+.highlight {
     outline: red solid 1px;
 }
 
-.RotateX{
+.highlight2 {
+    outline: red solid 1px;
+}
+
+.RotateX {
     transform: rotateX(360deg);
     -webkit-transform: rotateX(20deg);
     transform: rotateX(180deg);
 }
 
-.RotateY{
+.RotateY {
     transform: rotateY(360deg);
     -webkit-transform: rotateY(20deg);
     transform: rotateY(180deg);
 }
 
-.rs-range-color{
+.rs-range-color {
     background-color: #308a30;
 }
-.rs-handle:after{
+
+.rs-handle:after {
     background-color: #000000;
 }
-.edit{
+
+.edit {
     background: transparent !important;
 }
-.rs-border{
+
+.rs-border {
     border-color: #308a30;
 }
 
-.rs-tooltip.hover, .rs-tooltip.edit:hover {
+.rs-tooltip.hover,
+.rs-tooltip.edit:hover {
     border: 0;
 }
 
-#setId{
+#skewx span.rs-tooltip.rs-tooltip-text.edit,
+#skewy span.rs-tooltip.rs-tooltip-text.edit {
+    top: 10px;
+}
+
+#setId {
     display: block;
     font-size: 13px;
     padding: 5px;
     background: #91d791;
     cursor: pointer;
 }
-#setId:hover{
+
+#setId:hover {
     background: rgb(127, 200, 127);
 }
 
-.editinplace{
+.editinplace {
     display: inline-block;
     font-size: 16px;
     padding: 5px;
 }
 
-.err{
+.err {
     box-shadow: 0px 0px 0px 1px red;
 }
 
-.tools{
-    text-align:center;
-    font-size: 17px;
-    cursor: move; 
-    background: #91d791
+.tools {
+    text-align: center;
+    font-size: 14px;
+    cursor: move;
+    background: #91d791;
+    margin-top: 5px;
 }
-.tools:hover{
-    background-color:#85c485;
+
+.tools:hover {
+    background-color: #85c485;
+}
+
+
+
+.bootstrap-tagsinput {
+    border: 0;
+    border-radius: 0;
+    height: 118px;
+    overflow: auto;
+}
+
+.bootstrap-tagsinput .badge {
+    margin-right: 2px;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 3px;
+    border: 1px solid #004800;
+    margin: 2px;
+}
+
+#Attributes-Form .taginput {
+    height: 120px;
+    border: 1px solid #c5c5c5;
+    overflow: auto;
+}
+
+.removeTag {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.removeTag:hover {
+    opacity: 1;
+}
+
+.rs-tooltip-text {
+    display: none;
+}
+
+.ui-autocomplete {
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    width: 200px;
+}
+
+.addMore{
+    text-align: center;
+    color: #6f6f6f;
+    font-size: 12px;
+}
+.addIcon{
+    cursor: pointer;
+    color: #308a30;
+    opacity: 0.4;
+    font-size: 20px;
+    vertical-align: middle;
+    transition: 0.2s all ease;
+}
+.addIcon:hover{
+    opacity: 1;
+}
+
+.deleteMore{
+    background-color: #e1e1e1;
+    padding: 0px 5px;
+    cursor: pointer;
+    opacity: 0.3;
+    height: 25px;
+    display: block;
+    border: 0;
+}
+.deleteMore:hover{
+    opacity: 1;
 }
