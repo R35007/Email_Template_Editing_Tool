@@ -5,15 +5,15 @@
 /*eslint no-console:  ["error", { allow: ["warn", "error", "log","no-used-vars"] }] */
 //
 var keys = {};
-    var replaceWith = $('<div id="edit" contentEditable="true" class="editinplace"></div>');
-    var $myElement, myparents, myElementCopy, replaceElement, propnew, $ElementToreplace;
-    var isDesignViewClicked = false,
-        mycolors = new Array();
+var replaceWith = $('<div id="edit" contentEditable="true" class="editinplace"></div>');
+var $myElement, myparents, myElementCopy, replaceElement, propnew, $ElementToreplace;
+var isDesignViewClicked = false,
+    mycolors = new Array();
 
 $(document).ready(function () {
 
     $('.container-fluid').css('height', $(window).height());
-//    $('.container-fluid').css('width', $(window).width());
+    //    $('.container-fluid').css('width', $(window).width());
 
     $('#DesignView').on('load', DesignViewEvents)
 
@@ -172,7 +172,11 @@ $(document).ready(function () {
                 }
             }
 
-                ShowStyle();
+            for (i = 0; i < $('form').length; i++) {
+                $('form')[i].reset();
+            }
+
+            ShowStyle();
 
             e.stopPropagation();
 
@@ -230,13 +234,13 @@ $(document).ready(function () {
                 var thisid = $(this).attr('id');
                 if (typeof thisid !== "undefined")
                     if (thisid.trim().length > 0)
-                        array.push('#'+thisid);
+                        array.push('#' + thisid);
             });
 
             $('#selector').autocomplete({
                 source: array
             });
-            
+
         });
 
     }
@@ -508,11 +512,11 @@ $(document).ready(function () {
     })
 
     //  Trigger toogle sidepanle click
-    $('#ToolSet').on('click',function(e){
-        if(e.target==this)
+    $('#ToolSet').on('click', function (e) {
+        if (e.target == this)
             $('#Toogle-SidePanel').trigger('click');
     })
-    
+
     /*  Menu Logic  -   Preview, Select Parent, Select Child, Select Previous,Select Next,
                         Move Up, Move Down, Cut, Copy, Paste, Paste Before, Paste After, Paste Style,
                         Clone, Delete, Undo*/
@@ -533,18 +537,11 @@ $(document).ready(function () {
 
         try {
             if (thisid == 'PreView') {
-                $('.navlist:eq(0)').trigger('click');
-                $('#Footer-Form').hide();
-                $('#Design').addClass("preview");
-                $('#DesignView').css({
-                    'max-width': 'none',
-                    'width': '100%',
-                    'height': '100%'
-                })
                 $('.close').show();
-                $('#bootstrap').prop('src', 'js/bootstrap.min.js');
-                $('#DragandDrop').prop('src', '');
-                $('#myScript').prop('src', '');
+                $('#main').hide();
+                $('#PreviewPan').html($('#DesignView').contents().find('html').html());
+                $('#PreviewPan').show();
+
             } else if (thisid == 'Parent')
                 $myElement.parent().trigger('click');
             else if (thisid == 'Child')
@@ -652,27 +649,27 @@ $(document).ready(function () {
             $(this).addClass('activeTab')
             if ($('#Footer-Form').css('display').toLowerCase() == 'none')
                 $("#Toogle-Footer-Form").trigger('click');
-            $('#Design').css('height', 'calc(100% - 197px)');
+            $('#Design').css('height', 'calc(100% - 230px)');
             DesignViewEvents();
         } else if (tabs == "SourceView") {
             $DesignView = removeEmpty();
             myDesign = $DesignView.html();
             myDesign = myreplace(myDesign);
 
-            editor.session.setValue('<html>'+myDesign+'</html>');
+            editor.session.setValue('<html>' + myDesign + '</html>');
             $('#Footer-Form').hide();
             $('#SourceView').removeClass('d-none');
             $('#SourceView').removeClass('col-6');
             $('#SourceView').addClass('col-12');
             $(this).addClass('activeTab');
-            $('#Design').css('height', 'calc(100% - 30px)');
+            $('#Design').css('height', 'calc(100% - 60px)');
         } else if (tabs == "SplitView") {
-//            $DesignView = removeEmpty();
-//            myDesign = $DesignView.html();
-//            myDesign = myreplace(myDesign);
+            //            $DesignView = removeEmpty();
+            //            myDesign = $DesignView.html();
+            //            myDesign = myreplace(myDesign);
             myDesign = $('#DesignView').contents().find('html').html();
 
-            editor.session.setValue('<html>'+myDesign+'</html>');
+            editor.session.setValue('<html>' + myDesign + '</html>');
             $('#Footer-Form').hide();
             $('#SourceView').removeClass('d-none');
             $('#SourceView').removeClass('col-12');
@@ -681,7 +678,7 @@ $(document).ready(function () {
             $('#DesignView').removeClass('col-12');
             $('#DesignView').addClass('col-6');
             $(this).addClass('activeTab');
-            $('#Design').css('height', 'calc(100% - 30px)');
+            $('#Design').css('height', 'calc(100% - 60px)');
             DesignViewEvents();
             $('DesignView').trigger('load');
         }
@@ -804,15 +801,8 @@ $(document).ready(function () {
         if ($('#SidePanel').css('margin-left') == '0px') {
             $('#SidePanel').animate({
                 'margin-left': '-250px'
-            }, function () {
-                $('#Design').css({
-                    'width': '1300px'
-                });
             });
         } else {
-            $('#Design').css({
-                'width': '1015px'
-            });
             $('#SidePanel').animate({
                 'margin-left': '0px'
             });
@@ -824,6 +814,7 @@ $(document).ready(function () {
 
         var toogleTab = this.id.replace("Toogle-", "")
         $("#" + toogleTab).slideToggle("fast");
+        $(this).toggleClass('RotateX');
 
     });
 
@@ -844,10 +835,10 @@ $(document).ready(function () {
 
                 if (display == "block") {
                     $("#" + toogleTab).hide();
-                    $('#Design').css('height', 'calc(100% - 30px)');
+                    $('#Design').css('height', 'calc(100% - 60px)');
                 } else {
                     $("#" + toogleTab).fadeIn();
-                    $('#Design').css('height', 'calc(100% - 197px)');
+                    $('#Design').css('height', 'calc(100% - 230px)');
                 }
             } else {
                 toogleTab = this.id.replace("Toogle-", "")
@@ -863,7 +854,7 @@ $(document).ready(function () {
 
         if (design) {
             $("#Footer-Form").fadeIn();
-            $('#Design').css('height', 'calc(100% - 197px)');
+            $('#Design').css('height', 'calc(100% - 230px)');
         }
     })
 
@@ -1038,16 +1029,8 @@ $(document).ready(function () {
 
     //  Closes the Preview mode
     $('.close').click(function () {
-        $('#bootstrap').prop('src', '')
-        $('#myScript').prop('src', 'js/myScript.js')
-        $('#DragandDrop').prop('src', 'js/DragandDrop.js')
-        $('#Design').removeClass("preview");
-        $('#Footer-Form').show();
-        $('#Design').css('height', 'calc(100% - 197px)');
-        $('#DesignView').css({
-            'max-width': 'none',
-            'width': 'auto'
-        })
+        $('#main').show();
+        $('#PreviewPan').hide();
         $('.close').hide();
     });
 
@@ -1080,15 +1063,15 @@ $(document).ready(function () {
     });
 
     //  Toogle BorderTabs
-    $('.tablinks').on('click',function(){
-        var tabid="#"+this.id.replace('Toogle-','');
+    $('.tablinks').on('click', function () {
+        var tabid = "#" + this.id.replace('Toogle-', '');
         $('.tablinks').removeClass('activeTab');
         $(this).addClass('activeTab');
         $('.borderTab').hide();
         $(tabid).show();
-        $(tabid+' .tabcontent').show();
+        $(tabid + ' .tabcontent').show();
     })
-    
+
     //  Set Extra Style
     $('#More-Form').on('input click', 'input', function () {
 
@@ -1467,6 +1450,15 @@ $(document).ready(function () {
 
     function ShowStyle() {
 
+        var hasUnit = ["width", "height", "min-width", "min-height", "max-width", "max-height",
+                        "top", "right", "bottom", "left",
+                        "margin-top", "margin-right", "margin-bottom", "margin-left",
+                        "padding-top", "padding-right", "padding-bottom", "padding-left",
+                        "font-size", "line-height", "text-indent",
+                        "letter-spacing", "word-spacing", "vertical-align",
+                        "border-width", "border-top-width", "border-right-width", "border-bottom-width", "border-left-width",
+                        "border-top-left-radius", "border-top-right-radius", "border-bottom-left-radius", "border-bottom-right-radius"];
+
         var style, allstyle, elemId, myselector;
         try {
             $("#Inline-Styles").html("");
@@ -1474,11 +1466,28 @@ $(document).ready(function () {
             style = $myElement.attr("style");
 
             var eachstyle = style.split(';');
-
+            var propname, propvalue;
             for (var i in eachstyle) {
                 if (typeof eachstyle[i] !== 'undefined' && eachstyle[i] != null && eachstyle[i] != '') {
-                    var mylist = '<div class="list"><div class="prop">' + eachstyle[i].split(':')[0] + '</div>&nbsp;:&nbsp;<span class="value">' + eachstyle[i].split(':')[1] + '</span><div class="delete ml-auto"><i class="fas fa-minus"></i></div>'
+
+                    propname = eachstyle[i].split(':')[0].trim();
+                    propvalue = eachstyle[i].split(':')[1].trim();
+
+                    var mylist = '<div class="list"><div class="prop">' + propname + '</div>&nbsp;:&nbsp;<span class="value">' + propvalue + '</span><div class="delete ml-auto"><i class="fas fa-minus"></i></div>'
                     $("#Inline-Styles").append(mylist);
+
+                    if (hasUnit.indexOf(propname) >= 0) {
+                        console.log('came in2');
+                        console.log(propname);
+                        console.log(propvalue.split(/(\d+)/g));
+
+                        $("#" + propname).val(propvalue.split(/(\d+)/g)[1]);
+                        $("#" + propname + "_unit").val(propvalue.split(/(\d+)/g)[2]);
+
+                    } else {
+                        $("#" + propname).val(propvalue);
+                    }
+
                 }
 
             }
@@ -1541,6 +1550,7 @@ $(document).ready(function () {
 
     //  Get Inline Styles
     $('#Properties input,#Properties select,#Properties button').not('#Attributes-Form input,#Attributes-Form select,#Attributes-Form button').on("change input click", function (e) {
+        console.log('came in css');
 
         if ($(this).hasClass('prop') || $(this).hasClass('val'))
             return;
