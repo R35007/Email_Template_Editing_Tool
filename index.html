@@ -1,0 +1,1591 @@
+<head>
+    <meta content="width=device-width">
+    <meta content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>Playit</title>
+    <link rel="stylesheet" href="css/myStyles.css">
+    <link rel="stylesheet" href="css/Slider.css">
+    
+</head>
+
+<body>
+
+    <div id="container" class="container" style="display: block;">
+
+        <div class="codecontainer">
+            <div class="demoHeader">CSS Property:</div>
+            <div class="Layout">
+                <div class="title">Layout:</div>
+                <form id="Layout">
+                    <div class="list">
+                        <span class="lable">Width: </span>
+                        <div class="inputgroup">
+                            <span style="float: left">
+                                <input type="number" min="0" id="Width_">
+                            </span>
+                            <span style="float: left">
+                                <select id="Width_Unit" class="unit">
+                                    <option value="auto">auto</option>
+                                    <option disabled>------</option>
+                                    <option value="px" selected>px</option>
+                                    <option value="%">%</option>
+                                    <option value="cm">cm</option>
+                                    <option value="mm">mm</option>
+                                    <option value="in">in</option>
+                                    <option value="pt">pt</option>
+                                    <option value="pc">pc</option>
+                                    <option value="em">em</option>
+                                    <option value="ex">ex</option>
+                                    <option value="ch">ch</option>
+                                    <option value="rem">rem</option>
+                                    <option value="vw">vw</option>
+                                    <option value="vh">vh</option>
+                                    <option value="vmin">vmin</option>
+                                    <option value="vmax">vmax</option>
+                                </select>
+                            </span>
+                        </div>
+                        <div class="Range">
+                            <input type="range" value="0" min="0" max="1000" class="slider" id="Width">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Width" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Height: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number" min="0" id="Height_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Height_Unit" class="unit">
+                                        <option value="auto" selected>auto</option>
+                                        <option disabled>------</option>
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Range">
+                            <input type="range" value="0" min="0" max="1000" class="slider" id="Height">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Height" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Min Width: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number" min="0" id="Min-Width_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Min-Width_Unit"  class="unit">
+                                        <option value="auto" selected>auto</option>
+                                        <option disabled>------</option>
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Range">
+                            <input type="range" value="0" min="0" max="1000" class="slider" id="Min-Width">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Min-Width" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Min Height: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number" min="0" id="Min-Height_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Min-Height_Unit"  class="unit">
+                                        <option value="auto" selected>auto</option>
+                                        <option disabled>------</option>
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Range">
+                            <input type="range" value="0" min="0" max="1000" class="slider" id="Min-Height">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Min-Height" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Max Width: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number" min="0" id="Max-Width_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Max-Width_Unit"  class="unit">
+                                        <option value="auto" selected>auto</option>
+                                        <option disabled>------</option>
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Range">
+                            <input type="range" value="0" min="0" max="1000" class="slider" id="Max-Width">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-MaxWeight" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Max Height: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number" min="0" id="Max-Height_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Max-Height_Unit"  class="unit">
+                                        <option value="auto" selected>auto</option>
+                                        <option disabled>------</option>
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Range">
+                            <input type="range" value="0" min="0" max="1000" class="slider" id="Max-Height">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Max-Height" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <span class="lable">Display: </span>
+                        <div class="inputgroup">
+                            <span style="float: left">
+                                <select id="Display" class="select">
+                                    <option></option>
+                                    <option value="inline">inline</option>
+                                    <option value="block">block</option>
+                                    <option value="flex">flex</option>
+                                    <option value="grid">grid</option>
+                                    <option value="inline-block">inline-block</option>
+                                    <option value="inline-flex">inline-flex</option>
+                                    <option value="inline-grid">inline-grid</option>
+                                    <option value="inline-table">inline-table</option>
+                                    <option value="list-item">list-item</option>
+                                    <option value="run-in">run-in</option>
+                                    <option value="table">table</option>
+                                    <option value="table-caption">table-caption</option>
+                                    <option value="table-column-group">table-column-group</option>
+                                    <option value="table-header-group">table-header-group</option>
+                                    <option value="table-footer-group">table-footer-group</option>
+                                    <option value="table-row-group">table-row-group</option>
+                                    <option value="table-cell">table-cell</option>
+                                    <option value="table-column">table-column</option>
+                                    <option value="table-row">table-row</option>
+                                    <option value="initial">initial</option>
+                                    <option value="none">none</option>
+                                </select>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Box sizing: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <select id="Box-Sizing" class="select">
+                                        <option></option>
+                                        <option value="content-box">content-box</option>
+                                        <option value="border-box">border-box</option>
+                                        <option value="inherit">inherit</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Overflow x,y: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <select id="Overflow-x" class="select">
+                                        <option></option>
+                                        <option value="visible">visible</option>
+                                        <option value="hidden">hidden</option>
+                                        <option value="scroll">scroll</option>
+                                        <option value="auto">auto</option>
+                                        <option value="no-content">no-content</option>
+                                        <option value="no-display">no-display</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <select id="Overflow-y" class="select">
+                                        <option></option>
+                                        <option value="visible">visible</option>
+                                        <option value="hidden">hidden</option>
+                                        <option value="scroll">scroll</option>
+                                        <option value="auto">auto</option>
+                                        <option value="no-content">no-content</option>
+                                        <option value="no-display">no-display</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <span class="lable">Z index: </span>
+                        <div class="inputgroup">
+                            <span style="float: left">
+                                <input type="number" min="0" id="Z-index_">
+                            </span>
+                        </div>
+                        <div class="Range">
+                            <input type="range" value="0" min="0" max="1000" class="slider" id="Z-index">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Z-index" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <span class="lable">Opacity: </span>
+                        <div class="inputgroup">
+                            <span style="float: left">
+                                <input type="number" min="0" id="Opacity_">
+                            </span>
+                        </div>
+                        <div class="Range">
+                            <input type="range" value="0" min="0" max="1000" class="slider" id="Opacity">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Opacity" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="title">Position:</div>
+                <Form id="Position">
+                    <div class="list">
+                        <div>
+                            <span class="lable">Position: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <select id="Position" class="select">
+                                        <option></option>
+                                        <option value="static">static</option>
+                                        <option value="absolute">absolute</option>
+                                        <option value="fixed">fixed</option>
+                                        <option value="relative">relative</option>
+                                        <option value="sticky">sticky</option>
+                                        <option value="initial">initial</option>
+                                        <option value="inherit">inherit</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Top: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number"  id="Position-Top_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Position-Top_Unit"  class="unit">
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Range">
+                            <input type="range" min="-500" max="500" value="0" class="slider" id="Position-Top">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Position-Top" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Right: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number" id="Position-Right_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Position-Right_Unit"  class="unit">
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Range">
+                            <input type="range" min="-500" max="500" value="0" class="slider" id="Position-Right">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Position-Right" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Bottom: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number"  id="Position-Bottom_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Position-Bottom_Unit"  class="unit">
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Range">
+                            <input type="range" min="-500" max="500" value="0" class="slider" id="Position-Bottom">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Position-Bottom" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Left: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number"  id="Position-Left_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Position-Left_Unit"  class="unit">
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Range">
+                            <input type="range" min="-500" max="500" value="0" class="slider" id="Position-Left">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Position-Left" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                </Form>
+                <div class="title">Margin:</div>
+                <Form id="Margin">
+                    <div class="list">
+                        <div>
+                            <span class="lable">Short hand: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="text"  class="short" id="Margin_">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Margin" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Top: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number"  id="Margin-Top_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Margin-Top_Unit"  class="unit">
+                                        <option value="auto" selected>auto</option>
+                                        <option disabled>------</option>
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Range">
+                            <input type="range" min="-500" max="500" value="0" class="slider" id="Margin-Top">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Margin-Top" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Right: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number" id="Margin-Right_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Margin-Right_Unit" class="unit">
+                                        <option value="auto" selected>auto</option>
+                                        <option disabled>------</option>
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Range">
+                            <input type="range" min="-500" max="500" value="0" class="slider" id="Margin-Right">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Margin-Right" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Bottom: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number"  id="Margin-Bottom_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Margin-Bottom_Unit" class="unit">
+                                        <option value="auto" selected>auto</option>
+                                        <option disabled>------</option>
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Range">
+                            <input type="range" min="-500" max="500" value="0" class="slider" id="Margin-Bottom">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Margin-Bottom" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Left: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number"  id="Margin-Left_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Margin-Left_Unit" class="unit">
+                                        <option value="auto" selected>auto</option>
+                                        <option disabled>------</option>
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Range">
+                            <input type="range" min="-500" max="500" value="0" class="slider" id="Margin-Left">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Margin-Left" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                </Form>
+                <div class="title">Padding:</div>
+                <Form id="Padding">
+                    <div class="list">
+                        <div>
+                            <span class="lable">Short hand: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="text"  class="short" id="Padding_">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Padding" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Top: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number"  id="Padding-Top_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Padding-Top_Unit" class="unit">
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Range">
+                            <input type="range" min="0" max="500" value="0" class="slider" id="Padding-Top">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Padding-Top" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Right: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number" id="Padding-Right_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Padding-Right_Unit" class="unit">
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Range">
+                            <input type="range" min="0" max="500" value="0" class="slider" id="Padding-Right">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Padding-Right" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Bottom: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number"  id="Padding-Bottom_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Padding-Bottom_Unit" class="unit">
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Range">
+                            <input type="range" min="0" max="500" value="0" class="slider" id="Padding-Bottom">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Padding-Bottom" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Left: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number"  id="Padding-Left_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Padding-Left_Unit" class="unit">
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Range">
+                            <input type="range" min="0" max="500" value="0" class="slider" id="Padding-Left">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Padding-Left" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                </Form>
+                <div class="title">Text:</div>
+                <Form id="Text">
+                    <div class="list">
+                        <div>
+                            <span class="lable">Color: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="text"  id="Font-Color_">
+                                </span>
+                                <span style="float: left">
+                                    <input type="color"  id="Font-Color">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Font-Color" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Family: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="text"  class="short" id="Font-Family_">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Font-Family" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Style: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <select id="Font-Style" class="select">
+                                        <option></option>
+                                        <option value="normal">normal</option>
+                                        <option value="italic">italic</option>
+                                        <option value="oblique">oblique</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Variant: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <select id="Font-Variant" class="select">
+                                        <option></option>
+                                        <option value="normal">normal</option>
+                                        <option value="smal-caps">smal-caps</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Weight: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <select id="Font-Weight" class="select">
+                                       <option></option>
+                                        <option value="normal">normal</option>
+                                        <option value="bold">bold</option>
+                                        <option value="bolder">bolder</option>
+                                        <option value="lighter">lighter</option>
+                                        <option value="100">100</option>
+                                        <option value="200">200</option>
+                                        <option value="300">300</option>
+                                        <option value="400">400</option>
+                                        <option value="500">500</option>
+                                        <option value="600">600</option>
+                                        <option value="700">700</option>
+                                        <option value="800">800</option>
+                                        <option value="900">900</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Size: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number" id="Font-Size_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Font-Size_Unit"  class="unit">
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                        <option disabled>------</option>
+                                        <option value="inherit">inherit</option>
+                                        <option value="initial">initial</option>
+                                        <option value="large">large</option>
+                                        <option value="larger">larger</option>
+                                        <option value="medium">medium</option>
+                                        <option value="small">small</option>
+                                        <option value="smaller">smaller</option>
+                                        <option value="unset">unset</option>
+                                        <option value="x-large">x-large</option>
+                                        <option value="x-small">x-small</option>
+                                        <option value="xx-large">xx-large</option>
+                                        <option value="xx-small">xx-small</option>
+                                        <option value="-webkit-xxx-large">xxx-large</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Range">
+                            <input type="range" min="0" max="500" value="0" class="slider" id="Font-Size">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Font-Size" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Line Height: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number"  id="Line-Height_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Line-Height_Unit"  class="unit">
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Range">
+                            <input type="range" min="0" max="500" value="0" class="slider" id="Line-Height">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Line-Height" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Text Indent: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number"  id="Text-Indent_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Text-Indent_Unit"  class="unit">
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Range">
+                            <input type="range" min="0" max="500" value="0" class="slider" id="Text-Indent">
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Text-Indent" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Text align: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <select id="Text-align" class="select">
+                                        <option></option>
+                                        <option value="left">left</option>
+                                        <option value="right">right</option>
+                                        <option value="center">center</option>
+                                        <option value="justify">justify</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div>
+                            <span class="lable">Decoration: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <select id="Text-Decoration" class="select">
+                                        <option></option>
+                                        <option value="none">none</option>
+                                        <option value="underline">underline</option>
+                                        <option value="overline">overline</option>
+                                        <option value="line-through">line-through</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </Form>
+                <div class="title">Border:</div>
+                <Form id="Border">
+                    <div class="list">
+                        <div>
+                            <span class="lable">Short hand: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="text"  class="short" id="Border_">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="remove">
+                            <button class="delete" id="Delete-Border" type="button">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="tab list">
+                        <button type="button" id="Borderbutton1" class="tablinks activeTab" onclick="showTab('#AllBorder','#Borderbutton1')">
+                            <img src="images/border-all-variant.png" alt="">
+                        </button>
+                        <button type="button" id="Borderbutton2" class="tablinks" onclick="showTab('#BorderTop','#Borderbutton2')">
+                            <img src="images/border-top-variant.png" alt="">
+                        </button>
+                        <button type="button" id="Borderbutton3" class="tablinks" onclick="showTab('#BorderRight','#Borderbutton3')">
+                          <img src="images/border-right-variant.png" alt="">
+                        </button>
+                        <button type="button" id="Borderbutton4" class="tablinks" onclick="showTab('#BorderBottom','#Borderbutton4')">
+                          <img src="images/border-bottom-variant.png" alt="">
+                        </button>
+                        <button type="button" id="Borderbutton5" class="tablinks" onclick="showTab('#BorderLeft','#Borderbutton5')">
+                          <img src="images/border-left-variant.png" alt="">
+                        </button>
+                    </div>
+                    <div class="tabcontent" id="AllBorder" style="display:block;">
+                        <div class="list">
+                            <span class="lable">All Width: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number" min="0" id="Border-Width_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Border-Width_Unit" class="unit">
+                                        <option value="auto">auto</option>
+                                        <option disabled>------</option>
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <div class="Range">
+                                <input type="range" value="0" min="0" max="1000" class="slider" id="Border-Width">
+                            </div>
+                            <div class="remove">
+                                <button class="delete" id="Delete-Border-Width" type="button">
+                                    <img src="images/delete.png" alt="delete">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="list">
+                            <span class="lable">All Style: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <select id="Border-Style" class="select">
+                                        <option></option>
+                                        <option value="none">none</option>
+                                        <option value="solid">solid</option>
+                                        <option value="dotted">dotted</option>
+                                        <option value="dashed">dashed</option>
+                                        <option value="double">double</option>
+                                        <option value="groove">groove</option>
+                                        <option value="ridge">ridge</option>
+                                        <option value="inset">inset</option>
+                                        <option value="outset">outset</option>
+                                        <option value="hidden">hidden</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="list">
+                            <div>
+                                <span class="lable">All Color: </span>
+                                <div class="inputgroup">
+                                    <span style="float: left">
+                                        <input type="text"  id="Border-Color_">
+                                    </span>
+                                    <span style="float: left">
+                                        <input type="color"  id="Border-Color">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="remove">
+                                <button class="delete" id="Delete-Border-Color" type="button">
+                                    <img src="images/delete.png" alt="delete">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tabcontent" id="BorderTop">
+                        <div class="list">
+                            <span class="lable">Top Width: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number" min="0" id="Border-Top-Width_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Border-Top-Width_Unit" class="unit">
+                                        <option value="auto">auto</option>
+                                        <option disabled>------</option>
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <div class="Range">
+                                <input type="range" value="0" min="0" max="1000" class="slider" id="Border-Top-Width">
+                            </div>
+                            <div class="remove">
+                                <button class="delete" id="Delete-Border-Top-Width" type="button">
+                                    <img src="images/delete.png" alt="delete">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="list">
+                            <span class="lable">Top Style: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <select id="Border-Top-Style" class="select">
+                                        <option></option>
+                                        <option value="none">none</option>
+                                        <option value="solid">solid</option>
+                                        <option value="dotted">dotted</option>
+                                        <option value="dashed">dashed</option>
+                                        <option value="double">double</option>
+                                        <option value="groove">groove</option>
+                                        <option value="ridge">ridge</option>
+                                        <option value="inset">inset</option>
+                                        <option value="outset">outset</option>
+                                        <option value="hidden">hidden</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="list">
+                            <div>
+                                <span class="lable">Top Color: </span>
+                                <div class="inputgroup">
+                                    <span style="float: left">
+                                        <input type="text"  id="Border-Top-Color_">
+                                    </span>
+                                    <span style="float: left">
+                                        <input type="color"  id="Border-Top-Color">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="remove">
+                                <button class="delete" id="Delete-Border-Top-Color" type="button">
+                                    <img src="images/delete.png" alt="delete">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tabcontent" id="BorderRight">
+                        <div class="list">
+                            <span class="lable">Right Width: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number" min="0" id="Border-Right-Width_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Border-Right-Width_Unit" class="unit">
+                                        <option value="auto">auto</option>
+                                        <option disabled>------</option>
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <div class="Range">
+                                <input type="range" value="0" min="0" max="1000" class="slider" id="Border-Right-Width">
+                            </div>
+                            <div class="remove">
+                                <button class="delete" id="Delete-Border-Right-Width" type="button">
+                                    <img src="images/delete.png" alt="delete">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="list">
+                            <span class="lable">Right Style: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <select id="Border-Right-Style" class="select">
+                                        <option></option>
+                                        <option value="none">none</option>
+                                        <option value="solid">solid</option>
+                                        <option value="dotted">dotted</option>
+                                        <option value="dashed">dashed</option>
+                                        <option value="double">double</option>
+                                        <option value="groove">groove</option>
+                                        <option value="ridge">ridge</option>
+                                        <option value="inset">inset</option>
+                                        <option value="outset">outset</option>
+                                        <option value="hidden">hidden</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="list">
+                            <div>
+                                <span class="lable">Right Color: </span>
+                                <div class="inputgroup">
+                                    <span style="float: left">
+                                        <input type="text"  id="Border-Right-Color_">
+                                    </span>
+                                    <span style="float: left">
+                                        <input type="color"  id="Border-Right-Color">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="remove">
+                                <button class="delete" id="Delete-Border-Right-Color" type="button">
+                                    <img src="images/delete.png" alt="delete">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tabcontent" id="BorderBottom">
+                        <div class="list">
+                            <span class="lable">Bottom Width: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number" min="0" id="Border-Bottom-Width_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Border-Bottom-Width_Unit" class="unit">
+                                        <option value="auto">auto</option>
+                                        <option disabled>------</option>
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <div class="Range">
+                                <input type="range" value="0" min="0" max="1000" class="slider" id="Border-Bottom-Width">
+                            </div>
+                            <div class="remove">
+                                <button class="delete" id="Delete-Border-Bottom-Width" type="button">
+                                    <img src="images/delete.png" alt="delete">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="list">
+                            <span class="lable">Bottom Style: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <select id="Border-Bottom-Style" class="select">
+                                        <option></option>
+                                        <option value="none">none</option>
+                                        <option value="solid">solid</option>
+                                        <option value="dotted">dotted</option>
+                                        <option value="dashed">dashed</option>
+                                        <option value="double">double</option>
+                                        <option value="groove">groove</option>
+                                        <option value="ridge">ridge</option>
+                                        <option value="inset">inset</option>
+                                        <option value="outset">outset</option>
+                                        <option value="hidden">hidden</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="list">
+                            <div>
+                                <span class="lable">Bottom Color: </span>
+                                <div class="inputgroup">
+                                    <span style="float: left">
+                                        <input type="text"  id="Border-Bottom-Color_">
+                                    </span>
+                                    <span style="float: left">
+                                        <input type="color"  id="Border-Bottom-Color">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="remove">
+                                <button class="delete" id="Delete-Border-Bottom-Color" type="button">
+                                    <img src="images/delete.png" alt="delete">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tabcontent" id="BorderLeft">
+                        <div class="list">
+                            <span class="lable">Left Width: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number" min="0" id="Border-Left-Width_">
+                                </span>
+                                <span style="float: left">
+                                    <select id="Border-Left-Width_Unit" class="unit">
+                                        <option value="auto">auto</option>
+                                        <option disabled>------</option>
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <div class="Range">
+                                <input type="range" value="0" min="0" max="1000" class="slider" id="Border-Left-Width">
+                            </div>
+                            <div class="remove">
+                                <button class="delete" id="Delete-Border-Left-Width" type="button">
+                                    <img src="images/delete.png" alt="delete">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="list">
+                            <span class="lable">Left Style: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <select id="Border-Left-Style" class="select">
+                                        <option></option>
+                                        <option value="none">none</option>
+                                        <option value="solid">solid</option>
+                                        <option value="dotted">dotted</option>
+                                        <option value="dashed">dashed</option>
+                                        <option value="double">double</option>
+                                        <option value="groove">groove</option>
+                                        <option value="ridge">ridge</option>
+                                        <option value="inset">inset</option>
+                                        <option value="outset">outset</option>
+                                        <option value="hidden">hidden</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="list">
+                            <div>
+                                <span class="lable">Left Color: </span>
+                                <div class="inputgroup">
+                                    <span style="float: left">
+                                        <input type="text"  id="Border-Left-Color_">
+                                    </span>
+                                    <span style="float: left">
+                                        <input type="color"  id="Border-Left-Color">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="remove">
+                                <button class="delete" id="Delete-Border-Left-Color" type="button">
+                                    <img src="images/delete.png" alt="delete">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </Form>
+                <br><br><br><br><br>
+            </div>
+
+        </div>
+        <div class="resultcontainer">
+            <div class="demoHeader">Play Ground:
+                <select id="myDivids" class="Divid">
+                        <option value="none" selected disabled>none</option>
+                </select>
+            </div>
+            <div id="demoParent">
+                <div id="demoDIV" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+                </div>
+            </div>
+            <div class="demoHeader">Drag It:</div>
+            <div class="Sizes" id="div3" ondrop="drop2(event)" ondragover="allowDrop(event)">
+                <div class="title">Color</div>
+                <Form id="Color">
+                    <div class="list">
+                        <div>
+                            <span class="lable">Background Color: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="text"  id="BgColor_">
+                                </span>
+                                <span style="float: left">
+                                    <input type="color"  id="BgColor">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div draggable="true" ondragstart="drag(event)" id="DragDiv">
+                            Div
+                        </div>
+                        <img src="images/Button.png" id="DragButton" alt="button" ondragstart="drag(event)" width="216px" height="65px">
+                    </div>
+                </Form>
+                <br><br>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+
+    <div id="dragelement">
+        <div class="myDragDiv" id="myDragDiv" draggable="true" ondragstart="drag(event)" onclick="Change(this)">This is my content</div>
+        <button type="button" id="myDragButton" class="myDragButton" ondragstart="drag(event)" onclick="Change(this)">My Button</button>
+    </div>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/myScript.js"></script>
+    <script src="js/DragandDrop.js"></script>
+</body>

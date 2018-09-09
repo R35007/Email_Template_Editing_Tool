@@ -1,0 +1,275 @@
+body {
+    font-family: verdana;
+    font-size: 14px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    min-width: 0px;
+    box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 3px, rgba(0, 0, 0, 0.239216) 0px 1px 2px;
+    margin: 10px auto auto;
+    left: 0px;
+    right: 0px;
+    height: auto;
+    bottom: auto;
+    display: none;
+    background-color: rgb(241, 241, 241);
+}
+
+.codecontainer {
+    width: 40%;
+    float: left;
+}
+
+.radio {
+    line-height: 2;
+}
+
+.resultcontainer {
+    width: 60%;
+    float: left;
+}
+
+form {
+    padding: 15px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-family: Consolas, 'Courier New', Courier, monospace;
+    font-size: 16px;
+    background-color: rgb(255, 255, 255);
+}
+
+#enlargecssprop {
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+}
+
+#demoDIV {
+    margin-left: 10px;
+    margin-top: 3px;
+    margin-right: 15px;
+    border: 1px solid rgb(195, 195, 195);
+    height: 280px;
+    background-color: rgb(255, 255, 255);
+}
+
+span#mySpan {
+    display: block;
+    box-sizing: border-box;
+    margin-left: 0px;
+    margin-top: 0px;
+    background-color: red;
+}
+
+#styleDIV {
+    font-family: consolas, 'Courier new';
+    font-size: 14px;
+    margin-left: 10px;
+    margin-right: 15px;
+    padding: 10px;
+    color: rgb(34, 34, 34);
+    text-align: left;
+    background-color: rgb(255, 255, 255);
+}
+
+div.demoHeader {
+    font-size: 24px;
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    color: rgb(85, 85, 85);
+}
+
+div.playitFooter {
+    font-size: 14px;
+    color: rgb(85, 85, 85);
+    padding: 15px;
+}
+
+#pfooter {
+    margin: 15px;
+}
+
+.title {
+    top: 0px;
+    padding: 8px 8px 8px 20px;
+    font-size: 16px;
+    background-color: rgb(202, 232, 202);
+    position: sticky;
+    z-index: 10;
+}
+.Property,
+.Sizes {
+    overflow: auto;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    margin-right: 15px;
+    height: 200px;
+    background-color: rgb(255, 255, 255);
+}
+
+.Layout {
+    overflow: auto;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    margin-right: 15px;
+    height: 541px;
+    background-color: rgb(255, 255, 255);
+}
+
+.Range {
+    flex: 1;
+    padding: 9px;
+}
+
+input[type="color"],
+input[type="text"],
+input[type="number"],
+Select {
+    height: 20px;
+    border: 0;
+    padding-left: 6px;
+}
+
+Select {
+    width: 38px;
+    padding-left: 0;
+}
+
+.borderStyle {
+    width: 85px;
+    padding: 0;
+}
+.select{
+    width: 88px;
+    padding: 0;
+}
+input[type="number"] {
+    width: 50px;
+}
+
+input[type="text"] {
+    width: 70px;
+}
+
+input[type="color"] {
+    width: 18px;
+    padding: 0;
+}
+
+.inputgroup {
+    float: left;
+    margin-top: 4px;
+    margin-left: 10px;
+    border: 1px solid #c5c5c5;
+    height: 22px;
+}
+
+.list {
+    display: flex;
+    line-height: 2;
+}
+
+.lable {
+    float: left;
+    font-size: 14px;
+}
+#Layout .lable {
+    width: 110px;
+}
+#Position .lable {
+    width: 65px;
+}
+#Margin .lable, #Padding .lable {
+    width: 90px;
+}
+#Text .lable {
+    width: 95px !important;
+}
+.remove{
+    margin-left: auto;
+}
+#Border .lable {
+    width: 105px !important;
+}
+#Color .lable {
+    float: left;
+    width: 200px;
+}
+
+label {
+    display: inline-block;
+    width: Calc(100% - 35px);
+}
+.delete, .deleteall{
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+    display: block;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    margin-top: 5px;
+}
+.delete img, .deleteall img{
+    width: 100%;
+    margin: 0;
+}
+.short{
+    width: 270px !important;
+}
+.myDragDiv {
+    background: red;
+    color:white;
+}
+
+#DragDiv{
+    background: #ffff00;
+    float:left;
+    border:1px solid black;
+    padding: 15px;
+    color: #000000;
+}
+.Divid{
+    position: absolute;
+    margin-top: 2px;
+    width: 120px;
+    height: 26px;
+    margin-left: 21px;
+}
+#dragelement{
+    display: none;
+}
+.myDragButton{
+    width: 100px;
+    height: 30px;
+}
+
+.tab{
+    margin-top: 10px;
+    display: flex;
+    line-height: 2;
+    font-size: 16px;
+    background-color: rgb(202, 232, 202);
+    height: 35px;
+}
+.tab button{
+    background: transparent;
+    border: 0;
+    padding: 0 10px 0 10px;
+}
+.tabcontent{
+    border-Top:0;
+    padding: 15px 10px;
+    display: none;
+    box-shadow: 0 0 5px #9e9e9e;
+    margin-top: 10px;
+}
+#Border .short {
+    width: 260px !important;
+}
+.activeTab{
+    background: #a1d9a1 !important;
+}
