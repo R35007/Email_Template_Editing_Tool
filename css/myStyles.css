@@ -28,6 +28,7 @@ body {
     overflow: hidden;
     height: calc(100% - 60px);
 }
+
 #SidePanel form {
     padding: 15px;
     margin-top: 0px;
@@ -55,7 +56,7 @@ body {
     cursor: pointer;
 }
 
-#SidePanel .inputgroup {
+.inputgroup {
     border: 1px solid #c5c5c5;
     height: 25px;
     display: flex;
@@ -112,7 +113,7 @@ body {
     cursor: pointer;
 }
 
-#SidePanel input,
+input,
 #SidePanel Select,
 #PlayGround-Header select {
     height: 20px;
@@ -126,7 +127,7 @@ body {
     text-align: center;
 }
 
-#SidePanel input[type="text"] {
+input[type="text"] {
     width: 90px;
     padding-left: 10px;
 }
@@ -165,24 +166,13 @@ body {
     margin-left: auto;
 }
 
-#SidePanel .search {
-    border-width: 1px 0;
-    border-style: solid;
-    border-color: #d1d1d1;
-}
-
 #Toogle-Attributes-Form {
     margin-right: 5px !important;
 }
 
-#Attributes {
-    overflow: auto;
-    max-height: 250px;
-}
-
 #Properties {
     overflow: auto;
-    height: calc(100% - 64px);
+    height: calc(100% - 33px);
     margin-bottom: 15px;
 }
 
@@ -203,7 +193,7 @@ body {
 
 
 #Border-Tab .lable{
-    width: 55px;
+    width: 65px;
 }
 
 #Text-Shadow-Tab .lable, #Box-Shadow-Tab .lable{
@@ -308,6 +298,7 @@ body {
     background: #91d791;
     margin-right: -15px;
     width: 25px;
+    cursor: pointer;
 }
 
 .preview {
@@ -403,19 +394,18 @@ body {
     font-size: 30px;
 }
 
-#myDivids,
+
 #selector {
     height: 25px !important;
-    margin-right: 29px;
-    margin-left: 7px;
+    width: 215px !important;
 }
 
-#myDivids{
-    width: 200px;
-}
-#selector {
-    margin-left: 15px;
-    width: 215px
+.SelectorDiv{
+    display: inline-flex;
+    padding: 0 10px 0 10px;
+    background: white;
+    border-radius: 4px;
+    margin-left: auto;
 }
 
 .RotateX {
@@ -428,6 +418,28 @@ body {
     transform: rotateY(360deg);
     -webkit-transform: rotateY(20deg);
     transform: rotateY(180deg);
+}
+
+.rs-range-color {
+    background-color: #008000;
+}
+
+.rs-handle:after {
+    background-color: #000000;
+}
+
+.rs-border {
+    border-color: #008000;
+}
+
+.rs-tooltip.hover,
+.rs-tooltip.edit:hover {
+    border: 0;
+}
+
+#skewx span.rs-tooltip.rs-tooltip-text.edit,
+#skewy span.rs-tooltip.rs-tooltip-text.edit {
+    top: 10px;
 }
 
 #setId {
@@ -567,7 +579,6 @@ body {
 
 .MyThumbnail{
     height: 115px;
-    margin: 5px;
     display: inline-block;
     z-index: 1000;
     cursor: move;

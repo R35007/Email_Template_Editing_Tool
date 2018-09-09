@@ -1,15 +1,15 @@
-#SidePanel ::-webkit-input-placeholder {
+::-webkit-input-placeholder {
    text-align: center;
 }
 
-#SidePanel :-moz-placeholder { /* Firefox 18- */
+:-moz-placeholder { /* Firefox 18- */
    text-align: center;  
 }
 
-#SidePanel ::-moz-placeholder {  /* Firefox 19+ */
+::-moz-placeholder {  /* Firefox 19+ */
    text-align: center;  
 }
 
-#SidePanel :-ms-input-placeholder {  
+:-ms-input-placeholder {  
    text-align: center; 
 }

@@ -21,13 +21,8 @@
     <div id="main" class="container-fluid">
         <div class="row" id="PlayGround-Header" style="height:32px;">
             <div class="col d-flex align-items-center" style="box-shadow: 0px 15px 7px -15px #505050;z-index: 20;">
-                <span style="font-size: 16px;">Element Id</span>
-                <select id="myDivids">
-                    <option value="none" selected="" disabled="">none</option>
-                </select>
-                <span style="font-size: 16px;">Selector</span>
-                <input type="text" id="selector">
-                <div class="d-flex justify-content-center align-items-center">
+                
+                <div class="d-flex justify-content-center w-100 align-items-center">
                     <div id="PreView" class="topIcon" title="Preview">
                         <span><i class="fas fa-eye"></i></span>
                     </div>
@@ -114,25 +109,27 @@
                         <i class="fas fa-undo"></i>
                     </div>
                 </div>
-                <div class="col list pr-0">
-
-                    <div class="d-flex w-100 justify-content-end" style="margin-top: 9px;">
-                        <div class="navlist activeTab">Design</div>
-                        <div class="navlist">Split</div>
-                        <div class="navlist">Source</div>
-                    </div>
+                <div class="d-flex" style="position: absolute; right: 15px; margin-top: 5px;">
+                    <div class="navlist activeTab">Design</div>
+                    <div class="navlist">Split</div>
+                    <div class="navlist">Source</div>
                 </div>
             </div>
         </div>
         <div id="Content" class="row no-gutters" style="">
             <div id="SidePanel">
-                    <div id="Attributes">
-                        <!-- Attribute Tittle -->
-                        <div class="col title list">
+                    <!-- Search bar-->
+                    <div class="list">
+                        <div class="inputgroup w-100 p-3 bg-white border-left-0">
+                            <span class="searchicon" style="position: absolute; color:#cccccc"><i class="fas fa-search"></i></span>
+                            <input class="w-100 search" type="search" id="searchProperty" placeholder="Search Attributes & CSS Property">
+                        </div>
+                    </div>
+                    <!-- Properties Tittle -->
+                    <div id="Properties">
+                         <!-- Attribute Tittle -->
+                        <div class="col title list" style="cursor:pointer;">
                             Tag Attributes
-                            <span class="ml-auto toogleIcon" id="Toogle-Attributes-Form">
-                            <i class="fas fa-caret-down"></i>
-                        </span>
                         </div>
                         <!-- Attributes Form-->
                         <form id="Attributes-Form" style="display: none">
@@ -153,7 +150,7 @@
                                     <div class="w-100 taginput bootstrap-tagsinput">
                                         <div id="myTags"></div>
                                         <div class="ui-widget">
-                                            <input type="text" id="elementClass" class="w-100" placeholder="Search and Add Classes Here">
+                                            <input type="text" id="elementClass" class="w-100" Style="font-size: 14px;" placeholder="Search and Add Classes Here">
                                         </div>
                                     </div>
                                 </div>
@@ -299,16 +296,6 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
-                    <!-- Search bar-->
-                    <div class="list">
-                        <div class="inputgroup w-100 p-3 bg-white border-left-0">
-                            <span id="searchicon" style="position: absolute; color:#cccccc"><i class="fas fa-search"></i></span>
-                            <input class="w-100" type="search" id="searchProperty" placeholder="Search CSS Property">
-                        </div>
-                    </div>
-                    <!-- Layout Tittle -->
-                    <div id="Properties">
                         <!-- layout Title -->
                         <div class="title list">
                             Layout:
@@ -374,7 +361,7 @@
                             </div>
                             <!-- Width Tab -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pl-2 pr-2">
                                     <div id="Width-Tab" class="tabcontent">
                                         <!--Min Width-->
                                         <div class="row">
@@ -513,7 +500,7 @@
                             </div>
                             <!-- Height Tab -->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pl-2 pr-2">
                                     <div id="Height-Tab" class="tabcontent">
                                         <!-- Min Height -->
                                         <div class="row">
@@ -1735,7 +1722,7 @@
                             </div>
                             <!-- Text-Shadow-Property-->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pl-2 pr-2">
                                     <div id="Text-Shadow-Tab" class="tabcontent">
                                         <!-- Text Shadow-Horizontal-Width -->
                                         <div class="row">
@@ -2197,55 +2184,53 @@
                         </div>
                         <!-- Border Form-->
                         <Form id="Border-Form" style="display:none;">
-                            <!-- Border -->
-                            <div class="row">
-                                <div class="col-12 pr-1">
-                                    <div class="list">
-                                        <span class="toogleIcon" id="Toogle-Border-Tab">
-                                    <i class="fas fa-caret-right"></i>
-                                </span>
-                                        <span class="lable d-none">Border: </span>
-                                        <div class="inputgroup w-100">
-                                            <input type="text" class="short w-100" id="border">
-                                        </div>
-                                        <div class="remove">
-                                            <button class="delete" id="delete-border" type="button">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <!-- Border Tab -->
                             <div class="row">
                                 <div class="col-12">
                                     <div id="Border-Tab" style="display:block">
                                         <!-- Border Button Tab -->
                                         <div class="row d-block">
-                                            <div class="col-12">
+                                            <div class="col-12 pl-2 pr-2">
                                                 <div class="tab list justify-content-around">
-                                                    <button type="button" id="Borderbutton1" class="tablinks activeTab" onclick="showTab('#AllBorder','#Borderbutton1')">
+                                                    <button type="button" id="Toogle-AllBorder" class="tablinks activeTab">
                                                     <img src="images/border-all-variant.png" alt="">
                                                 </button>
-                                                    <button type="button" id="Borderbutton2" class="tablinks" onclick="showTab('#BorderTop','#Borderbutton2')">
+                                                    <button type="button" id="Toogle-BorderTop" class="tablinks">
                                                     <img src="images/border-top-variant.png" alt="">
                                                 </button>
-                                                    <button type="button" id="Borderbutton3" class="tablinks" onclick="showTab('#BorderRight','#Borderbutton3')">
+                                                    <button type="button" id="Toogle-BorderRight" class="tablinks">
                                                   <img src="images/border-right-variant.png" alt="">
                                                 </button>
-                                                    <button type="button" id="Borderbutton4" class="tablinks" onclick="showTab('#BorderBottom','#Borderbutton4')">
+                                                    <button type="button" id="Toogle-BorderBottom" class="tablinks">
                                                   <img src="images/border-bottom-variant.png" alt="">
                                                 </button>
-                                                    <button type="button" id="Borderbutton5" class="tablinks" onclick="showTab('#BorderLeft','#Borderbutton5')">
+                                                    <button type="button" id="Toogle-BorderLeft" class="tablinks">
                                                   <img src="images/border-left-variant.png" alt="">
                                                 </button>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- All Border-->
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="tabcontent mt-0" id="AllBorder" style="display:block;">
+                                        <div class="row borderTab" id="AllBorder">
+                                            <div class="col-12 pl-2 pr-2">
+                                                <div class="tabcontent mt-0" style="display:block;">
+                                                    <!-- Border -->
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="list">
+                                                                <span class="lable d-none">Border </span>
+                                                                <div class="inputgroup w-100">
+                                                                    <input type="text" class="short w-100" id="border" placeholder="Border">
+                                                                </div>
+                                                                <div class="remove">
+                                                                    <button class="delete" id="delete-border" type="button">
+                                                                    <i class="fas fa-trash"></i>
+                                                                </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <!-- Border-Width -->
                                                     <div class="row">
                                                         <div class="col-12">
@@ -2335,9 +2320,9 @@
                                             </div>
                                         </div>
                                         <!-- Border-Top-Tab-->
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="tabcontent mt-0" id="BorderTop">
+                                        <div class="row borderTab" id="BorderTop">
+                                            <div class="col-12 pl-2 pr-2">
+                                                <div class="tabcontent mt-0">
                                                     <!-- Border-Top -->
                                                     <div class="row">
                                                         <div class="col-12">
@@ -2359,7 +2344,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderTopWidth</span>
-                                                                <span class="lable">Width: </span>
+                                                                <span class="lable">T-Width: </span>
                                                                 <div class="inputgroup">
                                                                     <span>
                                                                     <input type="number" class="tooglerange" min="0" id="border-top-width">
@@ -2400,7 +2385,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderTopStyle</span>
-                                                                <span class="lable">Style: </span>
+                                                                <span class="lable">T-Style: </span>
                                                                 <div class="inputgroup">
                                                                     <span>
                                                                     <select id="border-top-style" class="select">
@@ -2426,7 +2411,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderTopColor</span>
-                                                                <span class="lable">Color: </span>
+                                                                <span class="lable">T-Color: </span>
                                                                 <div class="inputgroup">
                                                                     <input type="text" id="border-top-color">
                                                                     <input type="color" id="border-top-color_">
@@ -2443,9 +2428,9 @@
                                             </div>
                                         </div>
                                         <!-- Border-Right-Tab-->
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="tabcontent mt-0" id="BorderRight">
+                                        <div class="row borderTab" id="BorderRight">
+                                            <div class="col-12 pl-2 pr-2">
+                                                <div class="tabcontent mt-0">
                                                     <!-- Border-Right -->
                                                     <div class="row">
                                                         <div class="col-12">
@@ -2467,7 +2452,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderRightWidth</span>
-                                                                <span class="lable">Width: </span>
+                                                                <span class="lable">R-Width: </span>
                                                                 <div class="inputgroup">
                                                                     <span>
                                                                     <input type="number" class="tooglerange" min="0" id="border-right-width">
@@ -2508,7 +2493,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderRightStyle</span>
-                                                                <span class="lable">Style: </span>
+                                                                <span class="lable">R-Style: </span>
                                                                 <div class="inputgroup">
                                                                     <span>
                                                                     <select id="border-right-style" class="select">
@@ -2534,7 +2519,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderRightColor</span>
-                                                                <span class="lable">Color: </span>
+                                                                <span class="lable">R-Color: </span>
                                                                 <div class="inputgroup">
                                                                     <input type="text" id="border-right-color">
                                                                     <input type="color" id="border-right-color_">
@@ -2551,9 +2536,9 @@
                                             </div>
                                         </div>
                                         <!-- Border-Bottom-Tab-->
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="tabcontent mt-0" id="BorderBottom">
+                                        <div class="row borderTab" id="BorderBottom">
+                                            <div class="col-12 pl-2 pr-2">
+                                                <div class="tabcontent mt-0">
                                                     <!-- Border-Bottom -->
                                                     <div class="row">
                                                         <div class="col-12">
@@ -2575,7 +2560,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderBottomWidth</span>
-                                                                <span class="lable">Width: </span>
+                                                                <span class="lable">B-Width: </span>
                                                                 <div class="inputgroup">
                                                                     <span>
                                                                     <input type="number" class="tooglerange" min="0" id="border-bottom-width">
@@ -2616,7 +2601,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderBottomStyle</span>
-                                                                <span class="lable">Style: </span>
+                                                                <span class="lable">B-Style: </span>
                                                                 <div class="inputgroup">
                                                                     <span>
                                                                     <select id="border-bottom-style" class="select">
@@ -2642,7 +2627,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderBottomColor</span>
-                                                                <span class="lable">Color: </span>
+                                                                <span class="lable">B-Color: </span>
                                                                 <div class="inputgroup">
                                                                     <input type="text" id="border-bottom-color">
                                                                     <input type="color" id="border-bottom-color_">
@@ -2659,9 +2644,9 @@
                                             </div>
                                         </div>
                                         <!-- Border-Left-Tab-->
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="tabcontent mt-0" id="BorderLeft">
+                                        <div class="row borderTab" id="BorderLeft">
+                                            <div class="col-12 pl-2 pr-2">
+                                                <div class="tabcontent mt-0">
                                                     <!-- Border-Left -->
                                                     <div class="row">
                                                         <div class="col-12">
@@ -2683,7 +2668,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderLeftWidth</span>
-                                                                <span class="lable">Width: </span>
+                                                                <span class="lable">L-Width: </span>
                                                                 <div class="inputgroup">
                                                                     <span>
                                                                     <input type="number" class="tooglerange" min="0" id="border-left-width">
@@ -2724,7 +2709,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderLeftStyle</span>
-                                                                <span class="lable">Style: </span>
+                                                                <span class="lable">L-Style: </span>
                                                                 <div class="inputgroup">
                                                                     <span>
                                                                     <select id="border-left-style" class="select">
@@ -2750,7 +2735,7 @@
                                                         <div class="col-12">
                                                             <div class="list">
                                                                 <span class="lable d-none">BorderLeftColor</span>
-                                                                <span class="lable">Color: </span>
+                                                                <span class="lable">L-Color: </span>
                                                                 <div class="inputgroup">
                                                                     <input type="text" id="border-left-color">
                                                                     <input type="color" id="border-left-color_">
@@ -2798,194 +2783,198 @@
                                 </div>
                             </div>
                             <!-- Border-Radius-Property-->
-                            <div id="Border-Radius-Tab" class="tabcontent">
-                                <!-- Border-Radius-Top-Left -->
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="list">
-                                            <span class="lable d-none">BorderRadius</span>
-                                            <span class="lable d-none">BorderRadiusTopLeft</span>
-                                            <span class="lable d-none">BorderRadiusTop</span>
-                                            <span class="lable d-none">BorderRadiusLeft</span>
-                                            <span class="lable d-none">BorderTopLeftRadius</span>
-                                            <span class="lable d-none">BorderTopRadius</span>
-                                            <span class="lable d-none">BorderLeftRadius</span>
-                                            <span class="lable">Top Left: </span>
-                                            <div class="inputgroup">
-                                                <span>
-                                                    <input type="number" class="tooglerange" id="border-top-left-radius">
-                                                </span>
-                                                <span>
-                                                    <select id="border-top-left-radius_unit" class="unit">
-                                                        <option value="px" selected>px</option>
-                                                        <option value="%">%</option>
-                                                        <option value="cm">cm</option>
-                                                        <option value="mm">mm</option>
-                                                        <option value="in">in</option>
-                                                        <option value="pt">pt</option>
-                                                        <option value="pc">pc</option>
-                                                        <option value="em">em</option>
-                                                        <option value="ex">ex</option>
-                                                        <option value="ch">ch</option>
-                                                        <option value="rem">rem</option>
-                                                        <option value="vw">vw</option>
-                                                        <option value="vh">vh</option>
-                                                        <option value="vmin">vmin</option>
-                                                        <option value="vmax">vmax</option>
-                                                    </select>
-                                                </span>
-                                            </div>
-
-                                            <div class="remove">
-                                                <button class="delete" id="delete-border-top-left-radius" type="button">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                            </div>
-                                        </div>
-                                        <div class="Range" id="border-top-left-radius-range">
-                                            <input type="range" min="0" max="500" value="0" class="slider" id="border-top-left-radius_">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Border-Radius-Top-Right -->
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="list">
-                                            <span class="lable d-none">BorderRadius</span>
-                                            <span class="lable d-none">BorderRadiusTopRight</span>
-                                            <span class="lable d-none">BorderRadiusTop</span>
-                                            <span class="lable d-none">BorderRadiusRight</span>
-                                            <span class="lable d-none">BorderTopRightRadius</span>
-                                            <span class="lable d-none">BorderTopRadius</span>
-                                            <span class="lable d-none">BorderRightRadius</span>
-                                            <span class="lable">Top Right: </span>
-                                            <div class="inputgroup">
-                                                <span>
-                                                    <input type="number" class="tooglerange" id="border-top-right-radius">
-                                                </span>
-                                                <span>
-                                                    <select id="border-top-right-radius_unit" class="unit">
-                                                        <option value="px" selected>px</option>
-                                                        <option value="%">%</option>
-                                                        <option value="cm">cm</option>
-                                                        <option value="mm">mm</option>
-                                                        <option value="in">in</option>
-                                                        <option value="pt">pt</option>
-                                                        <option value="pc">pc</option>
-                                                        <option value="em">em</option>
-                                                        <option value="ex">ex</option>
-                                                        <option value="ch">ch</option>
-                                                        <option value="rem">rem</option>
-                                                        <option value="vw">vw</option>
-                                                        <option value="vh">vh</option>
-                                                        <option value="vmin">vmin</option>
-                                                        <option value="vmax">vmax</option>
-                                                    </select>
-                                                </span>
-                                            </div>
-                                            <div class="remove">
-                                                <button class="delete" id="delete-border-top-right-radius" type="button">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
+                            <div class="row">
+                                <div class="col-12 pl-2 pr-2">
+                                    <div id="Border-Radius-Tab" class="tabcontent">
+                                        <!-- Border-Radius-Top-Left -->
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="list">
+                                                    <span class="lable d-none">BorderRadius</span>
+                                                    <span class="lable d-none">BorderRadiusTopLeft</span>
+                                                    <span class="lable d-none">BorderRadiusTop</span>
+                                                    <span class="lable d-none">BorderRadiusLeft</span>
+                                                    <span class="lable d-none">BorderTopLeftRadius</span>
+                                                    <span class="lable d-none">BorderTopRadius</span>
+                                                    <span class="lable d-none">BorderLeftRadius</span>
+                                                    <span class="lable">Top Left: </span>
+                                                    <div class="inputgroup">
+                                                        <span>
+                                                            <input type="number" class="tooglerange" id="border-top-left-radius">
+                                                        </span>
+                                                        <span>
+                                                            <select id="border-top-left-radius_unit" class="unit">
+                                                                <option value="px" selected>px</option>
+                                                                <option value="%">%</option>
+                                                                <option value="cm">cm</option>
+                                                                <option value="mm">mm</option>
+                                                                <option value="in">in</option>
+                                                                <option value="pt">pt</option>
+                                                                <option value="pc">pc</option>
+                                                                <option value="em">em</option>
+                                                                <option value="ex">ex</option>
+                                                                <option value="ch">ch</option>
+                                                                <option value="rem">rem</option>
+                                                                <option value="vw">vw</option>
+                                                                <option value="vh">vh</option>
+                                                                <option value="vmin">vmin</option>
+                                                                <option value="vmax">vmax</option>
+                                                            </select>
+                                                        </span>
+                                                    </div>
+                                    
+                                                    <div class="remove">
+                                                        <button class="delete" id="delete-border-top-left-radius" type="button">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                    </div>
+                                                </div>
+                                                <div class="Range" id="border-top-left-radius-range">
+                                                    <input type="range" min="0" max="500" value="0" class="slider" id="border-top-left-radius_">
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="Range" id="border-top-right-radius-range">
-                                            <input type="range" min="0" max="500" value="0" class="slider" id="border-top-right-radius_">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Border-Radius-Bottom-Left -->
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="list">
-                                            <span class="lable d-none">BorderRadius</span>
-                                            <span class="lable d-none">BorderRadiusBottomLeft</span>
-                                            <span class="lable d-none">BorderRadiusBottom</span>
-                                            <span class="lable d-none">BorderRadiusLeft</span>
-                                            <span class="lable d-none">BorderBottomLeftRadius</span>
-                                            <span class="lable d-none">BorderBottomRadius</span>
-                                            <span class="lable d-none">BorderLeftRadius</span>
-                                            <span class="lable">Bottom Left: </span>
-                                            <div class="inputgroup">
-                                                <span>
-                                                    <input type="number" class="tooglerange" id="border-bottom-left-radius">
-                                                </span>
-                                                <span>
-                                                    <select id="border-bottom-left-radius_unit" class="unit">
-                                                        <option value="px" selected>px</option>
-                                                        <option value="%">%</option>
-                                                        <option value="cm">cm</option>
-                                                        <option value="mm">mm</option>
-                                                        <option value="in">in</option>
-                                                        <option value="pt">pt</option>
-                                                        <option value="pc">pc</option>
-                                                        <option value="em">em</option>
-                                                        <option value="ex">ex</option>
-                                                        <option value="ch">ch</option>
-                                                        <option value="rem">rem</option>
-                                                        <option value="vw">vw</option>
-                                                        <option value="vh">vh</option>
-                                                        <option value="vmin">vmin</option>
-                                                        <option value="vmax">vmax</option>
-                                                    </select>
-                                                </span>
-                                            </div>
-
-                                            <div class="remove">
-                                                <button class="delete" id="delete-border-bottom-left-radius" type="button">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                            </div>
-                                        </div>
-                                        <div class="Range" id="border-bottom-left-radius-range">
-                                            <input type="range" min="0" max="500" value="0" class="slider" id="border-bottom-left-radius_">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Border-Radius-Bottom-Right -->
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="list">
-                                            <span class="lable d-none">BorderRadius</span>
-                                            <span class="lable d-none">BorderRadiusBottomRight</span>
-                                            <span class="lable d-none">BorderRadiusBottom</span>
-                                            <span class="lable d-none">BorderRadiusRight</span>
-                                            <span class="lable d-none">BorderBottomRightRadius</span>
-                                            <span class="lable d-none">BorderBottomRadius</span>
-                                            <span class="lable d-none">BorderRightRadius</span>
-                                            <span class="lable">Bottom Right: </span>
-                                            <div class="inputgroup">
-                                                <span>
-                                                    <input type="number" class="tooglerange" id="border-bottom-right-radius">
-                                                </span>
-                                                <span>
-                                                    <select id="border-bottom-right-radius_unit" class="unit">
-                                                        <option value="px" selected>px</option>
-                                                        <option value="%">%</option>
-                                                        <option value="cm">cm</option>
-                                                        <option value="mm">mm</option>
-                                                        <option value="in">in</option>
-                                                        <option value="pt">pt</option>
-                                                        <option value="pc">pc</option>
-                                                        <option value="em">em</option>
-                                                        <option value="ex">ex</option>
-                                                        <option value="ch">ch</option>
-                                                        <option value="rem">rem</option>
-                                                        <option value="vw">vw</option>
-                                                        <option value="vh">vh</option>
-                                                        <option value="vmin">vmin</option>
-                                                        <option value="vmax">vmax</option>
-                                                    </select>
-                                                </span>
-                                            </div>
-                                            <div class="remove">
-                                                <button class="delete" id="delete-border-bottom-right-radius" type="button">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
+                                        <!-- Border-Radius-Top-Right -->
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="list">
+                                                    <span class="lable d-none">BorderRadius</span>
+                                                    <span class="lable d-none">BorderRadiusTopRight</span>
+                                                    <span class="lable d-none">BorderRadiusTop</span>
+                                                    <span class="lable d-none">BorderRadiusRight</span>
+                                                    <span class="lable d-none">BorderTopRightRadius</span>
+                                                    <span class="lable d-none">BorderTopRadius</span>
+                                                    <span class="lable d-none">BorderRightRadius</span>
+                                                    <span class="lable">Top Right: </span>
+                                                    <div class="inputgroup">
+                                                        <span>
+                                                            <input type="number" class="tooglerange" id="border-top-right-radius">
+                                                        </span>
+                                                        <span>
+                                                            <select id="border-top-right-radius_unit" class="unit">
+                                                                <option value="px" selected>px</option>
+                                                                <option value="%">%</option>
+                                                                <option value="cm">cm</option>
+                                                                <option value="mm">mm</option>
+                                                                <option value="in">in</option>
+                                                                <option value="pt">pt</option>
+                                                                <option value="pc">pc</option>
+                                                                <option value="em">em</option>
+                                                                <option value="ex">ex</option>
+                                                                <option value="ch">ch</option>
+                                                                <option value="rem">rem</option>
+                                                                <option value="vw">vw</option>
+                                                                <option value="vh">vh</option>
+                                                                <option value="vmin">vmin</option>
+                                                                <option value="vmax">vmax</option>
+                                                            </select>
+                                                        </span>
+                                                    </div>
+                                                    <div class="remove">
+                                                        <button class="delete" id="delete-border-top-right-radius" type="button">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                    </div>
+                                                </div>
+                                                <div class="Range" id="border-top-right-radius-range">
+                                                    <input type="range" min="0" max="500" value="0" class="slider" id="border-top-right-radius_">
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="Range" id="border-bottom-right-radius-range">
-                                            <input type="range" min="0" max="500" value="0" class="slider" id="border-bottom-right-radius_">
+                                        <!-- Border-Radius-Bottom-Left -->
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="list">
+                                                    <span class="lable d-none">BorderRadius</span>
+                                                    <span class="lable d-none">BorderRadiusBottomLeft</span>
+                                                    <span class="lable d-none">BorderRadiusBottom</span>
+                                                    <span class="lable d-none">BorderRadiusLeft</span>
+                                                    <span class="lable d-none">BorderBottomLeftRadius</span>
+                                                    <span class="lable d-none">BorderBottomRadius</span>
+                                                    <span class="lable d-none">BorderLeftRadius</span>
+                                                    <span class="lable">Bottom Left: </span>
+                                                    <div class="inputgroup">
+                                                        <span>
+                                                            <input type="number" class="tooglerange" id="border-bottom-left-radius">
+                                                        </span>
+                                                        <span>
+                                                            <select id="border-bottom-left-radius_unit" class="unit">
+                                                                <option value="px" selected>px</option>
+                                                                <option value="%">%</option>
+                                                                <option value="cm">cm</option>
+                                                                <option value="mm">mm</option>
+                                                                <option value="in">in</option>
+                                                                <option value="pt">pt</option>
+                                                                <option value="pc">pc</option>
+                                                                <option value="em">em</option>
+                                                                <option value="ex">ex</option>
+                                                                <option value="ch">ch</option>
+                                                                <option value="rem">rem</option>
+                                                                <option value="vw">vw</option>
+                                                                <option value="vh">vh</option>
+                                                                <option value="vmin">vmin</option>
+                                                                <option value="vmax">vmax</option>
+                                                            </select>
+                                                        </span>
+                                                    </div>
+                                    
+                                                    <div class="remove">
+                                                        <button class="delete" id="delete-border-bottom-left-radius" type="button">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                    </div>
+                                                </div>
+                                                <div class="Range" id="border-bottom-left-radius-range">
+                                                    <input type="range" min="0" max="500" value="0" class="slider" id="border-bottom-left-radius_">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Border-Radius-Bottom-Right -->
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="list">
+                                                    <span class="lable d-none">BorderRadius</span>
+                                                    <span class="lable d-none">BorderRadiusBottomRight</span>
+                                                    <span class="lable d-none">BorderRadiusBottom</span>
+                                                    <span class="lable d-none">BorderRadiusRight</span>
+                                                    <span class="lable d-none">BorderBottomRightRadius</span>
+                                                    <span class="lable d-none">BorderBottomRadius</span>
+                                                    <span class="lable d-none">BorderRightRadius</span>
+                                                    <span class="lable">Bottom Right: </span>
+                                                    <div class="inputgroup">
+                                                        <span>
+                                                            <input type="number" class="tooglerange" id="border-bottom-right-radius">
+                                                        </span>
+                                                        <span>
+                                                            <select id="border-bottom-right-radius_unit" class="unit">
+                                                                <option value="px" selected>px</option>
+                                                                <option value="%">%</option>
+                                                                <option value="cm">cm</option>
+                                                                <option value="mm">mm</option>
+                                                                <option value="in">in</option>
+                                                                <option value="pt">pt</option>
+                                                                <option value="pc">pc</option>
+                                                                <option value="em">em</option>
+                                                                <option value="ex">ex</option>
+                                                                <option value="ch">ch</option>
+                                                                <option value="rem">rem</option>
+                                                                <option value="vw">vw</option>
+                                                                <option value="vh">vh</option>
+                                                                <option value="vmin">vmin</option>
+                                                                <option value="vmax">vmax</option>
+                                                            </select>
+                                                        </span>
+                                                    </div>
+                                                    <div class="remove">
+                                                        <button class="delete" id="delete-border-bottom-right-radius" type="button">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                    </div>
+                                                </div>
+                                                <div class="Range" id="border-bottom-right-radius-range">
+                                                    <input type="range" min="0" max="500" value="0" class="slider" id="border-bottom-right-radius_">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -3034,7 +3023,7 @@
                             </div>
                             <!-- Border-Spacing-Property-->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pl-2 pr-2">
                                     <div id="Border-Spacing-Tab" class="tabcontent">
                                         <!-- Border-Spacing-Horizontal -->
                                         <div class="row">
@@ -3296,7 +3285,7 @@
                             </div>
                             <!-- background-position-Property-->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pl-2 pr-2">
                                     <div id="Background-Position-Tab" class="tabcontent">
                                         <!-- background-position-x -->
                                         <div class="row">
@@ -3427,7 +3416,7 @@
                             </div>
                             <!-- Background-Size-Property-->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pl-2 pr-2">
                                     <div id="Background-Size-Tab" class="tabcontent">
                                         <!-- background-size-width -->
                                         <div class="row">
@@ -3547,7 +3536,7 @@
                             </div>
                             <!-- Box-Shadow-Propertyr-->
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 pl-2 pr-2">
                                     <div id="Box-Shadow-Tab" class="tabcontent">
                                         <!-- Box Shadow-Horizontal-Width -->
                                         <div class="row">
@@ -3756,413 +3745,6 @@
                                 </div>
                             </div>
                         </Form>
-                        <!-- Transform Title-->
-                        <div class="title list">
-                            Transform:
-                            <div class="remove">
-                                <button class="deleteall" id="delete-Transform-Form" type="button">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                            </div>
-                        </div>
-                        <!-- Transform Form -->
-                        <Form id="Transform-Form" style="display:none;">
-                            <!-- Transform -->
-                            <div class="row">
-                                <div class="col-12 pr-1">
-                                    <div class="list">
-                                        <span class="lable d-none">TransForm:</span>
-                                        <div class="inputgroup w-100">
-                                            <input type="text" class="short w-100" id="transform">
-                                        </div>
-                                        <div class="remove">
-                                            <button class="delete" id="delete-transform" type="button">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Rotate -->
-                            <div class="row">
-                                <div class="col-12 pr-1">
-                                    <div class="list">
-                                        <span class="toogleIcon" id="Toogle-Rotate-Tab">
-                                            <i class="fas fa-caret-right"></i>
-                                        </span>
-                                        <span class="lable">Rotate: </span>
-                                        <div class="inputgroup w-100">
-                                            <input type="text" class="tooglerange w-100" min="0" id="rotate">
-                                        </div>
-
-                                        <div class="remove">
-                                            <button class="delete" id="delete-rotate" type="button">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                        </div>
-                                    </div>
-                                    <div class="list  justify-content-center" id="rotate-range" style="display:none;">
-                                        <div id="rotateall" class="rslider"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Rotate Tab-->
-                            <div id="Rotate-Tab" class="tabcontent">
-                                <div class="col-12">
-                                    <div class="list  justify-content-center" id="rotate-range">
-                                        <div class="mr-2">
-                                            <div class="text-center">X</div>
-                                            <div id="rotatex" class="rslider"></div>
-                                        </div>
-                                        <div class="mr-2">
-                                            <div class="text-center">Y</div>
-                                            <div id="rotatey" class="rslider"></div>
-                                        </div>
-                                        <div>
-                                            <div class="text-center">Z</div>
-                                            <div id="rotatez" class="rslider"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Skew -->
-                            <div class="row">
-                                <div class="col-12 pr-1">
-                                    <div class="list">
-                                        <span class="lable">Skew: </span>
-                                        <div class="inputgroup w-100">
-                                            <input type="text" class="tooglerange w-100" min="0" id="skew">
-                                        </div>
-
-                                        <div class="remove">
-                                            <button class="delete" id="delete-skew" type="button">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                        </div>
-                                    </div>
-                                    <div class="list justify-content-center" id="skew-range" style="display:none;">
-                                        <div class="mr-2">
-                                            <div class="text-center">X</div>
-                                            <div id="skewx" class="rslider"></div>
-                                        </div>
-                                        <div class="mr-2">
-                                            <div class="text-center">Y</div>
-                                            <div id="skewy" class="rslider"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Translate -->
-                            <div class="row">
-                                <div class="col-12 pr-1">
-                                    <div class="list">
-                                        <span class="toogleIcon" id="Toogle-Translate-Tab">
-                                        <i class="fas fa-caret-right"></i>
-                                    </span>
-                                        <span class="lable">Translate: </span>
-                                        <div class="inputgroup w-100">
-                                            <input type="text" class="tooglerange w-100" min="0" id="Translate">
-                                        </div>
-                                        <div class="remove">
-                                            <button class="delete" id="delete-Translate" type="button">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Translate Tab -->
-                            <div class="row">
-                                <div class="col-12">
-                                    <div id="Translate-Tab" class="tabcontent">
-                                        <!--Translate X-->
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="list">
-                                                    <span class="lable">Translate X: </span>
-                                                    <div class="inputgroup">
-                                                        <span>
-                                                    <input type="number" class="tooglerange" min="0" id="Translate-x">
-                                                </span>
-                                                        <span>
-                                                    <select id="Translate-x_unit"  class="unit">
-                                                        <option value="px" selected>px</option>
-                                                        <option value="%">%</option>
-                                                        <option value="cm">cm</option>
-                                                        <option value="mm">mm</option>
-                                                        <option value="in">in</option>
-                                                        <option value="pt">pt</option>
-                                                        <option value="pc">pc</option>
-                                                        <option value="em">em</option>
-                                                        <option value="ex">ex</option>
-                                                        <option value="ch">ch</option>
-                                                        <option value="rem">rem</option>
-                                                        <option value="vw">vw</option>
-                                                        <option value="vh">vh</option>
-                                                        <option value="vmin">vmin</option>
-                                                        <option value="vmax">vmax</option>
-                                                        <option disabled>------</option>
-                                                        <option value="auto">auto</option>
-                                                    </select>
-                                                </span>
-                                                    </div>
-                                                    <div class="remove">
-                                                        <button class="delete" id="delete-Translate-x" type="button">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                    </div>
-                                                </div>
-                                                <div class="Range" id="Translate-x-range">
-                                                    <input type="range" value="0" min="-1000" max="1000" class="slider" id="Translate-x_">
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <!--Translate Y-->
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="list">
-                                                    <span class="lable">Translate Y: </span>
-                                                    <div class="inputgroup">
-                                                        <span>
-                                                    <input type="number" class="tooglerange" min="0" id="Translate-y">
-                                                </span>
-                                                        <span>
-                                                    <select id="Translate-y_unit"  class="unit">
-                                                        <option value="px" selected>px</option>
-                                                        <option value="%">%</option>
-                                                        <option value="cm">cm</option>
-                                                        <option value="mm">mm</option>
-                                                        <option value="in">in</option>
-                                                        <option value="pt">pt</option>
-                                                        <option value="pc">pc</option>
-                                                        <option value="em">em</option>
-                                                        <option value="ex">ex</option>
-                                                        <option value="ch">ch</option>
-                                                        <option value="rem">rem</option>
-                                                        <option value="vw">vw</option>
-                                                        <option value="vh">vh</option>
-                                                        <option value="vmin">vmin</option>
-                                                        <option value="vmax">vmax</option>
-                                                        <option disabled>------</option>
-                                                        <option value="auto">auto</option>
-                                                    </select>
-                                                </span>
-                                                    </div>
-                                                    <div class="remove">
-                                                        <button class="delete" id="delete-Translate-y" type="button">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                    </div>
-                                                </div>
-                                                <div class="Range" id="Translate-y-range">
-                                                    <input type="range" value="0" min="-1000" max="1000" class="slider" id="Translate-y_">
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <!--Translate Z-->
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="list">
-                                                    <span class="lable">Translate Z: </span>
-                                                    <div class="inputgroup">
-                                                        <span>
-                                                    <input type="number" class="tooglerange" min="0" id="Translate-z">
-                                                </span>
-                                                        <span>
-                                                    <select id="Translate-z_unit"  class="unit">
-                                                        <option value="px" selected>px</option>
-                                                        <option value="%">%</option>
-                                                        <option value="cm">cm</option>
-                                                        <option value="mm">mm</option>
-                                                        <option value="in">in</option>
-                                                        <option value="pt">pt</option>
-                                                        <option value="pc">pc</option>
-                                                        <option value="em">em</option>
-                                                        <option value="ex">ex</option>
-                                                        <option value="ch">ch</option>
-                                                        <option value="rem">rem</option>
-                                                        <option value="vw">vw</option>
-                                                        <option value="vh">vh</option>
-                                                        <option value="vmin">vmin</option>
-                                                        <option value="vmax">vmax</option>
-                                                        <option disabled>------</option>
-                                                        <option value="auto">auto</option>
-                                                    </select>
-                                                </span>
-                                                    </div>
-                                                    <div class="remove">
-                                                        <button class="delete" id="delete-Translate-z" type="button">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                    </div>
-                                                </div>
-                                                <div class="Range" id="Translate-z-range">
-                                                    <input type="range" value="0" min="-1000" max="1000" class="slider" id="Translate-z_">
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Scale -->
-                            <div class="row">
-                                <div class="col-12 pr-1">
-                                    <div class="list">
-                                        <span class="toogleIcon" id="Toogle-Scale-Tab">
-                                        <i class="fas fa-caret-right"></i>
-                                    </span>
-                                        <span class="lable">Scale: </span>
-                                        <div class="inputgroup w-100">
-                                            <input type="text" class="tooglerange w-100" min="0" id="Scale">
-                                        </div>
-                                        <div class="remove">
-                                            <button class="delete" id="delete-Scale" type="button">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Scale Tab -->
-                            <div class="row">
-                                <div class="col-12">
-                                    <div id="Scale-Tab" class="tabcontent">
-                                        <!--Scale X-->
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="list">
-                                                    <span class="lable">Scale X: </span>
-                                                    <div class="inputgroup">
-                                                        <span>
-                                                    <input type="number" class="tooglerange" min="0" id="Scale-x">
-                                                </span>
-                                                        <span>
-                                                    <select id="Scale-x_unit"  class="unit">
-                                                        <option value="px" selected>px</option>
-                                                        <option value="%">%</option>
-                                                        <option value="cm">cm</option>
-                                                        <option value="mm">mm</option>
-                                                        <option value="in">in</option>
-                                                        <option value="pt">pt</option>
-                                                        <option value="pc">pc</option>
-                                                        <option value="em">em</option>
-                                                        <option value="ex">ex</option>
-                                                        <option value="ch">ch</option>
-                                                        <option value="rem">rem</option>
-                                                        <option value="vw">vw</option>
-                                                        <option value="vh">vh</option>
-                                                        <option value="vmin">vmin</option>
-                                                        <option value="vmax">vmax</option>
-                                                        <option disabled>------</option>
-                                                        <option value="auto">auto</option>
-                                                    </select>
-                                                </span>
-                                                    </div>
-                                                    <div class="remove">
-                                                        <button class="delete" id="delete-Scale-x" type="button">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                    </div>
-                                                </div>
-                                                <div class="Range" id="Scale-x-range">
-                                                    <input type="range" value="0" min="-1000" max="1000" class="slider" id="Scale-x_">
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <!--Scale Y-->
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="list">
-                                                    <span class="lable">Scale Y: </span>
-                                                    <div class="inputgroup">
-                                                        <span>
-                                                    <input type="number" class="tooglerange" min="0" id="Scale-y">
-                                                </span>
-                                                        <span>
-                                                    <select id="Scale-y_unit"  class="unit">
-                                                        <option value="px" selected>px</option>
-                                                        <option value="%">%</option>
-                                                        <option value="cm">cm</option>
-                                                        <option value="mm">mm</option>
-                                                        <option value="in">in</option>
-                                                        <option value="pt">pt</option>
-                                                        <option value="pc">pc</option>
-                                                        <option value="em">em</option>
-                                                        <option value="ex">ex</option>
-                                                        <option value="ch">ch</option>
-                                                        <option value="rem">rem</option>
-                                                        <option value="vw">vw</option>
-                                                        <option value="vh">vh</option>
-                                                        <option value="vmin">vmin</option>
-                                                        <option value="vmax">vmax</option>
-                                                        <option disabled>------</option>
-                                                        <option value="auto">auto</option>
-                                                    </select>
-                                                </span>
-                                                    </div>
-                                                    <div class="remove">
-                                                        <button class="delete" id="delete-Scale-y" type="button">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                    </div>
-                                                </div>
-                                                <div class="Range" id="Scale-y-range">
-                                                    <input type="range" value="0" min="-1000" max="1000" class="slider" id="Scale-y_">
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <!--Scale Z-->
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="list">
-                                                    <span class="lable">Scale Z: </span>
-                                                    <div class="inputgroup">
-                                                        <span>
-                                                    <input type="number" class="tooglerange" min="0" id="Scale-z">
-                                                </span>
-                                                        <span>
-                                                    <select id="Scale-z_unit"  class="unit">
-                                                        <option value="px" selected>px</option>
-                                                        <option value="%">%</option>
-                                                        <option value="cm">cm</option>
-                                                        <option value="mm">mm</option>
-                                                        <option value="in">in</option>
-                                                        <option value="pt">pt</option>
-                                                        <option value="pc">pc</option>
-                                                        <option value="em">em</option>
-                                                        <option value="ex">ex</option>
-                                                        <option value="ch">ch</option>
-                                                        <option value="rem">rem</option>
-                                                        <option value="vw">vw</option>
-                                                        <option value="vh">vh</option>
-                                                        <option value="vmin">vmin</option>
-                                                        <option value="vmax">vmax</option>
-                                                        <option disabled>------</option>
-                                                        <option value="auto">auto</option>
-                                                    </select>
-                                                </span>
-                                                    </div>
-                                                    <div class="remove">
-                                                        <button class="delete" id="delete-Scale-z" type="button">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                    </div>
-                                                </div>
-                                                <div class="Range" id="Scale-z-range">
-                                                    <input type="range" value="0" min="-1000" max="1000" class="slider" id="Scale-z_">
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </Form>
                         <!-- More Title-->
                         <div class="title list">
                             More:
@@ -4232,9 +3814,8 @@
                 </div>
                 <div class="row no-gutters bg-white" style="height: 100%">
                     <div id="Design" class="col-12 d-flex">
-                        <div id="SourceView" class="col-12 d-none"></div>
-                        <iframe id="DesignView" class="col-12 bg-white"  src="templates/Njoy/Three%20Rows%20Layout.html" frameborder="0"></iframe>
-                        <iframe  frameborder="0"></iframe>
+                        <div id="SourceView" class="col-12 d-none" ></div>
+                        <iframe id="DesignView" class="col-12 bg-white" src='templates/Njoy/Three%20Rows%20Layout.html' frameborder="0"></iframe>
                     </div>
                     <div id="Library">
                         <div class="row no-gutters list w-100">
@@ -4245,13 +3826,17 @@
                                 <div class="FooterTabs" id="Toogle-Email-Components"><span>Email Components</span></div>
                                 <div class="FooterTabs" id="Toogle-Bootstrap-Components"><span>Bootstrap Components</span></div>
                                 <div class="FooterTabs" id="Toogle-Inline-Styles"><span>Inline Styles</span></div>
+                                <div class="SelectorDiv">
+                                        <span class="searchicon" style="position: absolute; color:#cccccc; top: 0px;"><i class="fas fa-search"></i></span>
+                                        <input class="w-100 search" type="search" id="selector" placeholder="Search Elements by Selector">
+                                </div>
                             </div>
                         </div>
                         <form id="Footer-Form">
                             <div id="Templates" style="width:100%;height:100%;">
                                 <div class="row no-gutters h-100">
                                     <div class="col-2 h-100" id="Folders" style="overflow: auto;"></div>
-                                    <span class="reload"><i class="fas fa-sync-alt"></i></span>
+                                    <span class="reload" ><i class="fas fa-sync-alt"></i></span>
                                     <div class="col-10 h-100" id="Htmls"  style="overflow: auto;"></div>
                                 </div>
                             </div>
@@ -4259,7 +3844,7 @@
                                 <div class="row no-gutters h-100">
                                     <div class="col-2 h-100" id="Folders" style="overflow: auto;"></div>
                                     <span class="reload"><i class="fas fa-sync-alt"></i></span>
-                                    <div class="col-10 d-flex flex-wrap h-100 justify-content-center" id="imgs"  style="overflow: auto;"></div>
+                                    <div class="col-10 d-flex flex-wrap h-100 justify-content-around" id="imgs"  style="overflow: auto;"></div>
                                 </div>
                             </div>
                             <div id="Brief" style="display:none;overflow: auto;width:100%;height:100%;">

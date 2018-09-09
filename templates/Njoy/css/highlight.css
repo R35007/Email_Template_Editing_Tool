@@ -1,7 +1,7 @@
 
 .highlight, .highlight2, .highlight3 {
-    outline: red solid 1px !important;
-    position: relative !important;
+    outline: red solid 1px;
+    position: relative;
 }
 .shadow{
     box-shadow: 0px 0px 10px 0px #545454 !important;

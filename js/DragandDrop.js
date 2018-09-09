@@ -1,13 +1,14 @@
 /*eslint-disable no-unused-vars*/
 /* eslint-env browser */
 /* global document */
-/*global $, templateFolder*/
+/*global $, templateFolder, $myElement*/
 /*eslint no-console:  ["error", { allow: ["warn", "error", "log","no-used-vars"] }] */
 
+var mytempsrc = '';
 
 $('[id*="Elem"]').draggable({
     appendTo: "body",
-    containment: "window",
+    containment: "body",
     cursor: "move",
     revert: true,
     helper: "clone",
@@ -31,32 +32,38 @@ $('#DesignView').droppable({
                 var myalttext = ui.draggable.find('p').text();
                 draggable = $('<img src="' + myimg + '" alt="' + myalttext + '">');
 
-                if ($(this).prop('tagName').toLowerCase() == "img") {
+                if ($myElement.prop('tagName').toLowerCase() == "img") {
                     var mysrc = myimg;
-                    $(this).attr('src', mysrc);
+                    $myElement.attr('src', mysrc);
                     return;
                 } else
-                    $(this).append(draggable);
-            } 
-            else {
+                    $myElement.append(draggable);
+            } else {
                 myimg = ui.draggable.find('p').text();
                 draggable = $('<img src="images/' + myimg + '" alt="' + myimg + '">');
-                if ($(this).prop('tagName').toLowerCase() == "img") {
+                if ($myElement.prop('tagName').toLowerCase() == "img") {
                     mysrc = 'images/' + myimg;
-                    $(this).attr('src', mysrc);
+                    $myElement.attr('src', mysrc);
                     return;
                 } else
-                    $(this).append(draggable);
+                    $myElement.append(draggable);
             }
-
+            
+            draggable.trigger('click');
         } 
         else if (ui.draggable.hasClass('MyTemplate')) {
 
+            mytempsrc = new Array();
             myTemp = ui.draggable.find('p').text().replace(/\s/g, '\%20');
+            
             myurl = 'templates/' + templateFolder.replace(/\s/g, "\%20") + '/' + myTemp;
-           
+            
             $('#DesignView').attr('src',myurl);
-
+            $('#DesignView').contents().find('body').trigger('click');
+            
+            $('#DesignView').contents().find('img[src*="http"]').each(function () {
+                mytempsrc.push($(this).attr('src'));
+            })
 
 
         } 
@@ -78,7 +85,8 @@ $('#DesignView').droppable({
             myList = generateList(myText);
 
             console.log($(myList));
-            $(this).append(myList);
+            $myElement.append(myList);
+            myList.trigger('click');
         } 
         else if (ui.draggable.hasClass('MyEmailTemplate')) {
             myTemp = ui.draggable.text().replace(/\s/g, '\%20');
@@ -92,8 +100,8 @@ $('#DesignView').droppable({
                     draggable = data;
                 }
             });
-            $(this).append(draggable);
-        } 
+            $myElement.append(draggable);
+        }
         else if (ui.draggable.hasClass('MyBs4Template')) {
             myTemp = ui.draggable.text().replace(/\s/g, '\%20');
             myurl = 'Bootstrap4Components/' + myTemp;
@@ -106,19 +114,23 @@ $('#DesignView').droppable({
                     draggable = data;
                 }
             });
-            $(this).append(draggable);
+            $myElement.append(draggable);
         } 
         else {
             draggable = $("#Drag" + ui.draggable.attr('id')).clone();
             draggable.removeAttr('id');
-            $(this).append(draggable);
+            $myElement.append(draggable);
             draggable.trigger('click');
             var elemId = ui.draggable.attr('id');
 
         }
+
+
+
         for (var i = 0; i < $('form').length; i++) {
             $('form')[i].reset();
         }
+
     }
 });
 
