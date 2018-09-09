@@ -8,12 +8,11 @@
 var keys = {};
 var replaceWith = $('<div id="edit" contentEditable="true" class="editinplace"></div>');
 var $myElement, myparents, myElementCopy, replaceElement, propnew, $ElementToreplace;
-var isDesignViewClicked = false;
+var isDesignViewClicked = false, mycolors=new Array();
 
 $('.container-fluid').css('height', $(window).height());
 
 //$('#DesignView').load('BootstrapComponents/CardDeck.html');
-
 
 //  Prevent from redirecting
 $('#DesignView').on('click','a , span, input[type=submit], button, img',function(e){
@@ -228,34 +227,6 @@ $('#DesignView').bind('DOMNodeInserted DOMNodeRemoved', function () {
 });
 
 //  Edit in place within DesignView viv
-//$('#DesignView').on('dblclick', 'label, td, span , p, font, th, h1, h2, h3, h4, h5, button', function (e) {
-//
-//    var elem = $(this);
-//
-//    elem.hide();
-//    elem.after(replaceWith);
-//    replaceWith.focus();
-//    replaceWith.text(elem.text());
-//
-//    replaceWith.keyup(function (e) {
-//        if (e.keyCode == 13) {
-//            replaceWith.trigger("blur");
-//        }
-//    })
-//
-//    replaceWith.blur(function () {
-//
-//        if ($(this).text() != "") {
-//            elem.text($(this).text());
-//        } else {
-//            elem.remove();
-//        }
-//
-//        $(this).remove();
-//        elem.show();
-//    });
-//    e.stopPropagation();
-//})
 $('#DesignView').on('dblclick', '*', function (e) {
 
     var elem = $(this);
@@ -279,6 +250,7 @@ $('#DesignView').on('dblclick', '*', function (e) {
     e.stopPropagation();
 })
 
+//  Remove Edit in place
 $('#DesignView').on('blur','[contenteditable=true]',function(){
     $myElement.removeAttr('contenteditable');
     $myElement.css('box-shadow','');
@@ -343,6 +315,7 @@ $('#DesignView').on('click', '*', function (e) {
     $('#selector').val('');
     $('#myDivids').val('');
     $('#DesignView *').removeClass('highlight');
+    $('#DesignView *').removeClass('highlight3');
     $myElement.addClass('highlight');
 
     var thisid = $(this).attr('id');
@@ -365,9 +338,11 @@ $('#DesignView').on('click', '*', function (e) {
     $('#elementClass').val('');
     thisclass = thisclass.replace(/ui-draggable-handle/g, '');
     thisclass = thisclass.replace(/ui-draggable/g, '');
+    thisclass = thisclass.replace(/ui-droppable-hover/g, '');
     thisclass = thisclass.replace(/ui-droppable-active/g, '');
     thisclass = thisclass.replace(/ui-droppable/g, '');
     thisclass = thisclass.replace(/highlight2/g, '');
+    thisclass = thisclass.replace(/highlight3/g, '');
     thisclass = thisclass.replace(/highlight/g, '');
     
     if (thisclass.trim().length > 0) {
@@ -493,6 +468,19 @@ $('#DesignView').on('mouseover', '*', function (e) {
 $('#DesignView').on('mouseout', '*', function (e) {
     $(this).removeClass('highlight2');
     e.stopPropagation();
+})
+
+$('#selector').on('input',function(){
+    var thistext = $(this).val();
+    
+    $('#DesignView *').removeClass('highlight3');
+    if(thistext.trim().length>0){
+        if($('#selector').val().toLowerCase().indexOf('this')>=0){
+                $(thistext.toLowerCase().replace('this',''),$myElement).addClass('highlight3');
+            }
+            else
+                $('#DesignView '+thistext).addClass('highlight3');
+    }
 })
 
 //  Navigate to the element by breadcrumb
@@ -634,8 +622,10 @@ $('.topIcon').on('click', function () {
 //  Toogle between Design View, Split View, Source View
 $('.navlist').on('click', function () {
     var tabs = $(this).text() + "View";
-    var myDesign;
+    var myDesign,i,j,searchrgb,replacehexa;
 
+    console.log(mycolors);
+    
     $('#Design>div').addClass('d-none');
     $('.navlist').removeClass('activeTab');
 
@@ -649,13 +639,7 @@ $('.navlist').on('click', function () {
         $('#Design').css('height', 'calc(100% - 197px)');
     } else if (tabs == "SourceView") {
         myDesign =$('#DesignView').html();
-        myDesign = myDesign.replace(/ui-draggable-handle/g, '');
-        myDesign = myDesign.replace(/ui-draggable/g, '');
-        myDesign = myDesign.replace(/ui-droppable-active/g, '');
-        myDesign = myDesign.replace(/ui-droppable/g, '');
-        myDesign = myDesign.replace(/highlight2/g, '');
-        myDesign = myDesign.replace(/highlight/g, '');
-        myDesign = myDesign.replace(/\s\s\s\s\"/g, '\"');
+        myDesign = myreplace(myDesign);
         
         editor.session.setValue(myDesign);
         $('#Footer-Form').hide();
@@ -666,14 +650,8 @@ $('.navlist').on('click', function () {
         $('#Design').css('height', 'calc(100% - 30px)');
     } else if (tabs == "SplitView") {
         myDesign =$('#DesignView').html();
-        myDesign = myDesign.replace(/ui-draggable-handle/g, '');
-        myDesign = myDesign.replace(/ui-draggable/g, '');
-        myDesign = myDesign.replace(/ui-droppable-active/g, '');
-        myDesign = myDesign.replace(/ui-droppable/g, '');
-        myDesign = myDesign.replace(/highlight2/g, '');
-        myDesign = myDesign.replace(/highlight/g, '');
-        myDesign = myDesign.replace(/\s\s\s\s\"/g, '\"');
-        
+        myDesign = myreplace(myDesign);
+
         editor.session.setValue(myDesign);
         $('#DesignView').removeClass('d-none');
         $('#Footer-Form').hide();
@@ -687,6 +665,110 @@ $('.navlist').on('click', function () {
         $('#Design').css('height','calc(100% - 30px)');
     }
 })
+
+//  Toogle Wrap
+$('#Toogle-Wrap, #Wrap').on('mouseover',function(){
+    $('#Wrap').slideDown('fast');
+})
+
+$('#Wrap').on('mouseleave',function(){
+    $('#Wrap').slideUp('fast');
+})
+
+$('.wrapIcon').on('click',function(){
+    var wraptag = this.id.replace('Wrap-','');
+    var mytag, temptag;
+    
+    
+    var highlight = window.getSelection();
+    var highlighthtml = getSelectionHtml();
+    
+    console.log(highlighthtml);
+    
+    if(wraptag == 'tag'){
+        var otherTag = $(this).val();
+        mytag = document.createElement(otherTag);
+    }
+    else
+        mytag = document.createElement(wraptag);
+    
+    if(wraptag == 'a'){
+        $(mytag).attr('href',highlight);
+    }
+    
+    console.log(highlighthtml.search(/^\<.*?\>.*?\<\/.*?\>$/));
+    
+    if(highlighthtml.search(/^\<.*?\>.*?\<\/.*?\>$/)>=0){
+        temptag = $(highlighthtml);
+        highlighthtml = $(highlighthtml).html();
+    }
+    else
+        temptag = $('<mytag>'+highlighthtml+'</mytag>');
+        
+    $(temptag).wrapInner(mytag);
+    var spn = temptag.html();
+    console.log(spn);
+    $myElement.html($myElement.html().replace(highlighthtml, spn));			
+})
+
+function getSelectionHtml() {
+    var html = "";
+    if (typeof window.getSelection != "undefined") {
+        var sel = window.getSelection();
+        if (sel.rangeCount) {
+            var container = document.createElement("div");
+            for (var i = 0, len = sel.rangeCount, range; i < len; ++i) {
+                range = sel.getRangeAt(i);
+                if (range.startContainer === range.endContainer
+                && range.startContainer.nodeType === Node.TEXT_NODE
+                && range.startOffset === 0
+                && range.endOffset === range.startContainer.length) {
+                    range.selectNode(range.startContainer.parentElement);
+                }
+                container.appendChild(range.cloneContents());
+            }
+            html = container.innerHTML;
+        }
+        } else if (typeof document.selection != "undefined") {
+        if (document.selection.type == "Text") {
+            html = document.selection.createRange().htmlText;
+        }
+    }
+    return html;
+}
+
+function myreplace(x){
+    x = x.replace(/ui-draggable-handle/g, '');
+    x = x.replace(/ui-draggable/g, '');
+    x = x.replace(/ui-droppable-hover/g, '');
+    x = x.replace(/ui-droppable-active/g, '');
+    x = x.replace(/ui-droppable/g, '');
+    x = x.replace(/highlight2/g, '');
+    x = x.replace(/highlight/g, '');
+    x = x.replace(/(class="([^"])\s*")/g, '');
+    x = x.replace(/class=""/g, '');
+    x = x.replace(/(data-brackets-id="([^"])*")/g, '');
+    x = x.replace(/•/g, '\&bull;');
+    x = x.replace(/►/g, '\&#x25BA;');
+    x = rgbtohexa(x);
+    return x;
+}
+
+function rgbtohexa(y){
+    if(mycolors.length>0){
+        for(var i in mycolors){
+            var rgb = mycolors[i].rgb;
+            rgb = rgb.replace(/\(/g,'\\(');
+            rgb = rgb.replace(/\)/g,'\\)');
+            var replacehexa = mycolors[i].hexa;
+            var test = new RegExp(rgb,"g");
+            y = y.replace(test,replacehexa);
+            console.log(y);
+
+        }
+    }
+    return y;
+}
 
 //  Toogle The Side Panel
 $('#Toogle-SidePanel').on('click', function () {
@@ -1316,19 +1398,49 @@ function getvalue(x) {
 
 function setstyle(prop, val) {
     
-    if ($('#selector').val().length > 0) {
-        if (val != "null") {
-            $("#Design " + $('#selector').val()).css(prop, val);
-        } else
-            $("#Design " + $('#selector').val()).css(prop, "");
-    } else {
-        if (val != "null")
-            $myElement.css(prop, val);
-        else
-            $myElement.css(prop, "");
-    }
     
+    if ($('#selector').val().length > 0) {
+        if (val != "null"){
+            if($('#selector').val().toLowerCase().indexOf('this')>=0){
+                $($('#selector').val().toLowerCase().replace('this',''),$myElement).css(prop, val);
+            }
+            else
+                $("#DesignView " + $('#selector').val()).css(prop, val);
+        }
+        else
+            $("#DesignView " + $('#selector').val()).css(prop, "");
+        
+        if(val.indexOf('#')>=0)
+            addMyColors($("#DesignView " + $('#selector').val()).css(prop), val)
+    } 
+    else {
+        if(typeof val!=='undefined'){
+            if (val != "null")
+                $myElement.css(prop, val);
+            else
+                $myElement.css(prop, "");
+        }
+        if(val.indexOf('#')>=0)
+            addMyColors($myElement.css(prop), val)
+    }
     ShowStyle();
+}
+
+function addMyColors(rgbval, hexaval){
+    var isExist = false;
+
+    if(mycolors.length>0){
+        for(var i in mycolors){
+            if(hexaval==mycolors[i].hexa)
+                isExist = true;
+        }
+    }
+    if(!isExist){
+        mycolors.push({
+            rgb : rgbval,
+            hexa : hexaval
+        })
+    }
 }
 
 function ShowStyle() {
@@ -1409,6 +1521,7 @@ $('#setId').on('click', function () {
 //  Get Inline Styles
 $('#Properties input,#Properties select,#Properties button').on("change input click", function (e) {
 
+    
     if ($(this).hasClass('prop') || $(this).hasClass('val'))
         return;
     

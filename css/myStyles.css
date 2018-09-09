@@ -154,6 +154,11 @@ body {
 
 #SidePanel .Range {
     display: none;
+    margin-right: 10px;
+}
+
+.tabcontent .Range{
+    margin-right: 0;
 }
 
 #SidePanel .remove {
@@ -282,7 +287,6 @@ body {
     height: 167px;
     width: 100%;
     background-color: #ffffff;
-    //display: none;
 }
 
 .navlist {
@@ -369,27 +373,34 @@ body {
     opacity: 1;
 }
 
-#Bootstrap-Components, #Templates{
-    padding: 5px;
+#Bootstrap-Components, #Templates, #Images, #Brief{
     height: 167px;
     overflow: auto;
 }
 
 .DragElem {
     display: inline-block;
-    background: #caecca;
-    border: 1px solid black;
+    background: #f9f9f9;
+    border: 1px solid #e7e4e4;
     color: #000000;
-    padding: 12px;
+    padding: 0 12px;
+    border-radius: 4px;
     cursor: move;
     margin: 2px;
     font-size: 14px;
     z-index: 1000;
+    text-align: center;
+    box-shadow: 1px 1px 4px #bbbbbb;
 }
 
 .DragElem:hover {
     background: #008000;
     color: white;
+    border: 1px solid #008000;
+}
+
+.emailicon{
+    font-size: 30px;
 }
 
 #myDivids,
@@ -405,12 +416,11 @@ body {
     width: 230px
 }
 
-.highlight {
+.highlight, .highlight2, .highlight3 {
     outline: red solid 1px;
-}
-
-.highlight2 {
-    outline: red solid 1px;
+/*    outline: #4300ff solid 1px;*/
+/*    background-color: #0000ff08 !important;*/
+/*    color: black !important;*/
 }
 
 .RotateX {
@@ -572,13 +582,14 @@ body {
     transition: 0.2s all ease;
 }
 .FooterTabs:hover {
-    background-color: #55a655;
+    background-color: #009c00;
     color: white;
 }
 
 .MyThumbnail img {
     width: 135px;
     height: 80px;
+    background: #eeeeee;
 }
 
 .MyThumbnail{
@@ -597,7 +608,6 @@ body {
     background-color: #91d791;
     color: black;
     padding: 6px;
-    margin-bottom: 1px;
     cursor: pointer;
     transition: 0.2s all ease;
 }
@@ -605,4 +615,44 @@ body {
 #Folders .folder:hover{
     background-color: #008000;
     color: white;
+}
+
+.reload{
+        transition: 0.3s all ease;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    opacity: 0.3;
+    font-size: 19px;
+    margin-right: 10px;
+    cursor: pointer;
+    z-index: 100;
+}
+.reload:hover {
+    transform: rotate(180deg);
+    opacity: 1;
+}
+
+#Wrap{
+    position: absolute;
+    background-color: #f1f1f1;
+    margin-left: -160px;
+    box-shadow: 0px 7px 15px -9px #7b7b7b;
+}
+
+.wrapIcon{
+    padding: 3px;
+    width: 25px;
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+    margin: 0 5px;
+    transition: 0.3s all ease;
+    color: #000000;
+}
+.wrapIcon:hover{
+    background: black;
+    opacity: 1;
+    color: white;
+    border-radius: 5px;
 }
