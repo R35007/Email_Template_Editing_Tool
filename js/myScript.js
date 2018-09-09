@@ -235,7 +235,7 @@ $('#DesignView').on('dblclick', '*', function (e) {
     replaceElement =  $(this).clone();
     
     elem.attr('contenteditable','true');
-    elem.css('box-shadow','0px 0px 10px 0px blue');
+    elem.css('box-shadow','0px 0px 10px 0px #545454');
     elem.focus();
     elem.keyup(function (e) {
         if (e.keyCode == 13) {
@@ -508,6 +508,9 @@ $('#Breadcrumb').on('click', 'span', function () {
 $('.topIcon').on('click', function () {
     var thisid = this.id;
     var pastethis;
+    
+    if($('[contenteditable="true"]').length>0)
+        return;
 
         try {
             var prev = $myElement.prev();
@@ -622,7 +625,7 @@ $('.topIcon').on('click', function () {
 //  Toogle between Design View, Split View, Source View
 $('.navlist').on('click', function () {
     var tabs = $(this).text() + "View";
-    var myDesign,i,j,searchrgb,replacehexa;
+    var myDesign,i,j,searchrgb,replacehexa,$DesignView;
 
     console.log(mycolors);
     
@@ -638,7 +641,8 @@ $('.navlist').on('click', function () {
             $("#Toogle-Footer-Form").trigger('click');
         $('#Design').css('height', 'calc(100% - 197px)');
     } else if (tabs == "SourceView") {
-        myDesign =$('#DesignView').html();
+        $DesignView = removeEmpty();
+        myDesign =$DesignView.html();
         myDesign = myreplace(myDesign);
         
         editor.session.setValue(myDesign);
@@ -649,7 +653,8 @@ $('.navlist').on('click', function () {
         $(this).addClass('activeTab');
         $('#Design').css('height', 'calc(100% - 30px)');
     } else if (tabs == "SplitView") {
-        myDesign =$('#DesignView').html();
+        $DesignView = removeEmpty();
+        myDesign =$DesignView.html();
         myDesign = myreplace(myDesign);
 
         editor.session.setValue(myDesign);
@@ -685,9 +690,8 @@ $('.wrapIcon').on('click',function(){
     
     console.log(highlighthtml);
     
-    if(wraptag == 'tag'){
-        var otherTag = $(this).val();
-        mytag = document.createElement(otherTag);
+    if(wraptag == 'Unwrap'){
+       $myElement.replaceWith($myElement.html())
     }
     else
         mytag = document.createElement(wraptag);
@@ -737,19 +741,27 @@ function getSelectionHtml() {
     return html;
 }
 
+function removeEmpty(){
+        var $DesignView = $('#DesignView').clone();
+        $($DesignView).find('*').removeClass('ui-draggable-handle');
+        $($DesignView).find('*').removeClass('ui-draggable');
+        $($DesignView).find('*').removeClass('ui-droppable-hover');
+        $($DesignView).find('*').removeClass('ui-droppable-active');
+        $($DesignView).find('*').removeClass('ui-droppable');
+        $($DesignView).find('*').removeClass('highlight2');
+        $($DesignView).find('*').removeClass('highlight');
+        $($DesignView).find('*').removeAttr('data-brackets-id');
+        $($DesignView).find('[class=""]').removeAttr('class');
+        $($DesignView).find('[id=""]').removeAttr('id');
+        $($DesignView).find('[style=""]').removeAttr('style');
+    
+        return $DesignView;
+}
+
 function myreplace(x){
-    x = x.replace(/ui-draggable-handle/g, '');
-    x = x.replace(/ui-draggable/g, '');
-    x = x.replace(/ui-droppable-hover/g, '');
-    x = x.replace(/ui-droppable-active/g, '');
-    x = x.replace(/ui-droppable/g, '');
-    x = x.replace(/highlight2/g, '');
-    x = x.replace(/highlight/g, '');
-    x = x.replace(/(class="([^"])\s*")/g, '');
-    x = x.replace(/class=""/g, '');
-    x = x.replace(/(data-brackets-id="([^"])*")/g, '');
     x = x.replace(/•/g, '\&bull;');
     x = x.replace(/►/g, '\&#x25BA;');
+    x = x.replace(/©/g, '\&copy;');
     x = rgbtohexa(x);
     return x;
 }
@@ -802,10 +814,12 @@ $(".toogleIcon").click(function () {
 });
 
 //  Toogle Footer Form by Adjusting DesignView and Footer form height
-$("#Toogle-Footer-Form").click(function () {
+$("#Toogle-Footer-Form").click(function (e) {
+    
+    if(e.target!==this)
+        return;
+    
     var toogleTab;
-
-    $(this).toggleClass('RotateX');
 
     var design = $('.navlist:eq(0)').hasClass('activeTab');
 
@@ -828,6 +842,16 @@ $("#Toogle-Footer-Form").click(function () {
 
     }
 });
+
+$('#Toogle-Footer-Form').on('click','.FooterTabs',function(){
+        
+    var design = $('.navlist:eq(0)').hasClass('activeTab');
+
+    if (design) {
+        $("#Footer-Form").fadeIn();
+        $('#Design').css('height', 'calc(100% - 197px)');
+    }
+})
 
 //  Toogle Range Show and Hide
 $('#SidePanel .tooglerange').click(function () {

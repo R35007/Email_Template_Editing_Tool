@@ -405,19 +405,22 @@ body {
 
 #myDivids,
 #selector {
-    width: 213px;
     height: 25px !important;
     margin-right: 29px;
     margin-left: 7px;
 }
 
+#myDivids{
+    width: 200px;
+}
 #selector {
     margin-left: 15px;
-    width: 230px
+    width: 215px
 }
 
 .highlight, .highlight2, .highlight3 {
     outline: red solid 1px;
+    position: relative;
 /*    outline: #4300ff solid 1px;*/
 /*    background-color: #0000ff08 !important;*/
 /*    color: black !important;*/

@@ -93,6 +93,20 @@ function callDroppable(x) {
                 console.log($(myList));
                 $(this).append(myList);
             }
+            else if (ui.draggable.hasClass('MyEmailTemplate')) {
+                myTemp = ui.draggable.text().replace(/\s/g, '\%20');
+                myurl = 'EmailComponents/' + myTemp;
+
+                $.ajax({
+                    type: 'GET',
+                    url: myurl,
+                    async: false,
+                    success: function (data) {
+                        draggable = data;
+                    }
+                });
+                $(this).append(draggable);
+            } 
             else if (ui.draggable.hasClass('MyBs4Template')) {
                 myTemp = ui.draggable.text().replace(/\s/g, '\%20');
                 myurl = 'Bootstrap4Components/' + myTemp;

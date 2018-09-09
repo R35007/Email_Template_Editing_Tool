@@ -14,3 +14,5 @@ Many functionalities has been impolemented compared to the previous verion of th
 
 I have also provided a standard email templates to use. Breadcrum to navigate the elements,
 Edit in place, browse your local files etc...
+
+I would recomend this version of tool to learn CSS and Email template modifications.
