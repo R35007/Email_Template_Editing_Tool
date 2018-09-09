@@ -1,46 +1,116 @@
-var i = 1;
+/*eslint-disable no-unused-vars*/
+/* eslint-env browser */
+/* global document */
+/*global $*/
+/*eslint no-console:  ["error", { allow: ["warn", "error", "log","no-used-vars"] }] */
+$('.DragElem').draggable({
+    cursor: "move",
+    revert: true,
+    helper: "clone"
+});
 
-function allowDrop(ev) {
-    ev.preventDefault();
+callDroppable("demoDIV");
+
+function callDroppable(x) {
+    $('#' + x).droppable({
+        accept: '[id*="Elem"]',
+        greedy: true,
+        drop: function (event, ui) {
+
+            var draggable = $("#Drag"+ui.draggable.attr('id')).clone();
+            var count = 0;
+            var getout;
+            var myid;
+            var thisdroppable=true;
+            do {
+                
+                if (count > 0)
+                    myid = prompt("The given Id already Exist. Please enter an Uniqui Id", "");
+                else
+                    myid = prompt("Please enter an Uniqui Id", "");
+                
+                if (myid == "" || myid == null || myid.length == 0) 
+                    getout = true;
+                else if ($("#" + myid).length > 0) {
+                    count++;
+                    getout = false;
+                } 
+                else if ($("#" + myid).length == 0) {
+                    
+                    var elemId=ui.draggable.attr('id');
+                    if(elemId.indexOf("Input") >= 0){
+                        thisdroppable=false
+                    }
+                    myid = myid.replace(" ", "");
+                    draggable.attr('id', myid);
+                    draggable.addClass("removeIt");
+                    
+                    $(this).append(draggable);
+                    
+
+                    var opt = "<option value='" + myid + "'>" + myid + "</option>"
+                    $("#myDivids").append(opt);
+                    $("#myDivids").val(myid);
+                    $("#selector").val(myid);
+
+
+                    for (var i = 0; i < $('form').length; i++) {
+                        $('form')[i].reset();
+                    }
+                    
+                    draggable.on("click", function () {
+                        $("#myDivids").val(this.id);
+                        $("#selector").val(this.id);
+                        ShowStyle();
+                        for (var j = 0; j < $('form').length; j++) {
+                            $('form')[j].reset();
+                        }
+                    });
+                    
+                    draggable.sortable({});
+                    
+                    if (thisdroppable==true){
+                        callDroppable(myid);
+                    }
+                   
+                    ShowStyle();
+                    
+                    getout = true;
+                
+                }else {
+                    getout = true;
+                }
+            }
+            while (getout != true)
+        }
+    });
 }
 
-function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-}
+$("#removeElement").droppable({
+        accept: '.removeIt',
+        greedy: true,
+        drop: function (event, ui) {
+            var thisdivid = ui.draggable.attr("id");
+            var array = new Array();
+            $("#" + thisdivid).find("*").each(function () {
+                array.push($(this).attr('id'));
+            });
+            console.log(array);
+            for (var i in array) {
+                $('#myDivids option[value=' + array[i] + ']').remove();
+            }
+            $('#myDivids option[value=' + thisdivid + ']').remove();
+            $("#" + thisdivid).remove();
 
-function drop(ev) {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    var nodeCopy = document.getElementById('my' + data).cloneNode(true);
-    if (document.getElementById('demoDIV').childNodes.length == 1) {
-        i = 1;
-    }
-    nodeCopy.innerHTML = "My Play Element " + i;
-    nodeCopy.id = "my" + data + i;
+            $("#selector").val($("#myDivids").val());
+            $("#inlinestyles").html("");
+            for (var j = 0; j < $('form').length; j++) {
+                $('form')[j].reset();
+            }
+            ui.draggable.remove();
+        }
+});
+                         
+$("#demoDIV").sortable({});
+$("ul").sortable({});
 
-    ev.target.appendChild(nodeCopy);
-    var myids = document.getElementById('myDivids');
-
-    var opt = document.createElement('option');
-    opt.value = "my" + data + i;
-    opt.innerHTML = "my" + data + i;
-    myids.appendChild(opt);
-
-    myids.value = "my" + data + i;
-    i++;
-
-}
-
-function drop2(ev) {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    if (data != 'DragDiv') {
-        document.getElementById(data).remove();
-        //data.remove();
-    }
-    console.log(data);
-    document.getElementById('myDivids').value = data;
-    var index = document.getElementById('myDivids').selectedIndex;
-    console.log(index);
-    document.getElementById('myDivids').remove(index);
-}

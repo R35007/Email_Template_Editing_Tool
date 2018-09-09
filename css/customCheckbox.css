@@ -1,0 +1,96 @@
+.customCheckbox {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #97cc97;
+    font-size: 18px;
+}
+
+/* Hide the browser's default checkbox */
+.customCheckbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    left: 0px;
+}
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 2px;
+    left: 0px;
+    height: 17px;
+    width: 18px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.customCheckbox:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.customCheckbox input:checked ~ .checkmark {
+    background-color: #6bb16e;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.customCheckbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.customCheckbox .checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+
+.checkmarkClip {
+    position: absolute;
+    top: 2px;
+    left: 0px;
+    height: 17px;
+    width: 18px;
+    background-image: url(../images/paperclip-black.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+
+/* When the checkbox is checked, add a blue background */
+.customCheckbox input:checked ~ .fa-paperclip {
+    color: #000000;
+    opacity: 0.6;
+}
+
+
+.labelClip >.customCheckbox{
+    color: #000000;
+    opacity: 0.6;
+}
+
+.labelClip >.customCheckbox input:checked ~ .fa-paperclip {
+    color: #428a42;
+    opacity: 1;
+}
