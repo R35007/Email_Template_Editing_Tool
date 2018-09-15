@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Webpack Setup Steps</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #eeeeee;
+            font-family: Geomanist, sans-serif, Calibri;
+        }
+
+        .main {
+            width: 760px;
+            background-color: #ffffff;
+            margin: 20px auto;
+            border-radius: 4px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .heading {
+            padding: 10px;
+            padding-bottom: 30px;
+        }
+
+        .content {
+            padding: 10px 20px;
+            font-size: 13px;
+        }
+
+        xmp{
+            padding: 0 10px !important;
+        }
+        
+        .code {
+            background-color: #000000;
+            border-radius: 4px;
+            color: #a5cee1;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .inserted{
+            color:#00ff00;
+        }
+        .points{
+            margin: 5px 0;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <h2 class="text-center heading">Webpack Setup</h2>
+        <div class="content">
+            <div class="points">1. To Create root / <b>package.json</b></div>
+            <pre class="code">
+npm init
+(or) 
+npm init -y</pre> 
+            <div class="points">2. Install webpack</div>
+            <pre class="code">npm install webpack webpack-cli --save-dev</pre> 
+            <div class="points">3. Create root / dist / <b>index.html</b></div>
+            <xmp class="code">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Webpack</title>
+    </head>
+    <body>
+        <h1 class="heading">Hello</h1>
+        <p id="showDetails"></p>
+    </body>
+    <script src="main.js"></script>
+</html>
+            </xmp>
+            <div class="points">4. Create root / src / <b>index.js</b></div>
+            <xmp class="code">
+document.getElementById("showDetails").innerHTML="Hello World";                
+            </xmp>
+            <div class="points">5. To run the Webpack</div>
+            <pre class="code">npx webpack</pre>
+            <div>6. To compile ES6 install babel</div>
+            <pre class="code">npm install babel babel-loader babel-core babel-preset-env --save-dev</pre>
+            <div class="points">7. Create root / <b>.babelrc</b></div>
+            <pre class="code">{"preset":["env"]}</pre>
+            <div class="points">8. root / src / <b>index.js</b></div>
+            <xmp class="code">
+class User{
+    
+    constructor(name,password,age){
+        this.name=name;
+        this.password=password;
+        this.age=age;
+    }
+    
+    getDetails(){
+        var details = this.name+" - "+this.age+" - Has been registered";
+        console.log(details);
+        document.getElementById('showDetails').innerHTML= details;
+    }
+    
+}
+
+var Siva=new User("Siva","pswd","23");
+Siva.getDetails();
+            </xmp>
+            <div class="points">9. Now compile the modefied code</div>
+            <pre class="code">npx webpack</pre>
+            <div class="points">10. Create root / <b>webpack.config.js</b></div>
+            <pre class="code">
+const path = require('path');
+
+module.exports = {
+    entry: './src/index.js',
+    output: {
+        filename: 'main.js',
+        path: path.resolve(__dirname, 'dist')
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: "babel-loader"
+            }
+        ]
+    }
+};                
+            </pre>
+            <div class="points">11. To compile webpack using config</div>
+            <pre class="code">npx webpack --config webpack.config.js</pre>
+            <div class="points">12. To build the full Project. root / <b>package.json</b></div>
+            <pre class="code">
+{
+    "name": "es6", // my project name.
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"<span class="inserted">,
+        "build": "webpack"</span>    // add this line here
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "babel": "^6.23.0",
+        "babel-core": "^6.26.3",
+        "babel-loader": "^7.1.4",
+        "babel-preset-env": "^1.7.0",
+        "webpack": "^4.12.1",
+        "webpack-cli": "^3.0.8"
+    }
+}                
+            </pre>
+            <div class="points">13. Build the project using</div>
+            <pre class="code">npm run build</pre>
+            <div class="points">14. To Debug Source map. root / webpack.config.js</div>
+            <pre class="code">
+const path = require('path');
+
+module.exports = {
+    entry: './src/index.js',
+    <span class="inserted">devtool: 'inline-source-map',</span> // add this line to map your source code in inspect
+    output: {
+        filename: 'main.js',
+        path: path.resolve(__dirname, 'dist')
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: "babel-loader"
+            }
+        ]
+    }
+};                
+            </pre>
+            <div class="points">15. To Auto Compile webpack using Watch functionality. root / <b>package.json</b></div>
+            <pre class="code">
+{
+    "name": "es6",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",<span class="inserted">
+        "watch": "webpack --watch",</span> // add this line here to auto complie on save
+        "build": "webpack"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "babel": "^6.23.0",
+        "babel-core": "^6.26.3",
+        "babel-loader": "^7.1.4",
+        "babel-preset-env": "^1.7.0",
+        "css-loader": "^0.28.11",
+        "style-loader": "^0.21.0",
+        "webpack": "^4.12.1",
+        "webpack-cli": "^3.0.8"
+    }
+}                
+            </pre>
+            <div class="points">16. To run the Watch</div>
+            <pre class="code">npm run watch</pre>
+            <div class="points">17. To live reload</div>
+            <pre class="code">npm install --save-dev webpack-dev-server</pre>
+            <div class="points">18. root / <b>webpack.config.js</b></div>
+            <pre class="code">
+const path = require('path');
+
+module.exports = {
+    entry: './src/index.js',
+    devtool: 'inline-source-map',
+    <span class="inserted">devServer: {
+        contentBase: './dist'
+    },</span>
+    output: {
+        filename: 'main.js',
+        path: path.resolve(__dirname, 'dist')
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: "babel-loader"
+            }
+        ]
+    }
+};                
+            </pre>
+            <div class="points">19. root / <b>package.json</b></div>
+            <pre class="code">
+{
+    "name": "es6",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "watch": "webpack --watch",
+        <span class="inserted">"start": "webpack-dev-server --open",</span>
+        "build": "webpack"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "babel": "^6.23.0",
+        "babel-core": "^6.26.3",
+        "babel-loader": "^7.1.4",
+        "babel-preset-env": "^1.7.0",
+        "css-loader": "^0.28.11",
+        "style-loader": "^0.21.0",
+        "webpack": "^4.12.1",
+        "webpack-cli": "^3.0.8",
+        "webpack-dev-server": "^3.1.4"
+    }
+}
+                
+            </pre>
+            <div class="points">20. To run the live relode</div>
+            <pre class="code">npm start</pre>
+            <div class="points">21. to add mode root / <b>webpack.config.js</b></div>
+            <pre class="code">
+const path = require('path');
+
+module.exports = {
+    entry: './src/index.js',
+    devtool: 'inline-source-map',
+    devServer: {
+      contentBase: './dist'
+    },
+    output: {
+        filename: 'main.js',
+        path: path.resolve(__dirname, 'dist')
+    },
+    <span class="inserted">mode: "production",</span> // production mifies the generated .js file
+   //mode: "development", development shows a clean script in the generated .js file
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: "babel-loader"
+            }
+        ]
+    }
+};
+            </pre>
+        </div>
+    </div>
+</body>
+
+</html>

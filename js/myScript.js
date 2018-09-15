@@ -20,6 +20,14 @@ $(document).ready(function () {
 
     function DesignViewEvents() {
 
+        //  Set Design from editor source
+        editor.session.on('change', function (delta) {
+            // delta.start, delta.end, delta.lines, delta.action
+            var a = editor.getValue();
+            $DesignIframe.find('html').html(a);
+            $('#DesignView').contents().find('body').bind('mouseover mouseout click dblclick blur')
+        });
+        
         var $DesignIframe = $('#DesignView').contents();
 
         $DesignIframe.find('head').append($('<link id="highlightcss" rel="stylesheet" href="../../css/highlight.css">'))
@@ -175,7 +183,7 @@ $(document).ready(function () {
             for (i = 0; i < $('form').length; i++) {
                 $('form')[i].reset();
             }
-
+            
             ShowStyle();
 
             e.stopPropagation();
@@ -183,7 +191,7 @@ $(document).ready(function () {
 
         })
 
-        //  Edit in place within DesignView viv
+        //  Edit in place within DesignView div
         $DesignIframe.find('body').on('dblclick', '*', function (e) {
 
             var elem = $(this);
@@ -371,13 +379,6 @@ $(document).ready(function () {
 ]
     });
 
-    //  Set Design from editor source
-    editor.session.on('change', function (delta) {
-        // delta.start, delta.end, delta.lines, delta.action
-        var a = editor.getValue();
-        //$('#DesignView').contents().find('html').html(a);
-    });
-
     //  Create Class Tags by space or Enter
     $('#elementClass').on('keyup keydown', function (e) {
         var thisval = $(this).val().replace(' ', '');
@@ -499,6 +500,7 @@ $(document).ready(function () {
 
     })
 
+    //  Highlight selectors element
     $('#selector').on('input change', function () {
         var thistext = $(this).val();
 
@@ -650,6 +652,7 @@ $(document).ready(function () {
             if ($('#Footer-Form').css('display').toLowerCase() == 'none')
                 $("#Toogle-Footer-Form").trigger('click');
             $('#Design').css('height', 'calc(100% - 230px)');
+            $('#DesignView').contents().find('body').bind('mouseover mouseout click dblclick blur')
             DesignViewEvents();
         } else if (tabs == "SourceView") {
             $DesignView = removeEmpty();
@@ -679,29 +682,22 @@ $(document).ready(function () {
             $('#DesignView').addClass('col-6');
             $(this).addClass('activeTab');
             $('#Design').css('height', 'calc(100% - 60px)');
-            DesignViewEvents();
-            $('DesignView').trigger('load');
+            $('DesignView').contents().find('*').bind('mouseover mouseout click dblclick');
         }
     })
 
     //  Toogle Wrap
-    $('#Toogle-Wrap, #Wrap').on('mouseover', function () {
-        $('#Wrap').slideDown('fast');
+    $('#Toogle-Wrap, #Wrap').on('click', function () {
+        $('#Wrap').slideToggle('fast');
     })
 
-    $('#Wrap').on('mouseleave', function () {
-        $('#Wrap').slideUp('fast');
-    })
-
+    //  Wrap Tags
     $('.wrapIcon').on('click', function () {
         var wraptag = this.id.replace('Wrap-', '');
         var mytag, temptag;
-
-
-        var highlight = window.getSelection();
+        
+        var highlight = $('#DesignView')[0].contentWindow.window.getSelection();
         var highlighthtml = getSelectionHtml();
-
-        console.log(highlighthtml);
 
         if (wraptag == 'Unwrap') {
             $myElement.replaceWith($myElement.html())
@@ -712,8 +708,6 @@ $(document).ready(function () {
             $(mytag).attr('href', highlight);
         }
 
-        console.log(highlighthtml.search(/^\<.*?\>.*?\<\/.*?\>$/));
-
         if (highlighthtml.search(/^\<.*?\>.*?\<\/.*?\>$/) >= 0) {
             temptag = $(highlighthtml);
             highlighthtml = $(highlighthtml).html();
@@ -722,14 +716,13 @@ $(document).ready(function () {
 
         $(temptag).wrapInner(mytag);
         var spn = temptag.html();
-        console.log(spn);
         $myElement.html($myElement.html().replace(highlighthtml, spn));
     })
 
     function getSelectionHtml() {
         var html = "";
-        if (typeof window.getSelection != "undefined") {
-            var sel = window.getSelection();
+        if (typeof $('#DesignView')[0].contentWindow.window.getSelection() != "undefined") {
+            var sel = $('#DesignView')[0].contentWindow.window.getSelection();
             if (sel.rangeCount) {
                 var container = document.createElement("div");
                 for (var i = 0, len = sel.rangeCount, range; i < len; ++i) {
@@ -784,8 +777,8 @@ $(document).ready(function () {
                 rgb = rgb.replace(/\(/g, '\\(');
                 rgb = rgb.replace(/\)/g, '\\)');
                 var replacehexa = mycolors[i].hexa;
-                var test = new RegExp(rgb, "g");
-                y = y.replace(test, replacehexa);
+                var regex = new RegExp(rgb, "g");
+                y = y.replace(regex, replacehexa);
                 console.log(y);
 
             }
@@ -1450,15 +1443,18 @@ $(document).ready(function () {
 
     function ShowStyle() {
 
-        var hasUnit = ["width", "height", "min-width", "min-height", "max-width", "max-height",
+        var hasUnit =   ["width", "height","min-width", "min-height", "max-width", "max-height",
                         "top", "right", "bottom", "left",
                         "margin-top", "margin-right", "margin-bottom", "margin-left",
                         "padding-top", "padding-right", "padding-bottom", "padding-left",
                         "font-size", "line-height", "text-indent",
                         "letter-spacing", "word-spacing", "vertical-align",
                         "border-width", "border-top-width", "border-right-width", "border-bottom-width", "border-left-width",
-                        "border-top-left-radius", "border-top-right-radius", "border-bottom-left-radius", "border-bottom-right-radius"];
-
+                        "border-top-left-radius", "border-top-right-radius","border-bottom-left-radius", "border-bottom-right-radius"];
+       
+        var hascolors = ["color","border-color","border-top-color","border-right-color",
+                         "border-bottom-color","border-left-color","background-color"]
+        
         var style, allstyle, elemId, myselector;
         try {
             $("#Inline-Styles").html("");
@@ -1469,25 +1465,28 @@ $(document).ready(function () {
             var propname, propvalue;
             for (var i in eachstyle) {
                 if (typeof eachstyle[i] !== 'undefined' && eachstyle[i] != null && eachstyle[i] != '') {
-
+                    
                     propname = eachstyle[i].split(':')[0].trim();
                     propvalue = eachstyle[i].split(':')[1].trim();
-
+                    
+                    if(propvalue.indexOf("rgb(")>=0)
+                        propvalue = rgbtohexa(propvalue);
+                    
                     var mylist = '<div class="list"><div class="prop">' + propname + '</div>&nbsp;:&nbsp;<span class="value">' + propvalue + '</span><div class="delete ml-auto"><i class="fas fa-minus"></i></div>'
                     $("#Inline-Styles").append(mylist);
-
-                    if (hasUnit.indexOf(propname) >= 0) {
-                        console.log('came in2');
-                        console.log(propname);
-                        console.log(propvalue.split(/(\d+)/g));
-
-                        $("#" + propname).val(propvalue.split(/(\d+)/g)[1]);
-                        $("#" + propname + "_unit").val(propvalue.split(/(\d+)/g)[2]);
-
-                    } else {
-                        $("#" + propname).val(propvalue);
+                
+                    if(hascolors.indexOf(propname)>=0){
+                        $("#"+propname).val(propvalue);
+                        $("#"+propname+"_").val(propvalue);
                     }
-
+                    else if(hasUnit.indexOf(propname)>=0){
+                        $("#"+propname).val(propvalue.split(/(\d+)/g)[1]);
+                        $("#"+propname+"_unit").val(propvalue.split(/(\d+)/g)[2]);
+                    }
+                    else{
+                        $("#"+propname).val(propvalue);
+                    }
+                
                 }
 
             }
@@ -1496,7 +1495,7 @@ $(document).ready(function () {
             console.log(err);
         }
     }
-
+    
     //  Set tag Attributes
     $('#Attributes input, #Attributes select').on('input change', function () {
 

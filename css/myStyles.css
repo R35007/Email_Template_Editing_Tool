@@ -581,6 +581,7 @@ input[type="text"] {
     height: 115px;
     display: inline-block;
     z-index: 1000;
+    margin: 5px;
     cursor: move;
 }
 

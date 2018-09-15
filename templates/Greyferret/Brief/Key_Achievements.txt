@@ -1,0 +1,7 @@
+The process of product backlog creation prioritized by the SC team & Product managementis working well. The above WooCommerce integration is an example.
+    
+Jira & Confluence tools for all product tracking & wiki purposes is immensely helpful for both Engineering & Implementations.
+    
+The AWS West to East Migration is almost complete and we are doing a dry-run of all the apps on the EAST Dev environment.
+    
+Security Ops backlog has been implemented very keenly with inputs from Reddy & team, GDPR compliance boxes have been checked and we are continuing to monitor and close any open items here. 

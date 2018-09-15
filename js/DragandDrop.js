@@ -7,14 +7,31 @@
 var mytempsrc = '';
 
 $('[id*="Elem"]').draggable({
-    appendTo: "body",
-    containment: "body",
+    start: function() {
+        console.log('test');
+        $('#DesignView').contents().find('*').unbind('mouseover mouseout');
+        console.log($('#DesignView').contents().find('html').html());
+    },
+    drag: function() {
+        console.log('test');
+        $('#DesignView').contents().find('*').unbind('mouseover mouseout');
+        console.log($('#DesignView').contents().find('html').html());
+    },
+    //appendTo: "body",
+    //containment: "body",
     cursor: "move",
     revert: true,
-    helper: "clone",
+    //helper: "clone",
     scroll: false
+   
 });
 
+
+$( '[id*="Elem"]' ).on( "dragstart", function( event, ui ) {
+        console.log('test');
+        $('#DesignView').contents().find('*').unbind('mouseover mouseout');
+        console.log($('#DesignView').contents().find('html').html());
+} );
 
 
 $('#DesignView').droppable({

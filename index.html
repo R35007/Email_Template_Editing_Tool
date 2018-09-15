@@ -19,7 +19,7 @@
 <body>
 
     <div id="main" class="container-fluid">
-        <div id="Content" class="row no-gutters" style="">
+        <div id="Content" class="row no-gutters">
             <div id="SidePanel">
                 <!-- Search bar-->
                 <div class="list">
@@ -83,6 +83,83 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- HSpace and VSpace -->
+                        <div class="row">
+                            <div class="col-6">
+                                <span class="lable">HSpace: </span>
+                                <div class="inputgroup w-100 list">
+                                    <input type="text" id="elementhspace" class="w-100">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <span class="lable">VSpace: </span>
+                                <div class="inputgroup w-100 list">
+                                    <input type="text" id="elementvspace" class="w-100">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ColSpan and RowSpan -->
+                        <div class="row">
+                            <div class="col-6">
+                                <span class="lable">ColSpan: </span>
+                                <div class="inputgroup w-100 list">
+                                    <input type="text" id="elementcolspan" class="w-100">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <span class="lable">RowSpan: </span>
+                                <div class="inputgroup w-100 list">
+                                    <input type="text" id="elementrowspan" class="w-100">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- border and target -->
+                        <div class="row">
+                            <div class="col-6">
+                                <span class="lable">Border: </span>
+                                <div class="inputgroup w-100 list">
+                                    <input type="text" id="elementborder" class="w-100">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <span class="lable d-none">Directional </span>
+                                <span class="lable">Dir: </span>
+                                <div class="inputgroup w-100 list">
+                                    <select id="elementtarget" class="w-100">
+                                        <option value=""></option>
+                                        <option value="ltr">ltr</option>
+                                        <option value="rtl">rtl</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Face -->
+                        <div class="row">
+                            <div class="col">
+                                <span class="lable">Face: </span>
+                                <div class="inputgroup w-100 list">
+                                    <input type="text" id="elementnface" class="w-100">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- size and color -->
+                        <div class="row">
+                            <div class="col-6">
+                                <span class="lable">Size: </span>
+                                <div class="inputgroup w-100 list">
+                                    <input type="text" id="elementSize" class="w-100">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <span class="lable">Color: </span>
+                                <div class="list">
+                                    <div class="inputgroup">
+                                        <input type="text" id="elementcolor">
+                                        <input type="color" id="elementcolor_">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Height and width -->
                         <div class="row">
                             <div class="col-6">
@@ -98,22 +175,43 @@
                                 </div>
                             </div>
                         </div>
+                         <!-- Cell Spacing and Cell Padding -->
+                        <div class="row">
+                            <div class="col-6">
+                                <span class="lable">Cell Spacing: </span>
+                                <div class="inputgroup w-100 list">
+                                    <input type="text" id="elementcellspacing" class="w-100">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <span class="lable">Cell Padding: </span>
+                                <div class="inputgroup w-100 list">
+                                    <input type="text" id="elementcellpadding" class="w-100">
+                                </div>
+                            </div>
+                        </div>
                         <!-- Background-Color -->
                         <div class="row">
-                            <div class="col-12">
-                                <span class="lable d-none">Background-Color: </span>
-                                <span class="lable d-none">BackgroundColor: </span>
+                            <div class="col-6">
+                                <span class="lable d-none">BackgroundColor </span>
                                 <span class="lable">Bg Color: </span>
                                 <div class="list">
                                     <div class="inputgroup">
                                         <input type="text" id="elementbgcolor">
                                         <input type="color" id="elementbgcolor_">
                                     </div>
-                                    <div class="remove">
-                                        <button class="delete" id="delete-elementbgcolor" type="button">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <span class="lable">Target: </span>
+                                <div class="inputgroup w-100 list">
+                                    <select id="elementtarget" class="w-100">
+                                        <option value=""></option>
+                                        <option value="_blank">_blank</option>
+                                        <option value="_self">_self</option>
+                                        <option value="_parent">_parent</option>
+                                        <option value="_top">_top</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -147,16 +245,34 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Place Holder-->
+                        <div class="row">
+                            <div class="col">
+                                <span class="lable">Place Holder: </span>
+                                <div class="inputgroup w-100 list">
+                                    <input type="text" id="elementplaceholder" class="w-100">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Value -->
+                        <div class="row">
+                            <div class="col">
+                                <span class="lable">Value: </span>
+                                <div class="inputgroup w-100 list">
+                                    <input type="text" id="elementvalue" class="w-100">
+                                </div>
+                            </div>
+                        </div>
                         <!-- Min and Max -->
                         <div class="row">
                             <div class="col-6">
-                                <span class="lable">min: </span>
+                                <span class="lable">Min: </span>
                                 <div class="inputgroup w-100 list">
                                     <input type="number" id="elementmin" class="w-100">
                                 </div>
                             </div>
                             <div class="col-6">
-                                <span class="lable">max: </span>
+                                <span class="lable">Max: </span>
                                 <div class="inputgroup w-100 list">
                                     <input type="number" id="elementmax" class="w-100">
                                 </div>
@@ -174,6 +290,7 @@
                         <!--Href Link -->
                         <div class="row">
                             <div class="col">
+                                <span class="lable d-none">Link </span>
                                 <span class="lable">Href: </span>
                                 <div class="inputgroup w-100 list">
                                     <input type="text" id="elementhref" class="w-100">
@@ -183,7 +300,8 @@
                         <!-- Source-->
                         <div class="row">
                             <div class="col">
-                                <span class="lable">Source: </span>
+                                <span class="lable d-none">Source: </span>
+                                <span class="lable">Src: </span>
                                 <div class="inputgroup w-100 list">
                                     <input type="text" id="elementsrc" class="w-100">
                                 </div>
@@ -192,12 +310,24 @@
                         <!-- Alternate -->
                         <div class="row">
                             <div class="col">
-                                <span class="lable">Alternate: </span>
+                                <span class="lable d-none">Alternate: </span>
+                                <span class="lable">Alt: </span>
                                 <div class="inputgroup w-100 list">
                                     <input type="text" id="elementalt" class="w-100">
                                 </div>
                             </div>
                         </div>
+                        <!-- Title -->
+                        <div class="row">
+                            <div class="col">
+                                <span class="lable">Title: </span>
+                                <div class="inputgroup w-100 list">
+                                    <input type="text" id="elementtitle" class="w-100">
+                                </div>
+                            </div>
+                        </div>
+                     
+                        
                     </form>
                     <!-- layout Title -->
                     <div class="title list">
@@ -3767,8 +3897,8 @@
                             <div id="PreView" class="topIcon" title="Preview">
                                 <span><i class="fas fa-eye"></i></span>
                             </div>
-                            <div id="Toogle-Wrap" class="topIcon" title="Wrap Tag">
-                                <div><span><i class="fas fa-tag"></i></span></div>
+                            <div  class="topIcon" title="Wrap Tag">
+                                <div id="Toogle-Wrap"><span><i class="fas fa-tag"></i></span></div>
                                 <div id="Wrap" style="display:none">
                                     <div class="d-flex justify-items-center align-items-center">
                                         <a href="#" id="Wrap-B" class="wrapIcon" title="Bold">
@@ -3889,7 +4019,7 @@
                             <div class="row no-gutters h-100">
                                 <div class="col-2 h-100" id="Folders" style="overflow: auto;"></div>
                                 <span class="reload"><i class="fas fa-sync-alt"></i></span>
-                                <div class="col-10 d-flex flex-wrap h-100 justify-content-around" id="imgs" style="overflow: auto;"></div>
+                                <div class="col-10 d-flex flex-wrap h-100" id="imgs" style="overflow: auto;"></div>
                             </div>
                         </div>
                         <div id="Brief" style="display:none;overflow: auto;width:100%;height:100%;">
