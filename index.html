@@ -24,13 +24,8 @@
                           <i class="fas fa-paperclip"></i>
                         </label>
                     </div>
-                    <div class="remove">
-                        <button class="deleteall" id="delete-Layout-Form" type="button">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
                 </div>
-                <form id="Layout-Form">
+                <form id="Layout">
                     <!-- width -->
                     <div class="list">
                         <span class="toogleIcon" id="Toogle-Width-Tab">
@@ -113,7 +108,7 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
-                        </div>
+</div>
                         <!-- Max Width -->
                         <div class="list">
                             <div>
@@ -153,7 +148,7 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
-                        </div>
+</div>
                     </div>
                     <!-- height -->
                     <div class="list">
@@ -237,7 +232,7 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
-                        </div>
+</div>
                         <!-- Max Height -->
                         <div class="list">
                             <div>
@@ -277,7 +272,7 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
-                        </div>
+</div>
                     </div>
                     <!-- Display -->
                     <div class="list">
@@ -430,7 +425,7 @@
                             </span>
                         </div>
                         <div class="Range">
-                            <input type="range" value="0" min="0" max="1" step="0.01" class="slider" id="opacity_">
+                            <input type="range" value="0" min="0" max="1" step="0.1" class="slider" id="opacity_">
                         </div>
                         <div class="remove">
                             <button class="delete" id="delete-opacity" type="button">
@@ -445,11 +440,6 @@
                           <input type="checkbox" value="ClipIt" class="clip" id="PositionClip">
                           <i class="fas fa-paperclip"></i>
                         </label>
-                    </div>
-                    <div class="remove">
-                        <button class="deleteall" id="delete-Position-Form" type="button">
-                            <i class="fas fa-trash"></i>
-                        </button>
                     </div>
                 </div>
                 <Form id="Position-Form">
@@ -632,11 +622,6 @@
                           <input type="checkbox" value="ClipIt" class="clip" id="MarginClip">
                           <i class="fas fa-paperclip"></i>
                         </label>
-                    </div>
-                    <div class="remove">
-                        <button class="deleteall" id="delete-Margin-Form" type="button">
-                            <i class="fas fa-trash"></i>
-                        </button>
                     </div>
                 </div>
                 <Form id="Margin-Form">
@@ -824,11 +809,6 @@
                           <i class="fas fa-paperclip"></i>
                         </label>
                     </div>
-                    <div class="remove">
-                        <button class="deleteall" id="delete-Padding-Form" type="button">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
                 </div>
                 <Form id="Padding-Form">
                     <!-- Padding -->
@@ -1000,14 +980,8 @@
                         </div>
                     </div>
                 </Form>
-                <div class="title list">Text:
-                    <div class="remove">
-                        <button class="deleteall" id="delete-Text-Form" type="button">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-                <Form id="Text-Form">
+                <div class="title list">Text:</div>
+                <Form id="Text">
                     <!-- Color -->
                     <div class="list">
                         <div>
@@ -1568,13 +1542,7 @@
                         </div>
                     </div>
                 </Form>
-                <div class="title list">List Style:
-                    <div class="remove">
-                        <button class="deleteall" id="delete-List-Form" type="button">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
+                <div class="title list">List Style:</div>
                 <Form id="List-Form">
                     <!-- List Style -->
                     <div class="list">
@@ -1628,7 +1596,7 @@
                                 </span>
                             </div>
                         </div>
-                    </div>
+</div>
                     <!-- List Style Position -->
                     <div class="list">
                         <div>
@@ -1643,44 +1611,25 @@
                                 </span>
                             </div>
                         </div>
-                    </div>
+</div>
                     <!-- List Style image -->
                     <div class="list">
                         <div>
                             <span class="lable">Image: </span>
                             <div class="inputgroup">
                                 <span style="float: left">
-                                    <input type="text" class="file" id="list-style-image-show">
-                                </span>
-                                <span class="browse" id="list-style-image-file-trigger">
-                                    <i class="fas fa-ellipsis-h"></i>
-                                </span>
-                            </div>
-                            <div class="inputgroup" style="display: none">
-                                <span style="float: left">
-                                    <input type="File"  class="short" id="list-style-image-file" >
-                                </span>
-                            </div>
-                            <div class="inputgroup" style="display: none">
-                                <span style="float: left">
-                                    <input type="text" style="border: 1px solid black;" class="short" id="list-style-image">
+                                    <input type="File"  class="short" id="list-style-image">
                                 </span>
                             </div>
                         </div>
                         <div class="remove">
-                            <button class="delete-img" id="delete-list-style-image" type="button">
+                            <button class="delete" id="delete-list-style-image" type="button">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
-                    </div>
+</div>
                 </Form>
-                <div class="title list">Border:
-                    <div class="remove">
-                        <button class="deleteall" id="delete-Border-Form" type="button">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
+                <div class="title list">Border:</div>
                 <Form id="Border-Form">
                     <!-- Border -->
                     <div class="list">
@@ -1702,7 +1651,7 @@
                         </div>
                     </div>
                     <!-- Border Tab -->
-                    <div id="Border-Tab" style="display:block">
+                    <div id="Border-Tab" style="display:none">
                         <!-- Border Button Tab -->
                         <div class="tab list">
                             <button type="button" id="Borderbutton1" class="tablinks activeTab" onclick="showTab('#AllBorder','#Borderbutton1')">
@@ -1720,7 +1669,7 @@
                             <button type="button" id="Borderbutton5" class="tablinks" onclick="showTab('#BorderLeft','#Borderbutton5')">
                               <img src="images/border-left-variant.png" alt="">
                             </button>
-                        </div>
+</div>
                         <!-- All Border-->
                         <div class="Bordertabcontent" id="AllBorder" style="display:block;">
                             <!-- Border-Width -->
@@ -1799,23 +1748,9 @@
                                     </button>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Border-Top-Tab-->
+</div>
+                        <!-- Border-Top -->
                         <div class="Bordertabcontent" id="BorderTop">
-                            <!-- Border-Top -->
-                            <div class="list">
-                                <span class="lable">Short hand: </span>
-                                <div class="inputgroup">
-                                    <span style="float: left">
-                                        <input type="text"  class="short" id="border-top">
-                                    </span>
-                                </div>
-                                <div class="remove">
-                                    <button class="delete" id="delete-border-top" type="button">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
                             <!-- Border-Top-Width -->
                             <div class="list">
                                 <span class="lable">Top Width: </span>
@@ -1892,23 +1827,9 @@
                                     </button>
                                 </div>
                             </div>
-                        </div>
+</div>
                         <!-- Border-Right -->
                         <div class="Bordertabcontent" id="BorderRight">
-                            <!-- Border-Right -->
-                            <div class="list">
-                                <span class="lable">Short hand: </span>
-                                <div class="inputgroup">
-                                    <span style="float: left">
-                                        <input type="text"  class="short" id="border-right">
-                                    </span>
-                                </div>
-                                <div class="remove">
-                                    <button class="delete" id="delete-border-right" type="button">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
                             <!-- Border-Right-Width -->
                             <div class="list">
                                 <span class="lable">Right Width: </span>
@@ -1985,23 +1906,9 @@
                                     </button>
                                 </div>
                             </div>
-                        </div>
+</div>
                         <!-- Border-Bottom -->
                         <div class="Bordertabcontent" id="BorderBottom">
-                            <!-- Border-Bottom -->
-                            <div class="list">
-                                <span class="lable">Short hand: </span>
-                                <div class="inputgroup">
-                                    <span style="float: left">
-                                        <input type="text"  class="short" id="border-bottom">
-                                    </span>
-                                </div>
-                                <div class="remove">
-                                    <button class="delete" id="delete-border-bottom" type="button">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
                             <!-- Border-Bottom-Width -->
                             <div class="list">
                                 <span class="lable">Bottom Width: </span>
@@ -2078,100 +1985,86 @@
                                     </button>
                                 </div>
                             </div>
-                        </div>
+</div>
                         <!-- Border-Left -->
                         <div class="Bordertabcontent" id="BorderLeft">
-                            <!-- Border-Left -->
-                            <div class="list">
-                                <span class="lable">Short hand: </span>
-                                <div class="inputgroup">
-                                    <span style="float: left">
-                                        <input type="text"  class="short" id="border-left">
-                                    </span>
-                                </div>
-                                <div class="remove">
-                                    <button class="delete" id="delete-border-left" type="button">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
+                        <!-- Border-Left-Width -->
+                        <div class="list">
+                            <span class="lable">Left Width: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <input type="number" min="0" id="border-left-width">
+                                </span>
+                                <span style="float: left">
+                                    <select id="border-left-width_unit" class="unit">
+                                        <option value="px" selected>px</option>
+                                        <option value="%">%</option>
+                                        <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
+                                        <option value="in">in</option>
+                                        <option value="pt">pt</option>
+                                        <option value="pc">pc</option>
+                                        <option value="em">em</option>
+                                        <option value="ex">ex</option>
+                                        <option value="ch">ch</option>
+                                        <option value="rem">rem</option>
+                                        <option value="vw">vw</option>
+                                        <option value="vh">vh</option>
+                                        <option value="vmin">vmin</option>
+                                        <option value="vmax">vmax</option>
+                                    </select>
+                                </span>
                             </div>
-                            <!-- Border-Left-Width -->
-                            <div class="list">
-                                <span class="lable">Left Width: </span>
-                                <div class="inputgroup">
-                                    <span style="float: left">
-                                        <input type="number" min="0" id="border-left-width">
-                                    </span>
-                                    <span style="float: left">
-                                        <select id="border-left-width_unit" class="unit">
-                                            <option value="px" selected>px</option>
-                                            <option value="%">%</option>
-                                            <option value="cm">cm</option>
-                                            <option value="mm">mm</option>
-                                            <option value="in">in</option>
-                                            <option value="pt">pt</option>
-                                            <option value="pc">pc</option>
-                                            <option value="em">em</option>
-                                            <option value="ex">ex</option>
-                                            <option value="ch">ch</option>
-                                            <option value="rem">rem</option>
-                                            <option value="vw">vw</option>
-                                            <option value="vh">vh</option>
-                                            <option value="vmin">vmin</option>
-                                            <option value="vmax">vmax</option>
-                                        </select>
-                                    </span>
-                                </div>
-                                <div class="Range">
-                                    <input type="range" value="0" min="0" max="100" class="slider" id="border-left-width_">
-                                </div>
-                                <div class="remove">
-                                    <button class="delete" id="delete-border-left-width" type="button">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
+                            <div class="Range">
+                                <input type="range" value="0" min="0" max="100" class="slider" id="border-left-width_">
                             </div>
-                            <!-- Border-Left-Style -->
-                            <div class="list">
-                                <span class="lable">Left Style: </span>
-                                <div class="inputgroup">
-                                    <span style="float: left">
-                                        <select id="border-left-style" class="select">
-                                            <option></option>
-                                            <option value="none">none</option>
-                                            <option value="solid">solid</option>
-                                            <option value="dotted">dotted</option>
-                                            <option value="dashed">dashed</option>
-                                            <option value="double">double</option>
-                                            <option value="groove">groove</option>
-                                            <option value="ridge">ridge</option>
-                                            <option value="inset">inset</option>
-                                            <option value="outset">outset</option>
-                                            <option value="hidden">hidden</option>
-                                        </select>
-                                    </span>
-                                </div>
-                            </div>
-                            <!-- Border-Left-Color -->
-                            <div class="list">
-                                <div>
-                                    <span class="lable">Left Color: </span>
-                                    <div class="inputgroup">
-                                        <span style="float: left">
-                                            <input type="text"  id="border-left-color">
-                                        </span>
-                                        <span style="float: left">
-                                            <input type="color"  id="border-left-color_">
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="remove">
-                                    <button class="delete" id="delete-border-left-color" type="button">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
+                            <div class="remove">
+                                <button class="delete" id="delete-border-left-width" type="button">
+                                    <i class="fas fa-trash"></i>
+                                </button>
                             </div>
                         </div>
+                        <!-- Border-Left-Style -->
+                        <div class="list">
+                            <span class="lable">Left Style: </span>
+                            <div class="inputgroup">
+                                <span style="float: left">
+                                    <select id="border-left-style" class="select">
+                                        <option></option>
+                                        <option value="none">none</option>
+                                        <option value="solid">solid</option>
+                                        <option value="dotted">dotted</option>
+                                        <option value="dashed">dashed</option>
+                                        <option value="double">double</option>
+                                        <option value="groove">groove</option>
+                                        <option value="ridge">ridge</option>
+                                        <option value="inset">inset</option>
+                                        <option value="outset">outset</option>
+                                        <option value="hidden">hidden</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- Border-Left-Color -->
+                        <div class="list">
+                            <div>
+                                <span class="lable">Left Color: </span>
+                                <div class="inputgroup">
+                                    <span style="float: left">
+                                        <input type="text"  id="border-left-color">
+                                    </span>
+                                    <span style="float: left">
+                                        <input type="color"  id="border-left-color_">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="remove">
+                                <button class="delete" id="delete-border-left-color" type="button">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                     <!-- Border-Radius -->
                     <div class="list">
@@ -2238,7 +2131,7 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
-                        </div>
+</div>
                         <!-- Border-Radius-Top-Right -->
                         <div class="list">
                             <div>
@@ -2276,7 +2169,7 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
-                        </div>
+</div>
                         <!-- Border-Radius-Bottom-Left -->
                         <div class="list">
                             <div>
@@ -2314,7 +2207,7 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
-                        </div>
+</div>
                         <!-- Border-Radius-Bottom-Right -->
                         <div class="list">
                             <div>
@@ -2352,20 +2245,20 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
-                        </div>
+</div>
                     </div>
                     <!-- Border-Collapse -->
                     <div class="list">
-                        <div>
-                            <span class="lable">Collapse: </span>
-                            <div class="inputgroup" style="border: 0;">
-                                <label class="customCheckbox">
+                            <div>
+                                <span class="lable">Collapse: </span>
+                                <div class="inputgroup" style="border: 0;">
+                                    <label class="customCheckbox">
                                       <input type="checkbox" value="collapse" id="border-collapse">
                                       <span class="checkmark"></span>
                                     </label>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     <!-- Border-Spacing -->
                     <div class="list">
                         <span class="toogleIcon" id="Toogle-Border-Spacing-Tab">
@@ -2431,7 +2324,7 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
-                        </div>
+</div>
                         <!-- Border-Spacing-Vertical -->
                         <div class="list">
                             <div>
@@ -2469,16 +2362,10 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
-                        </div>
+</div>
                     </div>
                 </Form>
-                <div class="title list">Background:
-                    <div class="remove">
-                        <button class="deleteall" id="delete-Background-Form" type="button">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
+                <div class="title list">Background:</div>
                 <Form id="Background-Form">
                     <!-- Background -->
                     <div class="list">
@@ -2521,29 +2408,16 @@
                             <span class="lable">Image: </span>
                             <div class="inputgroup">
                                 <span style="float: left">
-                                    <input type="text" class="file" id="background-image-show">
-                                </span>
-                                <span class="browse" id="background-image-file-trigger">
-                                    <i class="fas fa-ellipsis-h"></i>
-                                </span>
-                            </div>
-                            <div class="inputgroup" style="display: none">
-                                <span style="float: left">
-                                    <input type="File"  class="short" id="background-image-file" >
-                                </span>
-                            </div>
-                            <div class="inputgroup" style="display: none">
-                                <span style="float: left">
-                                    <input type="text" style="border: 1px solid black;" class="short" id="background-image">
+                                    <input type="File"  class="short" id="background-image">
                                 </span>
                             </div>
                         </div>
                         <div class="remove">
-                            <button class="delete-img" id="delete-background-image" type="button">
+                            <button class="delete" id="delete-background-image" type="button">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
-                    </div>
+</div>
                     <!-- Background-Position -->
                     <div class="list">
                         <span class="toogleIcon" id="Toogle-Background-Position-Tab">
@@ -2609,7 +2483,7 @@
                                 </div>
                             </div>
                             <div class="Range">
-                                <input type="range" min="-500" max="500" value="0" class="slider" id="background-position-x_">
+                                <input type="range" min="0" max="500" value="0" class="slider" id="background-position-x_">
                             </div>
                             <div class="remove">
                                 <button class="delete" id="delete-background-position-x" type="button">
@@ -2654,14 +2528,14 @@
                                 </div>
                             </div>
                             <div class="Range">
-                                <input type="range" min="-500" max="500" value="0" class="slider" id="background-position-y_">
+                                <input type="range" min="0" max="500" value="0" class="slider" id="background-position-y_">
                             </div>
                             <div class="remove">
                                 <button class="delete" id="delete-background-position-y" type="button">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
-                        </div>
+</div>
                     </div>
                     <!-- Background-Size -->
                     <div class="list">
@@ -3049,23 +2923,12 @@
             <div class="list demoHeader" style="line-height:  normal;">Play Ground:
                 <div class="list" style="align-items: center;margin-left: 20px;width: 120px;">
                     <div>
-                        <select id="myDivids">
-                            <option value="none" selected="" disabled="">none</option>
+                        <select id="myDivids" >
+                                <option value="none" selected="" disabled="">none</option>
                         </select>
                     </div>
                     <div class="remove">
                         <button class="deleteElement" id="delete-myDivids" type="button" style="margin-top: 0;">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="list" style="align-items: center;margin-left: 60px;">
-                    <div class="list">
-                        <span class="lable" style="margin-right: 15px;">Selector</span>
-                        <input type="text" id="selector">
-                    </div>
-                    <div class="remove">
-                        <button class="delete" id="delete-selector" type="button" style="margin-top: 0;">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -3078,27 +2941,15 @@
             </div>
             <div class="demoHeader">Drag It:</div>
             <div class="Elements">
-                <div class="title list" style="padding:8px 15px 8px 15px; z-index: 0">Elements</div>
+                <div class="title list" style="padding:8px 15px 8px 15px">Elements</div>
                 <Form id="Elements" style="text-align: center;">
-                    <div style="display:inline-table">
-                        <div id="ElemDiv" class="DragElem">Div</div>
-                        <div id="ElemSpan" class="DragElem">Span</div>
-                        <div id="ElemP" class="DragElem">P</div>
-                        <div id="ElemH1" class="DragElem">H1</div>
-                        <div id="ElemUl" class="DragElem">Ul</div>
-                        <div id="ElemLi" class="DragElem">Li</div>
-                        <div id="ElemA" class="DragElem">A</div>
-                        <div id="ElemTable" class="DragElem">Table</div>
-                        <div id="ElemInputText" class="DragElem">Text</div>
-                        <div id="ElemInputRange" class="DragElem">Range</div>
-                        <div id="ElemInputColor" class="DragElem">Color</div>
-                        <div id="ElemInputSubmit" class="DragElem">Submit</div>
-                        <div id="ElemButton" class="DragElem">Button</div>
+                    <div class="list" style="display: inline-block;">
+                        <div id="DragDiv" class="DragDiv">Div</div>
                     </div>
                 </Form>
                 <br><br>
             </div>
-            <div class="Styles" id="removeElement">
+            <div class="Styles">
                 <div class="title list" style="padding:8px 15px 8px 15px">Inline Styles</div>
                 <Form id="ShowStyle">
                     <div class="list" id="inlinestyles">
@@ -3109,54 +2960,6 @@
             </div>
         </div>
         <div style="clear:both;"></div>
-    </div>
-    <div style="text-align: right; font-size: 11px;">Sivaraman.m@listertechnologies.com</div>
-    <div style="display:none">
-        <div id="DragElemDiv" style="background-color: rgb(255, 255, 0);padding: 15px; border: 1px solid black;"><span>Div</span></div>
-        <span id="DragElemSpan" style="background-color: rgb(255, 255, 0);border: 1px solid black;">Span</span>
-        <p id="DragElemP" style="background-color: rgb(255, 255, 0); padding: 15px; border: 1px solid black;"><span>pragraph</span></p>
-        <h1 id="DragElemH1" style="background-color: rgb(255, 255, 0); padding: 15px; border: 1px solid black;">Heading1</h1>
-        <ul id="DragElemUl" style="background-color: rgb(255, 255, 0); border: 1px solid black;">
-            <li style="background-color: rgb(255, 255, 0); padding: 15px; border: 1px solid black;"><span>Item 1</span></li>
-            <li style="background-color: rgb(255, 255, 0); padding: 15px; border: 1px solid black;"><span>Item 2</span></li>
-            <li style="background-color: rgb(255, 255, 0); padding: 15px; border: 1px solid black;"><span>Item 3</span></li>
-            <li style="background-color: rgb(255, 255, 0); padding: 15px; border: 1px solid black;"><span>Item 4</span></li>
-            <li style="background-color: rgb(255, 255, 0); padding: 15px; border: 1px solid black;"><span>Item 5</span></li>
-        </ul>
-        <li id="DragElemLi" style="background-color: rgb(255, 255, 0); padding: 15px; border: 1px solid black;"><span>Item</span></li>
-        <a href="#" id="DragElemA" style="background-color: rgb(255, 255, 0); border: 1px solid black;">www.google.com</a>
-        <table id="DragElemTable" style="background-color: rgb(255, 255, 0); padding: 15px; border: 1px solid black;">
-            <tr>
-                <td>row 1 - col1</td>
-                <td>row 1 - col2</td>
-                <td>row 1 - col3</td>
-            </tr>
-            <tr>
-                <td>row 2 - col1</td>
-                <td>row 2 - col2</td>
-                <td>row 2 - col3</td>
-            </tr>
-            <tr>
-                <td>row 3 - col1</td>
-                <td>row 3 - col2</td>
-                <td>row 3 - col3</td>
-            </tr>
-            <tr>
-                <td>row 4 - col1</td>
-                <td>row 4 - col2</td>
-                <td>row 4 - col3</td>
-            </tr>
-            <tr>
-                <td>row 5 - col1</td>
-                <td>row 5 - col2</td>
-                <td>row 5 - col3</td>
-            </tr>
-        </table>
-        <input id="DragElemInputText" type="text">
-        <input id="DragElemInputRange" type="range">
-        <input id="DragElemInputColor" type="color">
-        <input id="DragElemInputSubmit" type="Submit" value="Submit Button">
-        <button id="DragElemButton"><span>Button</span></button>
     </div>
 
     <script src="js/jquery-3.2.1.min.js"></script>

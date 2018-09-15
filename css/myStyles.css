@@ -1,26 +1,22 @@
-*{
-    margin: 0;
-    padding: 0;
-}
 body {
     font-family: verdana;
     font-size: 14px;
-    padding: 10px;
 }
 
 .container {
+    max-width: 1200px;
     box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 3px, rgba(0, 0, 0, 0.239216) 0px 1px 2px;
     margin: 0 auto;
     background-color: rgb(241, 241, 241);
 }
 
 .codecontainer {
-    width: 32%;
+    width: 40%;
     float: left;
 }
 
 .resultcontainer {
-    width: 68%;
+    width: 60%;
     float: left;
 }
 
@@ -39,11 +35,29 @@ form {
     border: 1px solid rgb(195, 195, 195);
     height: 280px;
     background-color: rgb(255, 255, 255);
-    overflow: auto;
+}
+
+span#mySpan {
+    display: block;
+    box-sizing: border-box;
+    margin-left: 0px;
+    margin-top: 0px;
+    background-color: red;
+}
+
+#styleDIV {
+    font-family: consolas, 'Courier new';
+    font-size: 14px;
+    margin-left: 10px;
+    margin-right: 15px;
+    padding: 10px;
+    color: rgb(34, 34, 34);
+    text-align: left;
+    background-color: rgb(255, 255, 255);
 }
 
 div.demoHeader {
-    font-size: 17px;
+    font-size: 24px;
     margin-top: 15px;
     margin-left: 15px;
     margin-bottom: 15px;
@@ -69,16 +83,11 @@ div.demoHeader {
 }
 .Elements{
     display: inline-block;
-    width: 300px;
-}
-#Elements{
-    padding-left: 0px;
-    padding-right: 0px;
 }
 .Styles{
     display: inline-block;
     margin-left: 0;
-    width: 620px;
+    width: 565px;
 }
 .Layout {
     overflow: auto;
@@ -89,22 +98,21 @@ div.demoHeader {
     background-color: rgb(255, 255, 255);
 }
 
-.Layout .Range {
+.Range {
     flex: 1;
     padding: 9px;
 }
 
-.Layout input[type="color"],
-.Layout input[type="text"],
-.Layout input[type="number"],
-.Layout Select {
+input[type="color"],
+input[type="text"],
+input[type="number"],
+Select {
     height: 20px;
     border: 0;
     padding-left: 6px;
-    outline: none;
 }
 
-.Layout Select {
+Select {
     width: 38px;
     padding-left: 0;
 }
@@ -114,18 +122,18 @@ div.demoHeader {
     padding: 0;
 }
 .select{
-    width: 88px !important;
+    width: 88px;
     padding: 0;
 }
-.Layout input[type="number"] {
+input[type="number"] {
     width: 50px;
 }
 
-.Layout input[type="text"] {
+input[type="text"] {
     width: 70px;
 }
 
-.Layout input[type="color"] {
+input[type="color"] {
     width: 18px;
     padding: 0;
 }
@@ -137,7 +145,7 @@ div.demoHeader {
     height: 22px;
 }
 
-.list{
+.list {
     display: flex;
     line-height: 2;
 }
@@ -146,7 +154,8 @@ div.demoHeader {
     float: left;
     font-size: 14px;
 }
-#Layout-Form .lable{
+#Layout .lable,
+#Width-Tab .lable{
     width: 110px;
 }
 #Position-Form .lable {
@@ -155,7 +164,7 @@ div.demoHeader {
 #Margin-Form .lable, #Padding-Form .lable {
     width: 106px;
 }
-#Text-Form .lable, #List-Form .lable {
+#Text .lable, #List-Form .lable {
     width: 106px !important
 }
 .remove{
@@ -192,14 +201,11 @@ Border-Radius-Tab .lable,
 #List-Style-Tab .lable {
     width: 110px;
 }
-.Layout label {
+label {
     display: inline-block;
     width: Calc(100% - 35px);
 }
-.delete, 
-.deleteall, 
-.deleteElement, 
-.delete-img{
+.delete, .deleteall, .deleteElement{
     width: 20px;
     height: 20px;
     padding: 0;
@@ -210,13 +216,9 @@ Border-Radius-Tab .lable,
     cursor: pointer;
     margin-top: 5px;
     color:#a3a3a3;
-    outline: none;
 }
 
-.delete:hover, 
-.deleteall:hover, 
-.deleteElement:hover, 
-.delete-img:hover{
+.delete:hover, .deleteall:hover, .deleteElement:hover{
     color:#000000;
 }
 
@@ -224,17 +226,12 @@ Border-Radius-Tab .lable,
     width: 270px !important;
 }
 
-.DragElem {
-    display: inline-block;
+.DragDiv{
     background: #ffff00;
-    border: 1px solid black;
-    width: 50px;
-    height: 50px;
-    line-height: 53px;
+    border:1px solid black;
+    padding: 15px;
     color: #000000;
-    cursor: pointer;
-    margin: 5px;
-    font-size: 14px;
+    z-index:200;
 }
 .Divid{
     position: absolute;
@@ -277,13 +274,15 @@ Border-Radius-Tab .lable,
     background: #a1d9a1 !important;
 }
 
-.Layout input#lsi {
+input#List-Style-Image {
     width: 232px !important;
 }
-
 div#inlinestyles {
     line-height: 24px;
     font-size: 14px;
+}
+#demoDIV{
+    overflow: auto;
 }
 #myDivids {
     width: 135px;
@@ -303,27 +302,4 @@ div#inlinestyles {
     display: inline-block; 
     margin-top: 0; 
     margin-left: 0;
-}
-.browse{
-    float: left;
-    background: #cae8ca;
-    padding: 3px;
-}
-.browse:hover{
-    background: #8fc18f;
-    cursor: pointer;
-}
-.file{
-    width: 248px !important;
-}
-#selector{
-    margin-top: 4px;
-    margin-right: 11px;
-    width: 230px;
-}
-
-#demoDIV:after {
-    content: "";
-    display: block;
-    height: 110px;
 }
